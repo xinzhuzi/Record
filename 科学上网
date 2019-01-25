@@ -2,13 +2,6 @@
 
 Google的一些插件
 
-1
-
-
-
-2
-
-3
 谷歌上网助手可以帮你上Google不用翻墙,国内可下,自行搜索.
 
 自己在Google搭建翻墙vpn,自行搜索百度
@@ -20,10 +13,6 @@ https://github.com/googlehosts/hosts,经常更新,上youtube不卡
 赛风:https://s3.amazonaws.com/psiphon/web/mjr4-p23r-puwl/zh/download.html
 
 freevpn:https://www.freevpn.pw/zh-cn/
-
-
-
-
 
 以上任何操作不能上外网,出现任何问题本作者不承担责任.
 tip:go语言中,interface是万物之主(万物皆对象,interface可以代表任何类型)
