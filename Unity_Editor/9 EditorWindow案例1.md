@@ -1,6 +1,7 @@
 #使用Editor编写一个window面板
 
-* 1:编写一个bug保存到本地的window面板
+* 1:上面可以简单的制作一个window面板的编辑器,一些方法的使用需要看[EditorGUI方法介绍](https://github.com/BingJin-Zheng/Record/blob/master/Unity_Editor/4%20EditorGUI.md)
+* 2:编写一个 bug保存到本地 的window面板
 ```
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ using UnityEngine;
 
 public class BugReportWindow : EditorWindow
 {
+
+    Vector2 v2 = new Vector2(0, 0);
+    int v = 0;
+    string[] Messages = { "Message1", "Message2", "Message3", "Message4" };
 
     string bugName;
 
@@ -29,6 +34,7 @@ public class BugReportWindow : EditorWindow
     int index1 = 0;
 
     string path;
+
 
 
     [MenuItem("Tools/Bug Reporter")]
@@ -117,6 +123,37 @@ public class BugReportWindow : EditorWindow
         if (GUILayout.Button("Browse", GUILayout.ExpandWidth(false)))
             path = EditorUtility.SaveFolderPanel("Path to Save Images", path, Application.dataPath);   //打开保存文件夹面板
         EditorGUILayout.EndHorizontal();
+
+        GUIStyle textStyle = new GUIStyle("textfield");
+        GUIStyle buttonStyle = new GUIStyle("button");
+        textStyle.active = buttonStyle.active;
+        textStyle.onNormal = buttonStyle.onNormal;
+
+        v2 = GUILayout.BeginScrollView(v2, true, true, GUILayout.Width(300), GUILayout.Height(100));
+        {
+            v = GUILayout.SelectionGrid(v, Messages, 1, textStyle);
+        }
+        GUILayout.EndScrollView();
+
+        EditorGUILayout.LabelField("路径");
+        //获得一个长300的框  
+        Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(600));
+        //将上面的框作为文本输入框  
+        path = EditorGUI.TextField(rect, path);
+
+        //如果鼠标正在拖拽中或拖拽结束时，并且鼠标所在位置在文本输入框内  
+        if ((Event.current.type == EventType.DragUpdated
+          || Event.current.type == EventType.DragExited)
+          && rect.Contains(Event.current.mousePosition))
+        {
+            //改变鼠标的外表  
+            DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+            if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+            {
+                path = DragAndDrop.paths[0];
+            }
+        }
+
     }
 
     void SaveBug()
@@ -143,7 +180,57 @@ public class BugReportWindow : EditorWindow
         ScreenCapture.CaptureScreenshot("Assets/BugReports/" + bugName + ".png");
         AssetDatabase.Refresh();
     }
+
+
+    //更新
+    void Update()
+    {
+
+    }
+
+    void OnFocus()
+    {
+        Debug.Log("当窗口获得焦点时调用一次");
+    }
+
+    void OnLostFocus()
+    {
+        Debug.Log("当窗口丢失焦点时调用一次");
+    }
+
+    void OnHierarchyChange()
+    {
+        Debug.Log("当Hierarchy视图中的任何对象发生改变时调用一次");
+    }
+
+    void OnProjectChange()
+    {
+        Debug.Log("当Project视图中的资源发生改变时调用一次");
+    }
+
+    void OnInspectorUpdate()
+    {
+        //Debug.Log("窗口面板的更新");
+        //这里开启窗口的重绘，不然窗口信息不会刷新
+        this.Repaint();
+    }
+
+    void OnSelectionChange()
+    {
+        //当窗口出去开启状态，并且在Hierarchy视图中选择某游戏对象时调用
+        foreach (Transform t in Selection.transforms)
+        {
+            //有可能是多选，这里开启一个循环打印选中游戏对象的名称
+            Debug.Log("OnSelectionChange" + t.name);
+        }
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("当窗口关闭时调用");
+    }
+
 }
 
+
 ```
-* 2:上面可以简单的制作一个window面板的编辑器,一些方法的使用需要看[EditorGUI方法介绍]()
