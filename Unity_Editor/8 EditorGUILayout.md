@@ -1,4 +1,4 @@
-# EditorGUILayout 编辑器界面布局 
+# EditorGUILayout 在一个脚本的检视面板上进行提示可视化代码编写.
 
 * 1:使用编辑器编写一个简单的展示界面
 * 2:写一个mono脚本,挂在到一个game object上面
