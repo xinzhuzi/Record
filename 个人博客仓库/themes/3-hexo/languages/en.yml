@@ -1,7 +1,7 @@
-all_articles: "All Articles"
-about: "About"
-friends: "Friends"
-links: "Links"
+all_articles: "所有文章"
+about: "关于我"
+friends: "朋友们"
+links: "链接🔗"
 post:
   title: "Title"
   author: "Author"
