@@ -231,12 +231,12 @@ gentie:
 gitalk:
   githubID: xinzhuzi
   repo: xinzhuzi.github.io
-  ClientID:
-  ClientSecret:
+  ClientID: 78dbe1e4dd28ca4c4b5e
+  ClientSecret: e49ada68130b4d709a242b8dd8f4e844b14f35f9
   adminUser: xinzhuzi
   distractionFreeMode: true
   language: zh-CN
-  perPage: 10
+  perPage: 20
 # gitalk：利用github issue制作的第三方聊天插件
 # https://github.com/gitalk/gitalk
 # 参数介绍：
