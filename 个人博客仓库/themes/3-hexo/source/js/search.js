@@ -141,7 +141,7 @@ var searchFunc = function (path, search_id, content_id) {
       }
     },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
-          console.log('文章中出现特殊字符，导致解析xml出现问题，系统自动采用第二方案：进行主动解析！！！ 请检查全文搜索是否有问题，如出现问题，请及时在 https://github.com/yelog/hexo-theme-3-hexo/issues 中提出来，作者会尽快处理！')
+          console.log('文章中出现特殊字符，导致解析xml出现问题，系统自动采用第二方案：进行主动解析！！！ 请检查全文搜索是否有问题，如出现问题，请及时在 https://github.com/xinzhuzi/hexo-theme-3-hexo/issues 中提出来，作者会尽快处理！')
       }
   });
 }
