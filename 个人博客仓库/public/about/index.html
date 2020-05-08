@@ -6,13 +6,15 @@
   <meta name="keywords" content="">
   <meta name="description" content="关于我 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:title" content="404">
+<meta property="og:url" content="http://yoursite.com/404.html">
 <meta property="og:site_name" content="新诸子">
+<meta property="og:description" content="页面未找到！">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-08T15:44:58.000Z">
-<meta property="article:modified_time" content="2020-05-08T15:46:14.058Z">
+<meta property="article:published_time" content="2016-09-27T03:31:01.000Z">
+<meta property="article:modified_time" content="2020-05-08T16:17:05.154Z">
 <meta property="article:author" content="诸子百家-谁的天下?">
 <meta name="twitter:card" content="summary">
 
@@ -21,7 +23,7 @@
 
 <link href="/css/style.css?v=1.0.1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+<link href="/css/hl_theme/darcula.css?v=1.0.1" rel="stylesheet">
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/fontawesome.min.js" rel="stylesheet">
@@ -45,7 +47,7 @@
 <meta name="generator" content="Hexo 4.2.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="false">
+  <input class="theme_preload_comment" value="true">
   <input class="theme_blog_path" value="">
 </div>
 
@@ -159,6 +161,14 @@
 <ul>
     <li><div class="all active">All Articles<small>(2)</small></div></li>
     
+        
+            
+            <li><div data-rel="工具">工具<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
 </ul>
 <div class="left-bottom">
     <div class="menus">
@@ -170,7 +180,7 @@
     <div><a class="about  hasFriend  " target="_blank" href="/about">About</a><a style="width: 50%"  class="friends">Friends</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="2">
-
+<input type="hidden" id="yelog_site_word_count" value="164">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -203,6 +213,14 @@
     </form>
     <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">3-hexo</a>
+    </li>
+    
     <div class="clearfix"></div>
 </div>
 
@@ -217,9 +235,9 @@
             <span class="post-date" title="2020-05-08 22:57:00">2020/05/08</span>
         </a>
         
-        <a  class=""
+        <a  class="工具 "
            href="/2020/05/08/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%BC%96%E5%86%99/"
-           data-tag=""
+           data-tag="hexo,3-hexo"
            data-author="" >
             <span class="post-title" title="博客搭建以及编写">博客搭建以及编写</span>
             <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
@@ -254,6 +272,8 @@
     </div>
     <div class="article-meta">
         
+        <span>字数:0</span>
+        
         
         <span id="busuanzi_container_page_pv">
             Views 👀 :<span id="busuanzi_value_page_pv">
@@ -266,6 +286,17 @@
             </span>
         </span>
         
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
         
     </div>
     
@@ -295,10 +326,31 @@
 
 
 <p>
-    <a  class="dashang" onclick="dashangToggle()">💰</a>
+    <a  class="dashang" onclick="dashangToggle()">Love</a>
 </p>
 
 
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'xinzhuzi.github.io',
+            owner: 'xinzhuzi',
+            admin: ['xinzhuzi'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
 
 
 
@@ -355,7 +407,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['@新诸子','@诸子百家-谁的天下?',],
+            'data': ['@新诸子','@诸子百家-谁的天下?','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
@@ -443,7 +495,7 @@
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: #fafafa;
+        background-color: ;
     }
     .pre-numbering.widther {
         width: 35px;
@@ -515,6 +567,10 @@
         background-color: #e2e0e0;
     }
     
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
     
 
     /*列表样式*/

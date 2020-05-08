@@ -47,9 +47,8 @@ category:
     sm: 100 # 426px<屏幕宽度<=1024px 左侧分类宽度（ipad）
 # 多级分类说明：
 # 比如在文章中设置多个菜单，则默认为多级菜单，即：工具>hexo
-# categories:
-#   - 工具
-#   - hexo
+categories:
+  - [Unity3d,iOS,Android,Tools]
 
 # 左下角自定义菜单
 menu:
@@ -96,7 +95,7 @@ searchAll: false
 copyright: true
 # Copyright info. of post | 文末版权信息
 
-word_count: false
+word_count: true
 # true 开启字数统计
 # 开启此功能需要安装插件 ：在 hexo根目录 执行npm i hexo-wordcount --save
 
@@ -119,7 +118,7 @@ article_list:
   datetime: '#5e5e5f' # 文章发布日期颜色
   hover:
     background: '#e2e0e0'  # 背景色:提供几种：'#c1bfc1'  '#fbf4a8'
-    color:     # 文字颜色 提供几种：'#ffffff'
+    color: '#ffffff'    # 文字颜色 提供几种：'#ffffff'
 # 注意：由于颜色如果包含#，使用单引号 ' 引起来
 
 # 文章列表背景图
@@ -165,7 +164,7 @@ code:
 highlight:
   on: true # true开启代码高亮
   lineNum: true # true显示行号
-  theme: atom-light
+  theme: darcula
 # 代码高亮主题,效果可以查看 https://highlightjs.org/static/demo/
 # 支持主题：
 # sublime : 参考sublime的高亮主题
@@ -210,10 +209,10 @@ friends:
 
 ##########评论设置#############
 comment:
-  on: false
+  on: true
   type: gitalk  # 评论系统：gitalk、disqus、gentie、gitment,注意：使用时，在下方对应位置进行配置
   comment_count: true  # 文章标题下方显示评论数
-  preload_comment: false  # 预加载评论区
+  preload_comment: true  # 预加载评论区
   ## false: 当点击评论条等区域时再加载评论模块
   ## true: 页面加载时加载评论区
 # 各评论系统配置 ↓↓
