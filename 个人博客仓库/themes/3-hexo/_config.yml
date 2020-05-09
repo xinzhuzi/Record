@@ -48,7 +48,10 @@ category:
 # 多级分类说明：
 # 比如在文章中设置多个菜单，则默认为多级菜单，即：工具>hexo
 categories:
-  - [Unity3d,iOS,Android,Tools]
+  # - Unity3d
+  # - iOS
+  # - Android 
+  # - Tools
 
 # 左下角自定义菜单
 menu:
