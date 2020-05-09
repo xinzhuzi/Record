@@ -2,7 +2,7 @@
 title: Hexo 的简单操作
 date: 2020-05-08 11:41:32
 categories:
-- Blog
+- 博客
 tags:
 - hexo
 ---

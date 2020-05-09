@@ -159,11 +159,11 @@
 
 
 <ul>
-    <li><div class="all active">All Articles<small>(3)</small></div></li>
+    <li><div class="all active">全部文章<small>(3)</small></div></li>
     
         
             
-            <li><div data-rel="Blog">Blog<small>(2)</small></div>
+            <li><div data-rel="博客">博客<small>(1)</small></div>
                 
             </li>
             
@@ -171,7 +171,15 @@
     
         
             
-            <li><div data-rel="Tools">Tools<small>(1)</small></div>
+            <li><div data-rel="工具">工具<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Blog">Blog<small>(1)</small></div>
                 
             </li>
             
@@ -185,10 +193,10 @@
     
     
     </div>
-    <div><a class="about  hasFriend  " target="_blank" href="/about">About</a><a style="width: 50%"  class="friends">Friends</a></div>
+    <div><a class="about  hasFriend  " target="_blank" href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="3">
-<input type="hidden" id="yelog_site_word_count" value="164">
+<input type="hidden" id="yelog_site_word_count" value="482">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -198,7 +206,7 @@
     <div class="nav-right">
         <div class="friends-area">
     <div class="friends-title">
-        Links
+        友情链接
         <i class="back-title-list"></i>
     </div>
     <div class="friends-content">
@@ -226,7 +234,7 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">3-hexo</a>
+        <a class="color5">tool</a>
     </li>
     
     <div class="clearfix"></div>
@@ -235,11 +243,19 @@
     
     <nav id="title-list-nav">
         
-        <a  class="Blog "
+        <a  class="博客 "
            href="/2020/05/08/Hexo%20%E7%9A%84%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/"
            data-tag="hexo"
            data-author="" >
             <span class="post-title" title="Hexo 的简单操作">Hexo 的简单操作</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="好用的插件软件">好用的插件软件</span>
             <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
         </a>
         
@@ -248,14 +264,6 @@
            data-tag="hexo"
            data-author="" >
             <span class="post-title" title="博客搭建以及编写">博客搭建以及编写</span>
-            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
-        </a>
-        
-        <a  class="Tools "
-           href="/2020/05/08/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/"
-           data-tag="hexo,3-hexo"
-           data-author="" >
-            <span class="post-title" title="好用的插件软件">好用的插件软件</span>
             <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
         </a>
         
@@ -423,7 +431,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['@新诸子','@诸子百家-谁的天下?','#hexo','#3-hexo',],
+            'data': ['@新诸子','@诸子百家-谁的天下?','#hexo','#tool',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
