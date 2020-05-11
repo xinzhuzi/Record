@@ -1,3 +1,11 @@
+---
+title: 1 介绍UnityEditor
+date: 2020-05-11 11:41:32
+categories:
+- UnityEditor
+tags:
+- UnityEditor
+---
 # CustomEditor 自定义组件编辑器
 
 * 1:首先生成一个继承Monobehiver的脚本名字叫做Character,生成一个类型为int的属性叫做Attack,再生成一个CharacterInspector脚本放在Editor文件夹中

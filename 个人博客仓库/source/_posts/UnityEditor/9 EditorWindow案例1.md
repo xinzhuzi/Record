@@ -1,4 +1,12 @@
-#使用Editor编写一个window面板
+---
+title: 1 介绍UnityEditor
+date: 2020-05-11 11:41:32
+categories:
+- UnityEditor
+tags:
+- UnityEditor
+---
+# 使用Editor编写一个window面板
 
 * 1:上面可以简单的制作一个window面板的编辑器,一些方法的使用需要看[EditorGUI方法介绍](https://github.com/BingJin-Zheng/Record/blob/master/Unity_Editor/4%20EditorGUI.md)
 * 2:编写一个 bug保存到本地 的window面板

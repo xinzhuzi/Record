@@ -1,3 +1,11 @@
+---
+title: 1 介绍UnityEditor
+date: 2020-05-11 11:41:32
+categories:
+- UnityEditor
+tags:
+- UnityEditor
+---
 # Gizmos
 
 * 1:创建 Gizmos文件夹,可以在Scene视图中做一个预览的线,展示摄像机轨迹,即辅助线框

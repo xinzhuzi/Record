@@ -1,4 +1,12 @@
-#使用Editor编写一个截屏得window面板
+---
+title: 1 介绍UnityEditor
+date: 2020-05-11 11:41:32
+categories:
+- UnityEditor
+tags:
+- UnityEditor
+---
+# 使用Editor编写一个截屏得window面板
 
 * 1:先理解一些手机概念的定义.[手机参数概念](http://www.woshipm.com/ucd/198774.html)
 手机5.2英寸的定义是:手机的对角线是5.2英寸,1英寸（inch）=2.54厘米（cm）,计算方式就是勾股定理,算斜边的长度就是卖手机的时候所说的手机尺寸.

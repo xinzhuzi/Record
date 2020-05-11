@@ -1,3 +1,11 @@
+---
+title: 1 介绍UnityEditor
+date: 2020-05-11 11:41:32
+categories:
+- UnityEditor
+tags:
+- UnityEditor
+---
 # EditorGUILayout 在一个脚本的检视面板上进行提示可视化代码编写.
 
 * 1:使用编辑器编写一个简单的展示界面
