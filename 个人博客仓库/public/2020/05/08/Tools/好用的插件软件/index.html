@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>1 介绍UnityEditor | 新诸子</title>
-  <meta name="keywords" content=" UnityEditor ">
-  <meta name="description" content="1 介绍UnityEditor | 新诸子">
+  <title>好用的插件软件 | 新诸子</title>
+  <meta name="keywords" content=" tool ">
+  <meta name="description" content="好用的插件软件 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -435,9 +435,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-UnityEditor/1 介绍UnityEditor" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Tools/好用的插件软件" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">1 介绍UnityEditor</h1>
+        <h1 class="article-title">好用的插件软件</h1>
     
     <div class="article-meta">
         
@@ -445,26 +445,26 @@
         
         <span class="book">
             
-                <a  data-rel="UnityEditor">UnityEditor</a>
+                <a  data-rel="工具">工具</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color2">UnityEditor</a>
+            <a class="color5">tool</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-11 19:01:34'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-05-11 19:04:59'>2020-05-08 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:793</span>
+        <span>字数:318</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -494,7 +494,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一篇-UnityEditor"><span class="toc-text">第一篇 UnityEditor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#特殊文件夹"><span class="toc-text">特殊文件夹</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#软件群"><span class="toc-text">软件群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mac游戏开发安装的软件"><span class="toc-text">Mac游戏开发安装的软件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity3d-插件"><span class="toc-text">Unity3d 插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有趣的网站"><span class="toc-text">有趣的网站</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -510,77 +510,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第一篇-UnityEditor"><a href="#第一篇-UnityEditor" class="headerlink" title="第一篇 UnityEditor"></a>第一篇 UnityEditor</h1><ul>
-<li><p>1:编写游戏快捷工具,使游戏的产出更高效,包括不限于(可视化蓝图,打包流程,服务器辅助工具,音视频,优化等等)</p>
-</li>
-<li><p>2:<a href="https://docs.unity3d.com/Manual" target="_blank" rel="noopener">官网</a>,自行搜索unityeditor即可</p>
-</li>
-<li><p>3:已知的UI编写方式有4种.第一种是运行时的UI.这个不再此讨论. <strong><em>第二种</em></strong> 是MonoBehaviour里面的特性Attribute编辑,可以在脚本的检视面板上面有较简单的展示,一般情况下足够使用了.<br><strong><em>第三种</em></strong> 就是当第二种的特性不满足了,需要在Editor里面单独写一个编辑脚本,这个时候需要自己进行布局排列,涉及到了EditorGUILayout/EditorGUI等的使用,使用 </p>
-<pre><code>CustomEditor(typeof(xxx)) 
-public class xxx:Editor{
-   //在这个里面进行布局操作
-   public override void OnInspectorGUI(){}
-}</code></pre><p><strong><em>第四种</em></strong> 就是自己生成一个window面板,编写一个类似动画状态机的工具让开发人员使用,开发比较复杂的工具时,比如行为树,是需要强大的数据结构作为支撑的,涉及到了GUI/GUILayout等的使用.这一点需要好好学习.</p>
-<pre><code>public class xxx : EditorWindow 
-{
-  //这个地方需要添加一个可以将这个window展示出来的标签
-  [MenuItem(&quot;Tools/Bug Reporter&quot;)]
-  static void showWindow()
-  {
-      EditorWindow.GetWindow(typeof(xxx));
-  }
-  //在这个方法里面进行UI的展示操作
-  private void OnGUI()
-  {
-
-  }
-}</code></pre></li>
+        <h1 id="软件群"><a href="#软件群" class="headerlink" title="软件群"></a>软件群</h1><blockquote>
+<p>自建了一个群:861960832 里面很多插件,破解软件等,有需要的可以吼一声,视频分享等等</p>
+</blockquote>
+<h1 id="Mac游戏开发安装的软件"><a href="#Mac游戏开发安装的软件" class="headerlink" title="Mac游戏开发安装的软件"></a>Mac游戏开发安装的软件</h1><blockquote>
+<p>使用到的软件做下记录,以及提供给想学 unity 的人的一些帮助.</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>1 :VPN  西部世界 VPN,Lantern</li>
+<li>2:下载类   百度网盘,Free Download Manager</li>
+<li>3:关系类  QQ,微信,企业微信</li>
+<li>4:效率类  Alfred 4 全局查找</li>
+<li>5:护眼类  flux</li>
+<li>6:Android 类   Android studio Android Crack Tool Android 文件传输 NoxAppPlayer(夜神模拟器)</li>
+<li>7: 解压缩类 BetterZip</li>
+<li>8: 文件对比类 Beyond Compare        Meld</li>
+<li>9: C++类 CMake CLion ReSharper</li>
+<li>10: SVN/Git类   Cornerstone     SmartSVN 11   GitHub Desktop</li>
+<li>11:  代码文档类  Dash</li>
+<li>12: 浏览类   Google Chrome            EdgeView 2         Path Finder</li>
+<li>13: 游戏引擎类 Epic 虚幻引擎 Unity3d</li>
+<li>14: 终端类   iTerm    brew   zsh 等</li>
+<li>15:思维导图类  iThoughtsX</li>
+<li>16:iOS 类: PP 助手  Xcode  Commond Line Tools</li>
+<li>17: 代码软件类   Rider          Visual studio Code      </li>
+<li>18:远程办公类    TeamViewer</li>
+<li>19:图片打包类    TexturePacker</li>
+<li>20:事件记录类    Things3</li>
+<li>21:FTP类   Transmit</li>
+<li>22:HTTP类  PostMan</li>
+<li>23:办公软件类  WPS microsoft office356 全家桶</li>
+<li>24:持续集成类 Jenkins</li>
+<li>25:Python 类 Python 安装包 PyCharm</li>
+<li>26:开发 Visual studio code / Visual studio</li>
+<li>27:效率类</li>
 </ul>
-<p>EditorGUILayout与GUILayout区别基本区别就是EditorGUILayout每一个UI组件都有一个前缀名字,而GUILayout时没有的,要想提示更丰满一般采用EditorGUILayout,比如</p>
-<pre><code>GUILayout.TextField(&quot;bug name&quot;);
-string bugName;
-bugName = EditorGUILayout.TextField(&quot;bug name&quot;, bugName);</code></pre><hr>
-<h1 id="特殊文件夹"><a href="#特殊文件夹" class="headerlink" title="特殊文件夹"></a>特殊文件夹</h1><ul>
-<li>1:Editor 文件夹 即项目路径: project/Assets/Editor,也可以随意在Assets/下面的任一文件夹下写入Editor/都会被unity识别</li>
-<li>2:Editor文件夹是为了使用编辑API的特别的文件夹。通常编辑API不能在运行时操作。</li>
-<li>3: Assembly-CSharp.dll 中不能 使用 UnityEditor.dll</li>
-<li>4:UnityEditor会被unity编译成Assembly-CSharp-Editor.dll</li>
-<li>5:在「Standard Assets」「Pro Standard Assets」「Plugins」生成Editor文件夹,则会被unity编译成 Assembly-CSharp-Editor-firstpass.dll 类库(一般不要使用)</li>
-<li>6:尽量让 Editor 的模块引用运行时模块代码,不要用运行时模块引用Editor模块代码</li>
-<li>7:如果不在Editor中编写的脚本想使用Editor模块的代码,需要使用unity的宏编译,使用了宏编译,运行时会自动将宏编译以及宏编译内的代码移除</li>
+</blockquote>
+</blockquote>
+<h1 id="Unity3d-插件"><a href="#Unity3d-插件" class="headerlink" title="Unity3d 插件"></a>Unity3d 插件</h1><blockquote>
+<ul>
+<li>ODIN 提高编辑器效率</li>
+<li>A*寻路插件</li>
 </ul>
-<pre><code>    using UnityEngine;
-    #if UNITY_EDITOR
-    using UnityEditor;
-    #endif
-
-    public class NewBehaviourScript : MonoBehaviour
-    {
-        void OnEnable ()
-        {
-            #if UNITY_EDITOR
-            EditorWindow.GetWindow&lt;ExampleWindow&gt; ();
-            #endif
-        }
-}</code></pre><ul>
-<li>8:Editor Default Resources 文件夹,存放只有Editor模块可以使用的资源,类似于Resources文件夹,可以使用如下代码快速获取assets资源,这个文件夹下的资源不会被运行时使用(<strong><em>这里所有的运行时,同一指打包后的app使用的脚本或者资源</em></strong>)</li>
-</ul>
-<pre><code>    var tex = EditorGUIUtility.Load (&quot;logo.png&quot;) as Texture;</code></pre><ul>
-<li>9:查看所有内置资源</li>
-</ul>
-<pre><code>        [MenuItem(&quot;Tools/Test1&quot;)]
-        static void GetBultinAssetNames()
-        {
-            var flags = BindingFlags.Static | BindingFlags.NonPublic;
-            var info = typeof(EditorGUIUtility).GetMethod(&quot;GetEditorAssetBundle&quot;, flags);
-            var bundle = info.Invoke(null, new object[0]) as AssetBundle;
-
-            foreach (var n in bundle.GetAllAssetNames())
-            {
-                Debug.Log(n);
-            }
-        }</code></pre><hr>
-
+</blockquote>
+<h1 id="有趣的网站"><a href="#有趣的网站" class="headerlink" title="有趣的网站"></a>有趣的网站</h1>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
     </div>
@@ -593,12 +568,12 @@ bugName = EditorGUILayout.TextField(&quot;bug name&quot;, bugName);</code></pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>1 介绍UnityEditor</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">793</span></p>
+    <p><span class="copy-title">Title:</span>好用的插件软件</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">318</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-11, 19:01:34</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/UnityEditor/1%20%E4%BB%8B%E7%BB%8DUnityEditor/" title="1 介绍UnityEditor">http://yoursite.com/2020/05/11/UnityEditor/1%20%E4%BB%8B%E7%BB%8DUnityEditor/</a>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-05-11, 19:04:59</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/Tools/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/" title="好用的插件软件">http://yoursite.com/2020/05/08/Tools/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
