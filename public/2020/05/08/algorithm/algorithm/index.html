@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>3 数据交互 | 新诸子</title>
-  <meta name="keywords" content=" UnityEditor ">
-  <meta name="description" content="3 数据交互 | 新诸子">
+  <title>算法 | 新诸子</title>
+  <meta name="keywords" content=" algorithm ">
+  <meta name="description" content="算法 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -535,38 +535,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-UnityEditor/3 数据交互" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-algorithm/algorithm" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">3 数据交互</h1>
+        <h1 class="article-title">算法</h1>
     
     <div class="article-meta">
-        
-        <span class="top"><a>置顶</a></span>
         
         
         
         <span class="book">
             
-                <a  data-rel="UnityEditor">UnityEditor</a>
+                <a  data-rel="algorithm">algorithm</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color2">UnityEditor</a>
+            <a class="color5">algorithm</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-11 22:48:51'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-05-15 00:56:03'>2020-05-08 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:611</span>
+        <span>字数:657</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -596,7 +594,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#unityEditor-简单数据交互"><span class="toc-text">unityEditor 简单数据交互</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unityEditor-ScriptableObject常用数据资产"><span class="toc-text">unityEditor ScriptableObject常用数据资产</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#学习大纲"><span class="toc-text">学习大纲</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#算法补充"><span class="toc-text">算法补充</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#需要掌握的算法"><span class="toc-text">需要掌握的算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习链接"><span class="toc-text">学习链接</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -612,109 +610,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="unityEditor-简单数据交互"><a href="#unityEditor-简单数据交互" class="headerlink" title="unityEditor 简单数据交互"></a>unityEditor 简单数据交互</h1><ul>
-<li>1:EditorPrefs,轻易不要使用,出问题不负责,类似于PlayerPrefs,键值对存储 F12 查API就行了,项目中一般用不到</li>
-<li>2:EditorUserSettings.Set/GetConfigValue方法,键值对存储,二进制数据</li>
-<li>3:JsonUtility &amp; EditorJsonUtility 一般不用使用其他第三方库替代,例如Litjson newjsonxxx(最新的那个库,忘了)<h1 id="unityEditor-ScriptableObject常用数据资产"><a href="#unityEditor-ScriptableObject常用数据资产" class="headerlink" title="unityEditor ScriptableObject常用数据资产"></a>unityEditor ScriptableObject常用数据资产</h1></li>
-<li>1:ScriptableObject,作为编辑器,文件,数据,运行时的数据库使用,范围大,常用方式,在Project的Assets文件夹以下都可以。如果是编辑器扩展专用的ScriptableObject，最好制作在Editor文件夹以下。</li>
+        <h1 id="学习大纲"><a href="#学习大纲" class="headerlink" title="学习大纲"></a>学习大纲</h1><ul>
+<li>学习方式以选中一门语言为准,适合学习算法的语言有 C/C++/JAVA/C#/Python/Lua</li>
+<li>C写起来烧脑      C++是宇宙最强的       JACA/C#写起来一般    Python/Lua看起来很快(实则底层调用的C++)</li>
+<li>最好选择C++ , 如果不会,建议学一下基础</li>
+<li>先了解算法框架,大纲解释为,基础概念学习,每一种语言都会设计到的数据结构的学习 线性/散列表/树 等,当你学习完毕这些,需要反编译一下底层库,看看是怎么设计的,C,C++,JAVA,c#底层设计都不太一样,然后再学习排序.排序之后就是字符串查找与搜索,数据结构的查找搜索去重等等.最后再学习图的数据结构</li>
+<li>基础:算法思想&gt;&gt;复杂度&gt;&gt;&gt;空间复杂度(最大复杂度、平均复杂度),时间复杂度(最好,最坏,平均,均摊) 思想:动态规划,贪心思想,回溯思想,分治思想,枚举思想.  </li>
+<li>学习目标一:线性表&gt;&gt;数组,栈,队列,链表</li>
+<li>学习目标二:散列表(哈希表)&gt;&gt;散列函数,冲突解决,位图,动态扩容</li>
+<li>学习目标三:树&gt;&gt;二叉树&gt;&gt;&gt;二叉查找树,平衡二叉树,平衡二叉查找树(ALV树,红黑树),完全二叉树.  多路查找树&gt;&gt;&gt;B树,B+树,2-3树,2-3-4树.   堆&gt;&gt;&gt;小顶堆,大顶堆,二项堆,优先队列,斐波那契堆.</li>
+<li>学习目标四:排序&gt;&gt;十大排序算法,冒泡,选择,插入,希尔,归并,堆,快速,计数,基数,桶等排序.</li>
+<li>学习目标五:并查集,迪杰斯特拉. 字符串匹配(非常建议使用python)&gt;&gt;暴力匹配,正则表达式,BM,KMP,Trie</li>
+<li>学习目标六:图&gt;&gt;图的存储&gt;&gt;&gt;临接矩阵,邻接表. 关键路径,最小生成树,最短路径,拓扑排序</li>
+<li>学习目标七:搜索&gt;&gt;深度优先搜索,广度优先搜索.  查找&gt;&gt;二分查找,散列表查找,树结构查找</li>
 </ul>
-<pre><code>    using UnityEngine;
-    using UnityEditor;
-    public class NewBehaviourScript : ScriptableObject
-    {
-        [Range(0,10)]
-        public int number = 3;
-
-        public bool toggle = false;
-
-        public string[] texts = new string[5];
-    }</code></pre><ul>
-<li>2: EditorWindow 继承自 ScriptableObject<br>制作继承自ScriptableObject的一个例子资源,保存在一个路径下面,<br>CreateAssetMenu可以在Project里面右键快速创建</li>
+<h1 id="算法补充"><a href="#算法补充" class="headerlink" title="算法补充"></a>算法补充</h1><h1 id="需要掌握的算法"><a href="#需要掌握的算法" class="headerlink" title="需要掌握的算法"></a>需要掌握的算法</h1><ul>
+<li>10个数据结构：数组、链表、栈、队列、散列表、二叉树、堆、跳表、图、Trie 树；10个算法：递归、排序、二分查找、搜索、哈希算法、贪心算法、分治算法、回溯算法、动态规划、字符串匹配算法</li>
 </ul>
-<pre><code>    using UnityEngine;
-    using UnityEditor;
-
-    [CreateAssetMenu(menuName = &quot;Tools/Create ExampleAsset Instance&quot;)]
-    public class ExampleAsset : ScriptableObject
-    {
-
-        [MenuItem(&quot;Tools/Create ExampleAsset&quot;)]
-        static void CreateExampleAsset()
-        {
-            var exampleAsset = CreateInstance&lt;ExampleAsset&gt;();
-
-            AssetDatabase.CreateAsset(exampleAsset, &quot;Assets/Editor/ExampleAsset.asset&quot;);
-            AssetDatabase.Refresh();
-        }
-    }</code></pre><p>使用以下方法读取数据:</p>
-<pre><code> var exampleAsset =AssetDatabase.LoadAssetAtPath&lt;ExampleAsset&gt;(&quot;Assets/Editor/ExampleAsset.asset&quot;);</code></pre><p> 如何展现属性值并且可以修改:直接类似于MonoBehaviour一样写上 [SerializeField] 标签即可</p>
-<ul>
-<li>3: 如何表现ScriptableObject的父子关系</li>
-</ul>
-<pre><code>    using UnityEngine;
-
-    public class ParentScriptableObject : ScriptableObject
-    {
-        [SerializeField]
-        ChildScriptableObject child;
-    }
-
-    public class ChildScriptableObject : ScriptableObject
-    {
-        [SerializeField]
-        string str;
-
-        public ChildScriptableObject ()
-        {
-            name = &quot;New ChildScriptableObject&quot;;
-        }
-    }
-
-保存成一个asset数据:
-    using UnityEngine;
-    using UnityEditor;
-
-    public class ParentScriptableObject : ScriptableObject
-    {
-        const string PATH = &quot;Assets/Editor/New ParentScriptableObject.asset&quot;;
-        [SerializeField]
-        ChildScriptableObject child;
-
-        [MenuItem (&quot;Assets/Create ScriptableObject&quot;)]
-        static void CreateScriptableObject ()
-        {
-            var parent = ScriptableObject.CreateInstance&lt;ParentScriptableObject&gt; ();
-            parent.child = ScriptableObject.CreateInstance&lt;ChildScriptableObject&gt; ();
-            //这个地方如果直接使用的话再次重启unity,就会丢失子类数据,需要先将子类数据保存成一个asset,
-            //再将父类的属性child指向子类保存的asset.这样重启unity就不会丢失数据了,
-            //这样是可以使用,但是比较麻烦
-            //使用AddObjectToAsset可以生成资产父子关系
-            AssetDatabase.AddObjectToAsset (parent.child, PATH);
-            //使子资产不可见,再外部
-            parent.child.hideFlags = HideFlags.HideInHierarchy;
-            AssetDatabase.CreateAsset (parent, PATH);
-            AssetDatabase.ImportAsset(PATH);
-        }
-    }</code></pre><pre><code>    static void SetHideFlags ()
-    {
-        var path = AssetDatabase.GetAssetPath (Selection.activeObject);
-        //显示子资产
-        foreach (var item in AssetDatabase.LoadAllAssetsAtPath(path)) {
-            item.hideFlags = HideFlags.None;
-        }
-        AssetDatabase.ImportAsset (path);
-    }</code></pre><pre><code>    var parent = AssetDatabase.LoadAssetAtPath&lt;ParentScriptableObject&gt; (PATH);
-    //删除子资产
-    Object.DestroyImmediate (parent.child, true);
-    parent.child = null;
-    AssetDatabase.ImportAsset (PATH);</code></pre><ul>
-<li>4:在Inspector面板上面展示数组<pre><code> SerializedProperty property = serializedObject.FindProperty(&quot;nodePoints&quot;);
- EditorGUI.BeginChangeCheck();
- EditorGUILayout.PropertyField(property, new GUIContent(&quot;位置节点&quot;), true);
- if (EditorGUI.EndChangeCheck())
- {
-     serializedObject.ApplyModifiedProperties();
- }</code></pre></li>
+<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><ul>
+<li><a href="https://www.zhihu.com/question/23148377" target="_blank" rel="noopener">https://www.zhihu.com/question/23148377</a></li>
+<li><a href="https://www.zhihu.com/question/23148377/answer/863990767?utm_source=hot_content_share&amp;utm_medium=billboard&amp;from=singlemessage" target="_blank" rel="noopener">https://www.zhihu.com/question/23148377/answer/863990767?utm_source=hot_content_share&amp;utm_medium=billboard&amp;from=singlemessage</a></li>
 </ul>
 
       
@@ -729,12 +644,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>3 数据交互</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">611</span></p>
+    <p><span class="copy-title">Title:</span>算法</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">657</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-11, 22:48:51</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/" title="3 数据交互">http://yoursite.com/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/</a>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-05-15, 00:56:03</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/algorithm/algorithm/" title="算法">http://yoursite.com/2020/05/08/algorithm/algorithm/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

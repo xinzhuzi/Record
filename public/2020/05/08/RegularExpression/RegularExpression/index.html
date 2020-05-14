@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>3 数据交互 | 新诸子</title>
-  <meta name="keywords" content=" UnityEditor ">
-  <meta name="description" content="3 数据交互 | 新诸子">
+  <title>正则表达式 | 新诸子</title>
+  <meta name="keywords" content=" RE ">
+  <meta name="description" content="正则表达式 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -535,38 +535,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-UnityEditor/3 数据交互" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-RegularExpression/RegularExpression" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">3 数据交互</h1>
+        <h1 class="article-title">正则表达式</h1>
     
     <div class="article-meta">
-        
-        <span class="top"><a>置顶</a></span>
         
         
         
         <span class="book">
             
-                <a  data-rel="UnityEditor">UnityEditor</a>
+                <a  data-rel="Regular Expression">Regular Expression</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color2">UnityEditor</a>
+            <a class="color3">RE</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-11 22:48:51'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-05-11 23:11:36'>2020-05-08 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:611</span>
+        <span>字数:0</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -596,7 +594,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#unityEditor-简单数据交互"><span class="toc-text">unityEditor 简单数据交互</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unityEditor-ScriptableObject常用数据资产"><span class="toc-text">unityEditor ScriptableObject常用数据资产</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -612,111 +610,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="unityEditor-简单数据交互"><a href="#unityEditor-简单数据交互" class="headerlink" title="unityEditor 简单数据交互"></a>unityEditor 简单数据交互</h1><ul>
-<li>1:EditorPrefs,轻易不要使用,出问题不负责,类似于PlayerPrefs,键值对存储 F12 查API就行了,项目中一般用不到</li>
-<li>2:EditorUserSettings.Set/GetConfigValue方法,键值对存储,二进制数据</li>
-<li>3:JsonUtility &amp; EditorJsonUtility 一般不用使用其他第三方库替代,例如Litjson newjsonxxx(最新的那个库,忘了)<h1 id="unityEditor-ScriptableObject常用数据资产"><a href="#unityEditor-ScriptableObject常用数据资产" class="headerlink" title="unityEditor ScriptableObject常用数据资产"></a>unityEditor ScriptableObject常用数据资产</h1></li>
-<li>1:ScriptableObject,作为编辑器,文件,数据,运行时的数据库使用,范围大,常用方式,在Project的Assets文件夹以下都可以。如果是编辑器扩展专用的ScriptableObject，最好制作在Editor文件夹以下。</li>
-</ul>
-<pre><code>    using UnityEngine;
-    using UnityEditor;
-    public class NewBehaviourScript : ScriptableObject
-    {
-        [Range(0,10)]
-        public int number = 3;
-
-        public bool toggle = false;
-
-        public string[] texts = new string[5];
-    }</code></pre><ul>
-<li>2: EditorWindow 继承自 ScriptableObject<br>制作继承自ScriptableObject的一个例子资源,保存在一个路径下面,<br>CreateAssetMenu可以在Project里面右键快速创建</li>
-</ul>
-<pre><code>    using UnityEngine;
-    using UnityEditor;
-
-    [CreateAssetMenu(menuName = &quot;Tools/Create ExampleAsset Instance&quot;)]
-    public class ExampleAsset : ScriptableObject
-    {
-
-        [MenuItem(&quot;Tools/Create ExampleAsset&quot;)]
-        static void CreateExampleAsset()
-        {
-            var exampleAsset = CreateInstance&lt;ExampleAsset&gt;();
-
-            AssetDatabase.CreateAsset(exampleAsset, &quot;Assets/Editor/ExampleAsset.asset&quot;);
-            AssetDatabase.Refresh();
-        }
-    }</code></pre><p>使用以下方法读取数据:</p>
-<pre><code> var exampleAsset =AssetDatabase.LoadAssetAtPath&lt;ExampleAsset&gt;(&quot;Assets/Editor/ExampleAsset.asset&quot;);</code></pre><p> 如何展现属性值并且可以修改:直接类似于MonoBehaviour一样写上 [SerializeField] 标签即可</p>
-<ul>
-<li>3: 如何表现ScriptableObject的父子关系</li>
-</ul>
-<pre><code>    using UnityEngine;
-
-    public class ParentScriptableObject : ScriptableObject
-    {
-        [SerializeField]
-        ChildScriptableObject child;
-    }
-
-    public class ChildScriptableObject : ScriptableObject
-    {
-        [SerializeField]
-        string str;
-
-        public ChildScriptableObject ()
-        {
-            name = &quot;New ChildScriptableObject&quot;;
-        }
-    }
-
-保存成一个asset数据:
-    using UnityEngine;
-    using UnityEditor;
-
-    public class ParentScriptableObject : ScriptableObject
-    {
-        const string PATH = &quot;Assets/Editor/New ParentScriptableObject.asset&quot;;
-        [SerializeField]
-        ChildScriptableObject child;
-
-        [MenuItem (&quot;Assets/Create ScriptableObject&quot;)]
-        static void CreateScriptableObject ()
-        {
-            var parent = ScriptableObject.CreateInstance&lt;ParentScriptableObject&gt; ();
-            parent.child = ScriptableObject.CreateInstance&lt;ChildScriptableObject&gt; ();
-            //这个地方如果直接使用的话再次重启unity,就会丢失子类数据,需要先将子类数据保存成一个asset,
-            //再将父类的属性child指向子类保存的asset.这样重启unity就不会丢失数据了,
-            //这样是可以使用,但是比较麻烦
-            //使用AddObjectToAsset可以生成资产父子关系
-            AssetDatabase.AddObjectToAsset (parent.child, PATH);
-            //使子资产不可见,再外部
-            parent.child.hideFlags = HideFlags.HideInHierarchy;
-            AssetDatabase.CreateAsset (parent, PATH);
-            AssetDatabase.ImportAsset(PATH);
-        }
-    }</code></pre><pre><code>    static void SetHideFlags ()
-    {
-        var path = AssetDatabase.GetAssetPath (Selection.activeObject);
-        //显示子资产
-        foreach (var item in AssetDatabase.LoadAllAssetsAtPath(path)) {
-            item.hideFlags = HideFlags.None;
-        }
-        AssetDatabase.ImportAsset (path);
-    }</code></pre><pre><code>    var parent = AssetDatabase.LoadAssetAtPath&lt;ParentScriptableObject&gt; (PATH);
-    //删除子资产
-    Object.DestroyImmediate (parent.child, true);
-    parent.child = null;
-    AssetDatabase.ImportAsset (PATH);</code></pre><ul>
-<li>4:在Inspector面板上面展示数组<pre><code> SerializedProperty property = serializedObject.FindProperty(&quot;nodePoints&quot;);
- EditorGUI.BeginChangeCheck();
- EditorGUILayout.PropertyField(property, new GUIContent(&quot;位置节点&quot;), true);
- if (EditorGUI.EndChangeCheck())
- {
-     serializedObject.ApplyModifiedProperties();
- }</code></pre></li>
-</ul>
-
+        
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
     </div>
@@ -729,12 +623,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>3 数据交互</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">611</span></p>
+    <p><span class="copy-title">Title:</span>正则表达式</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">0</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-11, 22:48:51</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/" title="3 数据交互">http://yoursite.com/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/</a>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-05-11, 23:11:36</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/RegularExpression/RegularExpression/" title="正则表达式">http://yoursite.com/2020/05/08/RegularExpression/RegularExpression/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
