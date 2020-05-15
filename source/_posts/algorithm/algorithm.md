@@ -1,10 +1,10 @@
 ---
-title: 算法
+title: 学习算法大纲
 date: 2020-05-08 11:41:32
 categories:
-- algorithm
+- 算法
 tags:
-- algorithm
+- 算法
 ---
 
 # 需要掌握的算法

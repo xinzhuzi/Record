@@ -3,7 +3,7 @@ title: 2 UnityEditor常用属性
 date: 2020-05-11 11:41:32
 top: 2
 categories:
-- UnityEditor
+- Unity
 tags:
 - UnityEditor
 ---
