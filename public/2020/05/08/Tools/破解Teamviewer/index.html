@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>2 UnityEditor常用属性 | 新诸子</title>
-  <meta name="keywords" content=" UnityEditor ">
-  <meta name="description" content="2 UnityEditor常用属性 | 新诸子">
+  <title>破解 TeamViewer | 新诸子</title>
+  <meta name="keywords" content=" tool ">
+  <meta name="description" content="破解 TeamViewer | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -579,38 +579,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-UnityEditor/2 UnityEditor常用属性" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Tools/破解Teamviewer" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">2 UnityEditor常用属性</h1>
+        <h1 class="article-title">破解 TeamViewer</h1>
     
     <div class="article-meta">
-        
-        <span class="top"><a>置顶</a></span>
         
         
         
         <span class="book">
             
-                <a  data-rel="Unity">Unity</a>
+                <a  data-rel="工具">工具</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color2">UnityEditor</a>
+            <a class="color5">tool</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-15 10:50:15'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-05-16 16:25:38'>2020-05-08 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:870</span>
+        <span>字数:572</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -640,7 +638,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UnityEditor常用属性"><span class="toc-text">UnityEditor常用属性</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#破解-TeamViewer"><span class="toc-text">破解 TeamViewer</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -656,100 +654,148 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="UnityEditor常用属性"><a href="#UnityEditor常用属性" class="headerlink" title="UnityEditor常用属性"></a>UnityEditor常用属性</h1><p>#####即在编写脚本时,在编辑器上面展示出来的属性不够清晰明了,通过使用编辑器属性扩展可以快速理解含义<br>#####继承自UnityEngine.PropertyAttribute</p>
-<ul>
-<li>1:使用Range给int、float、long、double限定范围</li>
-</ul>
-<pre><code>        [Range(1,10)]
-        public int t1;
-        [Range(10, 100)]
-        public float t2;
-        [Range(20, 50)]
-        public double t3;
-        [Range(60, 10000000)]
-        public long t4;</code></pre><ul>
-<li>2:字符串显示,Multiline和TextArea基本没什么区别,不过TextArea比Multiline表现要好的多,一般用TextArea足够.</li>
-</ul>
-<pre><code>    [Multiline(5)]
-    public string text1;
-
-    [TextArea(5,10)]
-    public string text2;</code></pre><ul>
-<li>3:ContextMenuItem功能,扩展脚本编辑的一些操作.对属性进行的扩展,多个属性可调用一个方法,一个属性可调用多个方法,方便强大</li>
-</ul>
-<pre><code>    [ContextMenuItem(&quot;op1&quot;, &quot;number1&quot;)]
-    [ContextMenuItem(&quot;op2&quot;, &quot;number2&quot;)]
-    public int number;
-
-    void number1()
-    {
-        number = Random.Range(0, 100);
-    }
-
-    void number2()
-    {
-        number = 0;
-    }</code></pre><ul>
-<li>4: color颜色使用ColorUsage进行展示</li>
-</ul>
-<pre><code>    public Color color1;
-
-    [ColorUsage (false)]
-    public Color color2;
-
-    [ColorUsage (true, true)]
-    public Color color3;</code></pre><ul>
-<li>5: 使用组概念,使其更美观舒服</li>
-</ul>
-<pre><code>    [Header(&quot;Player Settings--------------------------------------------------------------------------&quot;)]
-    public Player player;
-    [Serializable]
-    public class Player
-    {
-        public string name;
-
-        [Range(1, 100)]
-        public int hp;
-    }
-
-    [Header(&quot;Game Settings--------------------------------------------------------------------------&quot;)]
-    public Color background;
-    public Color background1;</code></pre><ul>
-<li>6: Space 设置2个属性之间的纵向空白区域,使看起来更舒服</li>
-<li>7: Tooltip(“属性解释”),鼠标浮在属性上方即可展示出来</li>
-<li>8: HideInInspector,隐藏一个public的属性,使其不在Inspector中展示,</li>
-<li>9: RequireComponent当你添加一个A组件,但是这个组件必须引用另一个B组件,这时在A上面写入RequireComponent(B)</li>
-</ul>
-<pre><code>public class Test2 : MonoBehaviour{}
-
-[RequireComponent(typeof(Test2),typeof(Animation))]
-public class Test1 : MonoBehaviour{}</code></pre><ul>
-<li>10: DisallowMultipleComponent 禁止在一个物体上面添加多个相同的类型,再添加的时候会提示你已经添加了一个这样的类型,不能再次添加</li>
-<li>11: AddComponentMenu 在 Component/Scripts 路径后面接 UI/TColor,即可快速添加脚本</li>
-</ul>
-<pre><code>using UnityEngine;
-[AddComponentMenu(&quot;UI/TColor&quot;)]
-public class TweenColor : MonoBehaviour{}</code></pre><ul>
-<li><p>12:ExecuteInEditMode属性的作用是在EditMode下也可以执行脚本。Unity中默认情况下，脚本只有在运行的时候才被执行，加上此属性后，不运行程序，也能执行脚本。<br>与PlayMode不同的是，函数并不会不停的执行。<br>Update : 只有当场景中的某个物体发生变化时，才调用。<br>OnGUI : 当GameView接收到一个Event时才调用。<br>OnRenderObject 和其他的渲染回调函数 : SceneVidw或者GameView重绘时，调用。<br>Awake与Start调用规则：<br>Awake：加载时调用。<br>Start：第一次激活时调用。(刚被挂载上)<br>这个与运行模式下的调用规则一致。参见《unity—–函数执行顺序》。<br> 需要注意的是，由于在两种模式下都可以运行，所有，切换模式的那一刻，值得我们留 意一下。<br> 不管是从编辑模式进入运行模式，还是从运行模式进入编辑模式，unity都会重新加载资源，所以：<br>当该MonoBehavior在编辑器中被赋于给GameObject的时候，Awake, Start 将被执行。<br>当Play按钮被按下游戏开始以后，Awake, Start 将被执行。<br>当Play按钮停止后，Awake, Start将再次被执行。<br>当在编辑器中打开包含有该MonoBehavior的场景的时候，Awake, Start将被执行。</p>
+        <h1 id="破解-TeamViewer"><a href="#破解-TeamViewer" class="headerlink" title="破解 TeamViewer"></a>破解 TeamViewer</h1><ul>
+<li><ol>
+<li>下载安装Teamviewer，安装完先退出登录</li>
+</ol>
 </li>
-<li><p>13:ContextMenu 类似于ContextMenuItem</p>
-<pre><code>      [Range (0, 10)]
-      public int number;
-      [ContextMenu (&quot;RandomNumber&quot;)]
-      void RandomNumber ()
-      {
-          number = Random.Range (0, 100);
-      }
-
-      [ContextMenu (&quot;ResetNumber&quot;)]
-      void ResetNumber ()
-      {
-          number = 0;
-      }</code></pre></li>
-<li><p>14:HelpURL()提供一个自定义的文档链接，点击组件上的文档图标既能打开到你指定的链接,一定要写上 http:// 或者 https://</p>
+<li><p>2.下载破解文件 TeamViewer-id-changer.py,可搜索到</p>
+</li>
+<li><p>3.打开控制台，运行‘sudo python 破解文件路径’（可直接把TeamViewer-id-changer.py文件拉进控制台获取到路径）按提示操作,TeamViewer-id-changer.py的代码在下面</p>
+</li>
+<li><p>4.提示重启电脑，重启</p>
+</li>
+<li><p>5.打开 Teamviewer</p>
 </li>
 </ul>
+<pre><code>    #!/usr/bin/env python 
 
+    #coding:utf-8
+    import sys
+    import os
+    import glob
+    import platform
+    import re
+    import random
+    import string
+
+    print(&#39;&#39;&#39;
+    --------------------------------
+    TeamViewer ID Changer for MAC OS
+    --------------------------------
+    &#39;&#39;&#39;)
+
+    if platform.system() != &#39;Darwin&#39;:
+        print(&#39;This script can be run only on MAC OS.&#39;)
+        sys.exit();
+
+    if os.geteuid() != 0:
+        print(&#39;This script must be run form root.&#39;)
+        sys.exit();
+
+    if os.environ.has_key(&#39;SUDO_USER&#39;):
+        USERNAME = os.environ[&#39;SUDO_USER&#39;]
+        if USERNAME == &#39;root&#39;:
+        print(&#39;Can not find user name. Run this script via sudo from regular user&#39;)
+        sys.exit();
+    else:
+        print(&#39;Can not find user name. Run this script via sudo from regular user&#39;)
+        sys.exit();
+
+    HOMEDIRLIB = &#39;/Users/&#39; + USERNAME  + &#39;/library/preferences/&#39;
+    GLOBALLIB  =  &#39;/library/preferences/&#39;
+
+    CONFIGS = []
+
+    # Find config files
+
+    def listdir_fullpath(d):
+        return [os.path.join(d, f) for f in os.listdir(d)]
+
+    for file in listdir_fullpath(HOMEDIRLIB):
+        if &#39;teamviewer&#39;.lower() in file.lower():
+            CONFIGS.append(file)
+
+    if not CONFIGS:
+        print (&#39;&#39;&#39;
+    There is no TemViewer configs found.
+    Maybe you have deleted it manualy or never run TeamViewer after installation.
+    Nothing to delete.
+    &#39;&#39;&#39;)
+    # Delete config files
+    else:
+        print(&quot;Configs found:\n&quot;)
+        for file in CONFIGS:
+            print file
+
+        print(&#39;&#39;&#39;
+    This files will be DELETED permanently.
+    All TeamViewer settings will be lost
+    &#39;&#39;&#39;)
+        raw_input(&quot;Press Enter to continue or CTR+C to abort...&quot;)
+
+        for file in CONFIGS:
+            try:
+                os.remove(file)
+            except:
+                print(&quot;Cannot delete config files. Permission denied?&quot;)
+                sys.exit();
+        print(&quot;Done.&quot;)
+
+    # Find binaryes
+
+    TMBINARYES = [
+    &#39;/Applications/TeamViewer.app/Contents/MacOS/TeamViewer&#39;,
+    &#39;/Applications/TeamViewer.app/Contents/MacOS/TeamViewer_Service&#39;,
+    &#39;/Applications/TeamViewer.app/Contents/Helpers/TeamViewer_Desktop&#39;,
+    ]
+
+    for file in TMBINARYES:
+        if os.path.exists(file):
+            pass
+        else:
+            print(&quot;File not found: &quot; + file)
+            print (&quot;Install TeamViewer correctly&quot;)
+            sys.exit();
+
+    # Patch files
+
+    def idpatch(fpath,platf,serial):
+        file = open(fpath, &#39;r+b&#39;)
+        binary = file.read()
+        PlatformPattern = &quot;IOPlatformExpert.{6}&quot;
+        SerialPattern =  &quot;IOPlatformSerialNumber%s%s%sUUID&quot;
+
+        binary = re.sub(PlatformPattern, platf, binary)
+        binary = re.sub(SerialPattern % (chr(0), &quot;[0-9a-zA-Z]{8,8}&quot;, chr(0)), SerialPattern%(chr(0), serial, chr(0)), binary)
+
+        file = open(fpath,&#39;wb&#39;).write(binary)
+        return True
+
+    def random_generator(size=8, chars=string.ascii_uppercase + string.digits):
+        return &#39;&#39;.join(random.choice(chars) for _ in range(size))
+
+    RANDOMSERIAL = random_generator()
+    RANDOMPLATFORM = &quot;IOPlatformExpert&quot; + random_generator(6)
+
+
+    for file in TMBINARYES:
+            try:
+                idpatch(file,RANDOMPLATFORM,RANDOMSERIAL)
+            except:
+                print &quot;Error: can not patch file &quot; + file
+                print &quot;Wrong version?&quot;
+                sys.exit();
+
+    print &quot;PlatformDevice: &quot; + RANDOMPLATFORM
+    print &quot;PlatformSerial: &quot; + RANDOMSERIAL
+
+    print(&#39;&#39;&#39;
+    ID changed sucessfully.
+    !!! Restart computer before using TeamViewer !!!!
+    &#39;&#39;&#39;)
+
+</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
     </div>
@@ -762,12 +808,12 @@ public class TweenColor : MonoBehaviour{}</code></pre><ul>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>2 UnityEditor常用属性</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">870</span></p>
+    <p><span class="copy-title">Title:</span>破解 TeamViewer</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">572</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-15, 10:50:15</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/UnityEditor/2%20UnityEditor%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" title="2 UnityEditor常用属性">http://yoursite.com/2020/05/11/UnityEditor/2%20UnityEditor%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/</a>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-05-16, 16:25:38</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/Tools/%E7%A0%B4%E8%A7%A3Teamviewer/" title="破解 TeamViewer">http://yoursite.com/2020/05/08/Tools/%E7%A0%B4%E8%A7%A3Teamviewer/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
