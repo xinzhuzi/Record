@@ -204,6 +204,96 @@ UWA测评报告中:蓝线的Reserved Total为当前项目所占据的总物理�
 ****
 
 # 性能优化,AssetBundle 打包
+* https://blog.uwa4d.com/archives/ABtopic_2.html
+>* 唯一API,BuildPipeline.BuildAssetBundles,引擎将自动根据资源的assetbundleName属性（以下简称abName）批量打包，自动建立Bundle以及资源之间的依赖关系。
+>* 打包规则,在资源的Inpector界面最下方可设置一个abName，每个abName（包含路径）对应一个Bundle，即abName相同的资源会打在一个Bundle中。如果所依赖的资源设置了不同的abName，则会与之建立依赖关系，避免出现冗余。支持增量式发布，即在资源内容改变并重新打包时，会自动跳过内容未变的Bundle。因此，相比4.x，会极大地缩短更新Bundle的时间。
+>* 5.x下默认开启的三个选项（CompleteAssets ，用于保证资源的完备性；CollectDependencies，用于收集资源的依赖项；DeterministicAssetBundle，用于为资源维护固定ID.对于移动平台，5.x下默认会将TypeTree信息写入AssetBundle，因此在移动平台上DisableWriteTypeTree选项也变得有意义了.
+> * Manifest文件,5.x中的依赖关系,在打包后生成的文件夹中，每个Bundle都会对应一个manifest文件，记录了Bundle的一些信息，但这类manifest只在增量式打包时才用到；同时，根目录下还会生成一个同名manifest文件及其对应的Bundle文件，通过该Bundle可以在运行时得到一个AssetbundleManifest对象,而所有的Bundle以及各自依赖的Bundle都可以通过该对象提供的接口进行获取.即你打包输出的一个文件里面有个同名的 xxx 和一个 xxx.manifest 通过这2个文件你可以获取到一个AssetbundleManifest对象,用于取出各个 AB 包的依赖关系
+> *  Variant参数,就是Inpector界面最下方最右侧的名字,Variant参数能够让AssetBundle方便地进行“多分辨率支持”,打包时，Variant会作为后缀添加在Bundle名字之后。相同abName，不同variant的Bundle中，资源必须是一一对应的，且他们在Bundle中的ID也是相同的，从而可以起到相互替换的作用。当需要为手机和平板上的某个UI界面使用两套分辨率不同的纹理、Shader，以及文字提示时，借助Variant的特性，只需创建两个文件夹，分别放置两套不同的资源，且资源名一一对应，然后给两个文件夹设置相同的abName和不同的variant，再给UI界面设置abName，然后进行打包即可。运行时，先选择合适的依赖包加载，那么后续加载UI界面时，会根据已加载的依赖包，呈现出相对应的版本。
+> * abName可通过脚本进行设置和清除，也可以通过构造一个AssetBundleBuild数组来打包。
+> * 开启DisableWriteTypeTree可能造成AssetBundle对Unity版本的兼容问题，但会使Bundle更小，同时也会略微提高加载速度。
+> * Prefab之间不会建立依赖，即如果Prefab-A和Prefab-B引用了同一张纹理，而他们设置了不同的abName，而共享的纹理并未设置abName，那么Prefab-A和Prefab-B可视为分别打包，各自Bundle中都包含共享的纹理。因此在使用UGUI，开启Sprite Packer时，由于Atlas无法标记abName，在设置UI界面Prefab的abName时就需要注意这个问题。
+> * 5.x中加入了Shader stripping功能,在打包时，默认情况下会根据当前场景的Lightmap及Fog设置对资源中的Shader进行代码剥离。这意味着，如果在一个空场景下进行打包，则Bundle中的Shader会失去对Lightmap和Fog的支持，从而出现运行时Lightmap和Fog丢失的情况.而通过将Edit->Project Settings->Graphics下shader Stripping中的modes改为Manual，并勾选相应的mode即可避免这一问题。
+
+
+
+
+# Android平台的代码热更新
+
+* 为何不能代码热更新 https://blog.uwa4d.com/archives/HotFix.html
+
+*  Android平台的代码热更新,该原理是解除资源和代码的关系，将代码编译成dll，在游戏一运行时动态加载。
+> * 分离.对于脚本我们可以简单地将脚本分为数据(变量)和逻辑(方法)两部分：例如A.cs -> Uwa4dDataA.cs和Uwa4dLogicA.cs。其中Uwa4dDataA.cs中只有成员变量而Uwa4dLogicA.cs和A.cs基本一致。分离后的问题是，依赖了A.cs的资源再也找不到A.cs。因为二者之间的依赖是通过资源文件保存的，所以只需要将资源文件的对于A.cs的依赖替换成 Uwa4dDataA.cs的依赖即可。
+> *  将Uwa4dLogicA.cs编译成Dll,首先将Uwa4dDataA.cs编译成Assembly-CSharp.dll，然后编译Uwa4dLogicA.cs(依赖Assembly-CSharp.dll)，另外要注意编译时.Net的兼容版本。
+> * 加载Uwa4dLogicA.cs
+加载Uwa4dLogicA.cs编译后的DLL，获得Uwa4dLogicA.cs后通过AddComponent将其挂在相应的资源上，并利用Uwa4dDataA.cs对于其数据进行初始化。
+
+****
+
+# Unity纹理加载
+资源加载、资源卸载、Object的实例化和代码的序列化是最耗时的
+
+* 资源加载,资源加载是加载模块中最为耗时的部分,CPU开销在Unity引擎中主要体现在Loading.UpdatePreloading和Loading.ReadObject两项中.
+> * Loading.UpdatePreloading，这一项仅在调用类似LoadLevel（Async）的接口处出现,主要负责卸载当前场景的资源，并且加载下一场景中的相关资源和序列化信息等.下一场景中，自身所拥有的GameObject和资源越多，其加载开销越大。
+> * 在很多项目中，存在另外一种加载方式，即场景为空场景，绝大部分资源和GameObject都是通过OnLevelWasLoaded回调函数中进行加载、实例化和拼合的。对于这种情况，Loading.UpdatePreloading的加载开销会很小。
+> * Loading.ReadObject，这一项记录的则是资源加载时的真正资源读取性能开销，基本上引擎的主流资源（纹理资源、网格资源、动画片段等等）读取均是通过该项来进行体现。可以说，这一项很大程度上决定了项目场景的切换效率。正因如此，我们就当前项目中所用的主流资源进行了大量的测试和分析，下面我们将分析结果与大家一起分享，希望可以帮到正在进行开发的你。
+* 纹理资源,纹理资源是项目加载过程中开销占用最大的资源之一，其加载效率由其自身大小决定。决定纹理资源大小的因素主要有三种：分辨率、格式和Mipmap是否开启。
+> * 分辨率和格式是影响纹理资源加载效率的重要因素，因为这两项的设置对纹理资源的大小影响很大。1、纹理资源的分辨率对加载性能影响较大，分辨率越高，其加载越为耗时。设备性能越差，其耗时差别越为明显；2、设备越好，加载效率确实越高。但是，对于硬件支持纹理（ETC1/PVRTC）来说,中高端设备的加载效率差别已经很小，比如图中的红米Note2和三星S6设备，差别已经很不明显。
+> * 纹理资源的格式对加载性能影响同样较大，Android平台上，ETC1和ETC2的加载效率最高。同样，iOS平台上，PVRTC 4BPP的加载效率最高。
+> * RGBA16格式纹理的加载效率同样很高，与RGBA32格式相比，其加载效率与ETC1/PVRTC非常接近，并且设备越好，加载开销差别越不明显；
+> * RGBA32格式纹理的加载效率受硬件设备的性能影响较大，ETC/PVRTC/RGBA16受硬件设备的影响较低。
+> * 这里需要指出的是测试中所使用的ETC1和ETC2纹理均为RGB 4Bit格式,所以对于半透明纹理贴图，需要两张ETC1格式的纹理进行支持（一张RGB通道，一张Alpha通道）。逐一加载两张ETC1格式的纹理，其加载效率要低于RGBA16格式，但可以通过加载方式来进行弥补.
+> *  开启Mipmap功能,开启Mipmap功能同样会增大一部分纹理大小，一般来说，其内存会增加至原始大小的1.33倍。开启Mipmap功能会导致资源加载更为耗时，且设备性能越差，其加载效率影响越大.
+>> * 1、严格控制RGBA32和ARGB32纹理的使用，在保证视觉效果的前提下，尽可能采用“够用就好”的原则，降低纹理资源的分辨率，以及使用硬件支持的纹理格式。
+>> * 2、在硬件格式（ETC、PVRTC）无法满足视觉效果时，RGBA16格式是一种较为理想的折中选择，既可以增加视觉效果，又可以保持较低的加载耗时。
+>> * 3、严格检查纹理资源的Mipmap功能，特别注意UI纹理的Mipmap是否开启。在UWA测评过的项目中，有不少项目的UI纹理均开启了Mipmap功能，不仅造成了内存占用上的浪费，同时也增加了不小的加载时间。
+>> * 4、ETC2对于支持OpenGL ES3.0的Android移动设备来说，是一个很好的处理半透明的纹理格式。但是，如果你的游戏需要在大量OpenGL ES2.0的设备上进行运行，那么我们不建议使用ETC2格式纹理。因为不仅会造成大量的内存占用（ETC2转成RGBA32），同时也增加一定的加载时间。下图为测试2中所用的测试纹理在三星S3和S4设备上加载性能表现。可以看出，在OpenGL ES2.0设备上，ETC2格式纹理的加载要明显高于ETC1格式，且略高于RGBA16格式纹理。因此，建议研发团队在项目中谨慎使用ETC2格式纹理。
+
+****
+
+# Unity网格加载模块
+
+* 网格资源,网格资源与纹理资源一样，在加载时同样会造成较高的CPU占用，且其加载效率由其自身大小（网格数据量）决定。
+> * 不同面片数的网格资源加载效率测试,1、资源的数据量对加载性能影响较大，面片数越多，其加载越为耗时。设备性能越差，其耗时差别越为明显；2、随着硬件设备性能的提升，其加载效率差异越来越不明显。
+> * 相同面片数、不同顶点属性的加载效率测试,1、顶点属性的增加对内存和AssetBundle包体大小影响较大。与测试1中未引入Tangent顶点属性的网格数据相比，测试2中的网格数据在内存上均大幅度增加（增加量与网格顶点数有关），且AssetBundle大小同样有成倍（1~2）的增加。2、顶点属性增加对于加载效率影响较大，且顶点数越多，影响越大。
+> * 模型常见的顶点属性主要有Position、UV、Normal、Tangent和Color。Color属性与Tangent属性一样，如果网格顶点拥有该属性，同样会对内存、物理体积和加载性能造成影响。在使用Draw Call Batching时，不要将不同属性的网格模型拼合在一起。在使用Draw Call Batching时，切忌将不同属性的网格模型拼合在一起。举个例子 ，100个网格模型进行Static Batching，如果99个模型只有Position和UV两种属性，而剩下1个模型函数有Position、UV、Normal、Tangent和Color五种属性。那么引擎在进行拼合时，会将前99个模型的顶点属性补齐，然后再进行拼合。这样无形中会增加大量的内存占用，从而造成不必要的内存浪费。
+> * 开启/关闭Read/Write功能的加载效率测试,1、关闭Read/Write功能会降低AssetBundle的物理大小，其降低量与资源本身数据量相关。同时，关闭Read/Write功能会大幅度降低网格资源的内存占用；2、关闭Read/Write功能会略微提升该资源的加载效率。
+>> * 1、在保证视觉效果的前提下，尽可能采用“够用就好”的原则，即降低网格资源的顶点数量和面片数量；
+>> * 2、研发团队对于顶点属性的使用需谨慎处理。通过以上分析可以看出，顶点属性越多，则内存占用越高，加载时间越长；
+>> * 3、如果在项目运行过程中对网格资源数据不进行读写操作（比如Morphing动画等），那么建议将Read/Write功能关闭，既可以提升加载效率，又可以大幅度降低内存占用。
+
+****
+
+# Unity Shader 加载模块
+
+* Shader资源与之前的网格资源和纹理资源不同，其本身物理Size很小。Shader资源的效率加载瓶颈并不在其自身大小的加载上，而是在Shader内容的解析上.
+>* 1、Shader资源的物理体积与内存占用虽然很小，但其加载耗时开销的CPU占用很高，这主要是因为Shader的解析CPU开销很高，成为了Shader资源加载的性能瓶颈；
+>* 2、Mobile/Particles Additive在解析方面的耗时远小于Mobile/Diffuse、Mobile/Bumped Diffsue甚至Mobile/VertexLit;
+>* 3、除Mobile/Particles Additive外，其他三个(Mobile-Diffuse，Mobile-VertexLit，Mobile-Bumped Diffuse)主流Shader在加载时均会造成明显的降帧，甚至卡顿。因此，研发团队应尽可能避免在非切换场景时刻进行Shader的加载操作；
+>* 4、Mobile Shader较之同种Normal Shader在加载方面确实有一定的性能提升；
+>* 5、Shader的加载开销经常在几百甚至上千毫秒以上,其加载耗时居然要高于几张Atlas纹理或者拥有上万片面的Mesh网格!!
+* Shader解析时的真正耗时原因    
+>* 一般情况下，Shader加载的CPU耗时与其Keyword数量有关，Keyword数量越多，则加载开销也越大。Shader的Keyword数量是会随着场景设置的不同而变化的。在Unity 5.x中，Unity默认会根据场景设置、Shader Pass等来调整Shader的Keyword，比如如果存在Lightmap的使用，则会默认将对应的Keyword打开，而对于没有使用Fog的项目，则会直接将相关Keyword关闭。
+>* 对于Unity 5.x项目，可通过skip_variants操作在Shader中直接去除相关Keyword。
+>* 直接去除Shader中的Fallback选项。Fallback功能是对于无法使用当前Shader的硬件设备可以使用对硬件设备要求更低的Fallback Shader来进行渲染，以保证渲染的稳定性。
+* Shader加载方式,5.x之后的Shader加载只是加载,加载之后还需要运行时编译,需要主动使用shader.WarmupAllShaders又或者ShaderVariantCollection.WarmUp来编译shader
+>* 大量相同Shader重复解析造成的。是因为Shader被打包到不同的AssetBundle文件中，每次切换场景时，AssetBundle均会被频繁地进行加载和卸载，从而造成了大量相同的Shader被重复加载和卸载。
+>* 1、通过依赖关系打包，将项目中的所有Shader抽离并打成一个独立的AssetBundle文件，其他AssetBundle与其建立依赖；并对其进行预加载，以降低后续不必要的加载开销。
+>* 2、Shader的AssetBundle文件在游戏启动后即进行加载并常驻内存，因为一款项目的Shader种类数量一般在50~100不等，且每个均很小，即便全部常驻内存，其内存总占用量也不会超过2MB；
+>* 3、后续Prefab加载和实例化后，Unity引擎会通过AssetBundle之间的依赖关系直接找到对应的Shader资源进行使用，而不会再进行加载和解析操作。
+>* 4、正在使用Resources.Load来加载资源的研发团队，可以尝试使用ShaderVariantCollection(着色器变体群,着色器资源列表，是一个由通道类型+着色器关键字组合的列表)来对Shader进行Preload,同样也可以达到避免相同Shader重复加载的效果。https://www.cnblogs.com/rexzhao/p/7884905.html
+>* 5、在生成时剔除多余着色器变体, 1)个别着色器特性，比如使用 #pragma shader_feature的着色器，如果没有材质使用到了这个特性，那么就不会把它打包进去；2)没有被任何场景使用到的雾效(Fog)或光照贴图模式(Lightmap)的着色器变体，也不会打包进去。
+>* 6.shader加载造成的卡顿有两种情况：1、着色器变种已经打包到APP中，只需要加载该变体，创建GPUProgram就可以了.2、着色器变种没用被打包，这时需要shaderlab文件进行解析和编译相应的变种，然后创建GUPProgram
+
+****
+
+# Unity动画加载模块
+
+* AnimationClip资源是项目运行时最常加载的资源之一，且其加载效率主要由其自身加载量决定，而决定AnimationClip资源加载量的主要因素则是它的压缩格式。
+>* Unity引擎对导入的AnimationClip提供三种压缩格式，Off、Keyframe Reduction和Optimal。Off表示不采用压缩处理；Keyframe Reduction表示使用关键帧进行处理，Optimal则表示Unity引擎会根据动画曲线的特点来自动选择一个最优的压缩方式，可能是关键帧压缩，也可能是Dense压缩。https://docs.unity3d.com/Manual/class-Animator.html
+>* Optimal压缩方式确实可以提升资源的加载效率，无论是在高端机、中端机还是低端机上；
+>* 硬件设备性能越好，其加载效率越高。但随着设备的提升，Keyframe Reduction和Optimal的加载效率提升已不十分明显；
+>* Optimal压缩方式可能会降低动画的视觉质量，因此，是否最终选择Optimal压缩模式，还需根据最终视觉效果的接受程度来决定。
 
 
 
@@ -225,8 +315,7 @@ UWA测评报告中:蓝线的Reserved Total为当前项目所占据的总物理�
 
 
 
-
-
+****
 
 
 ## Overview 类型
