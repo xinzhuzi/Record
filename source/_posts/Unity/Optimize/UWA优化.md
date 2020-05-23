@@ -295,10 +295,11 @@ UWA测评报告中:蓝线的Reserved Total为当前项目所占据的总物理�
 >* 硬件设备性能越好，其加载效率越高。但随着设备的提升，Keyframe Reduction和Optimal的加载效率提升已不十分明显；
 >* Optimal压缩方式可能会降低动画的视觉质量，因此，是否最终选择Optimal压缩模式，还需根据最终视觉效果的接受程度来决定。
 
-# 如何大幅优化NGUI的堆内存分配
-https://blog.uwa4d.com/archives/USparkle_NGUI.html
 
 
+
+
+****
 
 # Xcode 增量打包
 https://blog.uwa4d.com/archives/USparkle_iOS.html
