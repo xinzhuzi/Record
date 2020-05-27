@@ -73,3 +73,4 @@ UIPanel.FillAllDrawCalls 更新所有 DrawCall,如果这种情况经常发生,CP
 
 > * 高效处理大量 HUD (血条),图片尽量使用 Simple/Filled 模式,顶点数,面数尽量降低,尽可能使用相同图集.最好分帧加载 HUD.        
 对于伤害数字(飘字),可以转成图片字,不要修改父节点,使用对象重用池,隔帧更新,控制总量. 使用 world space 替换 worldtoscreenpoint 主角单独一个 Canvas/UIPanel,这样当主角行动时,不会触发其他重建,使用 textMesh/textpro 第三方库.将血条替换为 Shadow
+> * 子线程合批 mesh
