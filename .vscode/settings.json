@@ -1,4 +1,7 @@
 {
     "git.ignoreLimitWarning": true,
-    "editor.snippetSuggestions": "bottom"
+    "editor.snippetSuggestions": "bottom",
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.8/bin/python3",
+    "python.linting.enabled": true,
+    "python.linting.pycodestyleEnabled": true
 }

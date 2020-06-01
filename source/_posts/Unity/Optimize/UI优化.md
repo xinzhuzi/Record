@@ -74,3 +74,73 @@ UIPanel.FillAllDrawCalls 更新所有 DrawCall,如果这种情况经常发生,CP
 > * 高效处理大量 HUD (血条),图片尽量使用 Simple/Filled 模式,顶点数,面数尽量降低,尽可能使用相同图集.最好分帧加载 HUD.        
 对于伤害数字(飘字),可以转成图片字,不要修改父节点,使用对象重用池,隔帧更新,控制总量. 使用 world space 替换 worldtoscreenpoint 主角单独一个 Canvas/UIPanel,这样当主角行动时,不会触发其他重建,使用 textMesh/textpro 第三方库.将血条替换为 Shadow
 > * 子线程合批 mesh
+> * 检查重叠关系,使用线框模式检查
+> * 文字图片分层,最好将所有的文字分在一层(拓扑排序中),放在渲染最顶层
+> * 只接受逻辑,不进行绘制
+> * 将多边形镂空的脚本,只有可显示区域进行绘制 https://blog.uwa4d.com/archives/fillrate.html
+> * 减少事件拦截,不需要事件响应的,不需要勾选 Raycast Target
+> * 动静分离时:自动给动态的组件添加上 cavans 
+> * 如果有动画一直修改 Image 上面的 color 属性,就是修改顶点属性上面的修改会导致重建网格(mesh),需要写个脚本创建一个 material 在 lateUpdate 里面修改创建的material的颜色达到动画的目的
+
+# Overdraw 
+GPU Overdraw局部像素区域压力过大,单像素填充压力过大.
+* 1:在某个背景上有个按钮，要将按钮绘制在背景上，这个就是Overdraw，Overdraw无法避免，只能优化降低
+
+* 2.性能参数        
+总填充数值峰:单帧总填充像素数量最大值       
+填充倍数峰值:单帧最大填充倍数(10.0X就是该帧刷新10遍)        
+单帧填充倍数:该帧总填充数/该帧渲染相机分辨率        
+* 3.优化方案
+控制绘制顺序:PC上资源无限，一般都是从后往前绘制，但在移动上，尽量从前往后绘制.在Unity中，那些Shader中被设置为“Geometry”队列的对象总是从前往后绘制的，而其他固定队列（如“Transparent”“Overla”等）的物体，则都是从后往前绘制的。这意味这，我们可以尽量把物体的队列设置为“Geometry” 。
+尽量减小过度绘制区域:实在需要多层绘制的地方，要尽量减小各部分过度绘制区域，使重合区域小，绘制的像素点也就少一点
+注意性能与效果的取舍:UGUI的许多控件有很好的通用性和展示效果，但是可能会耗更多性能
+过大的不必要绘制尽量代码实现:例如点击屏幕空白区域返回功能，加透明image会增加很多
+UI设计上尽可能简单减少重叠
+
+* 4.针对性优化
+1)文字部分
+主要原因是使用了Outline，Outline实现方式是将Text的四个顶点传过去复制四份，设置四份偏移量实现效果，将偏移量设置很大之后，可以看到一个Text周围有四个相同的Text        
+解决方案:
+1.不使用或者使用Shadow(Shadow通过为图像或者文字的Mesh添加顶点实现阴影效果，Outline继承Shadow，在对象四个角上各添加一个Shadow)
+2.使用Textmesh Pro(Unity5.5)需要制作相应的字体文件，对于动态生成的文字效果不好，固定字体很好
+(https://blog.csdn.net/dark00800/article/details/73011343?utm_source=itdadao&utm_medium=referral)
+3.修改Mesh的UV坐标，提取文字原始UV坐标，扩大文字绘图区域，对文字纹理周围像素点采样，新旧颜色融合
+(http://gad.qq.com/article/detail/29266)
+2)适配IphoneX
+适配的需要加了层背景，不是iPhoneX失活就可以
+
+3)背景人物mesh
+裁剪小一点更好
+
+
+1)Mask组件
+Unity的Mask组件会增加一层Overdraw，还会多增加4个DrawCall
+解决:
+1.使用RectMask2D代替，缺点是只能用于矩形
+2.对于多边形，用MeshMask，红色为UnityMask，蓝色是MeshMask，UnityMask消耗15个DrawCall，Overdraw2次，MeshMask消耗1个DrawCall，1层OverDraw(https://www.cnblogs.com/leoin2012/p/6822859.html)
+
+2)Image的slide属性
+对于slide九宫格图片，可以看情况取消fill center属性，那样中心区域会不渲染，中心区域也就镂空，重合面积也会小
+
+1)重合多的地方尽可能不重合
+
+2)无用的Image
+少量的panel或者单纯的空父物体身上加着image，虽然没有给图片，但是还是会渲染
+
+3)移动的波浪图片过大过多(修改高度，宽度)
+4)特效粒子效果优化(http://www.u3dnotes.com/archives/807)
+粒子效果薄弱的可以使用序列帧动画实现
+
+1)三层大底图，一个纯黑底，还有两层楼梯背景(可以纯黑底图合并到两层)
+2)楼梯前底图可以小一点不和最底下图标重叠
+
+部分小细节：
+1.slide九宫格图片，取消fill center，中心镂空
+2.mask尽量不用，可以用rect mask2D 代替
+3.不用UI/Effect，包括Shadow，Outline，Position As UV1
+4.不用Image的Tiled类型
+5.不用Pixel Perfect
+6.动静分离，动态的在父物体上加个Canvas
+7.尽量active，不要destroy，也不要设置Alpha=0这样还是会渲染
+8.不用BestFit(代价高，Unity会为该元素用到的所有字号生成图元保存在Altlas中，增加额外生成时间，还会使得字体对应的atlas变大)
+9.特效粒子
