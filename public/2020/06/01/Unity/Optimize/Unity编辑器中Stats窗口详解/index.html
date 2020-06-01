@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>帧同步 | 新诸子</title>
-  <meta name="keywords" content=" Unity ">
-  <meta name="description" content="帧同步 | 新诸子">
+  <title>Unity编辑器中Stats窗口详解 | 新诸子</title>
+  <meta name="keywords" content=" Unity优化 ">
+  <meta name="description" content="Unity编辑器中Stats窗口详解 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -615,38 +615,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Unity/FrameSynchronization/FrameSync" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Unity/Optimize/Unity编辑器中Stats窗口详解" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">帧同步</h1>
+        <h1 class="article-title">Unity编辑器中Stats窗口详解</h1>
     
     <div class="article-meta">
-        
-        <span class="top"><a>置顶</a></span>
         
         
         
         <span class="book">
             
-                <a  data-rel="Unity">Unity</a>
+                <a  data-rel="Unity优化">Unity优化</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color1">Unity</a>
+            <a class="color3">Unity优化</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-15 10:57:43'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-06-01 17:01:00'>2020-06-01 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.5k</span>
+        <span>字数:1.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -676,7 +674,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#帧同步"><span class="toc-text">帧同步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#帧数据"><span class="toc-text">帧数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件选择与使用方式"><span class="toc-text">插件选择与使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据计算"><span class="toc-text">数据计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络"><span class="toc-text">网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#渲染层"><span class="toc-text">渲染层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器"><span class="toc-text">服务器</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#官方文档"><span class="toc-text">官方文档</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#渲染统计窗口"><span class="toc-text">渲染统计窗口</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -692,49 +690,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="帧同步"><a href="#帧同步" class="headerlink" title="帧同步"></a>帧同步</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>1:逻辑在客户端实现,服务器主要负责广播和验证操作,逻辑直观,数据量小,可重播</li>
-<li>2:客户端上传操作,服务器收集,固定频率广播收到的数据,不在乎客户端是否上传成功,不影响其他客户端的表现.</li>
-<li>3:最重要的概念: <strong><em>相同输入，经过相同计算过程，得出相同计算结果</em></strong> ,运行结果不与硬件运行速度快慢相关联.需要注意的是,不能使用 unity3d 自带的系统 API,例如Time类/Invoke函数/脚本的方法/物理引擎/协程,因为会造成不同步.需要自己开线程使用固定的时间片段进帧数据操作,逻辑帧执行的次数是恒定的.</li>
-<li>4:需求以及要求:高一致性,低流量消耗,多人实时性,战斗回放功能,加速功能,服务器同步逻辑校验防作弊,服务器逻辑简化,弱网络环境,</li>
-<li>5:逻辑帧固定为0.033(即 1 秒 30 逻辑帧),渲染帧设定为60(update 里面最大可以1s 跑 60 次),如果CPU 运行不过来,update 执行次数会降低.卡顿以及丢帧:是因为逻辑帧跑了很多帧之后,渲染帧才执行了一帧.</li>
-<li>6:<a href="https://blog.csdn.net/qq_18536721/article/details/52713564" target="_blank" rel="noopener">核心文章1</a> <a href="https://blog.csdn.net/game_jqd/article/details/72870289" target="_blank" rel="noopener">核心文章2</a></li>
+        <h1 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h1><p>官方文档: <a href="https://docs.unity3d.com/Manual/RenderingStatistics.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/RenderingStatistics.html</a></p>
+<h1 id="渲染统计窗口"><a href="#渲染统计窗口" class="headerlink" title="渲染统计窗口"></a>渲染统计窗口</h1><p>游戏视野（Game View）右上角有一个Stats按钮。这个按钮是按下状态时，会显示一个半透明窗口，它显示对于优化性能很有用的实时渲染统计数据。根据目标平台不同，精确的统计数据也不同。</p>
+<ul>
+<li>Time per frame and FPS:每帧时间和FPS.处理和渲染一帧消耗的时间（它决定FPS）。注意这个时间仅包含每帧的逻辑更新和游戏视图渲染，不包含编辑器绘制屏幕适度、检视器和其它编辑器中才有的处理。<br>详情:表示引擎处理和渲染一个游戏帧所花费的时间,该数字主要受到场景中渲染物体数量和 GPU性能的影响，FPS数值越高，游戏场景的动画显示会更加平滑和流畅。一般来说，超过30FPS的画面人眼不会感觉到卡，由于视觉残留的特性，光在视网膜上停止总用后人眼还会保持1/24秒左右的时间，因此游戏画面每秒帧数至少要保证在30以上。另外，Unity中的FPS数值仅包括此游戏Scene里更新和渲染的帧，编辑器中绘制的Scene和其它监视窗口的进程不包括在内。</li>
 </ul>
-<h2 id="帧数据"><a href="#帧数据" class="headerlink" title="帧数据"></a>帧数据</h2><ul>
-<li>1:关键帧.服务器按固定频率广播的操作数据帧，使用唯一ID标识，主要包括客户端输入数据或服务器发送的关键信息(例如游戏战斗开始或结束等消息),网络数据.</li>
-<li>2:填充帧.由于设备性能和网络延迟等原因,服务器广播频率不可能达到客户端的更新频率,若只使用关键帧来驱动游戏运作，就会造成游戏卡顿，影响体验.因此，除关键帧外，客户端需要自行添加若干空数据帧，以使游戏表现更为流畅.网络数据或者本地伪造数据.</li>
-<li>3:逻辑帧:客户端执行一帧所需时间，可根据设备性能和网络环境等因素动态变化.</li>
-<li>4:服务器帧更新时间：服务器广播帧数据的固定频率，一般用于帧间隔时间差的逻辑计算(一般情况下 0.033(即 1 秒 30 逻辑帧) 足够)</li>
+<ul>
+<li><p>CPU:获取到当前占用CPU进行计算的时间绝对值，或时间点，如果Unity主进程处于挂断或休眠状态时，CPU time将会保持不变。</p>
+</li>
+<li><p>Render thread:GPU渲染线程处理图像所花费的时间，具体数值由GPU性能来决定.</p>
+</li>
+<li><p>Batches:绘制调用,“批处理”的引擎试图将多个渲染对象合并到一个内存块中, 以减少CPU开销。即Batched Draw Calls,是Unity内置的Draw Call Batching技术。<br>首先解释下什么叫做“Draw call”，CPU每次通知GPU发出一个glDrawElements（OpenGl中的图元渲染函数)或者 DrawIndexedPrimitive（DirectX中的顶点绘制方法）的过程称为一次Draw call,一般来说，引擎每对一个物体进行一次DrawCall，就会产生一个Batch,这个Batch里包含着该物体所有的网格和顶点数据，当渲染另一个相同的物体时，引擎会直接调用Batch里的信息，将相关顶点数据直接送到GPU,从而让渲染过程更加高效，即Batching技术是将所有材质相近的物体进行合并渲染。主要为 GPU调用数据 节省资源与时间.<br>对于含有多个不同Shader和Material的物体，渲染的过程比较耗时，因为会产生多个Batches。每次对物体的材质或者贴图进行修改，都会影响Batches里数据集的构成。因此，如果场景中有大量材质不同的物体，会很明显的影响到GPU的渲染效率。这里说几点关于Batches优化相关的方案:</p>
+<blockquote>
+<p>虽然Unity引擎自带Draw Call Batching技术，我们也可以通过手动的方式合并材质接近的物体；<br>尽量不要修改Batches里物体的Scale，因为这样会生成新的Batch。<br>为了提升GPU的渲染效率，应当尽可能的在一个物体上使用较少的材质，减少Batches过多的开销；<br>对于场景中不会运动的物体，考虑设置Static属性,Static声明的物体会自动进行内部批处理优化。    </p>
+</blockquote>
+</li>
+<li><p>Verts：摄像机视野(field of view)内渲染的顶点总数。  </p>
+</li>
+<li><p>Tris:   摄像机视野(field of view)内渲染的的三角面总数量。      </p>
+</li>
 </ul>
-<h2 id="插件选择与使用方式"><a href="#插件选择与使用方式" class="headerlink" title="插件选择与使用方式"></a>插件选择与使用方式</h2><ul>
-<li>1:定点数和浮点数，是指在计算机中一个数的小数点的位置是固定的还是浮动的,如果一个数中小数点的位置是固定的，则为定点数；如果一个数中小数点的位置是浮动的，则为浮点数。定点数由于小数点的位置固定,因此其精度可控,相反浮点数的精度不可控.</li>
-<li>2:unity 自带的 float/Vector2/Vector3/Vector4都不要使用,要使用框架Fix定点数来替换使用</li>
-<li>3:关于需要使用核心动画的,都不能使用Dotween插件做动画,因为Dotween插件使用的是Time.deltaTime做插值的,不是使用逻辑时长做插值的,因为在不重要的地方做动画是可以的.</li>
-<li>随机数,随机数种子最好由服务器发送,然后随机数选择一个库来使用,保证每个客户端的随机数相同</li>
+<blockquote>
+<ol>
+<li>Camera的渲染性能受到Draw calls的影响。之前说过，对一个物体进行渲染，会生成相应的Draw call，处理一个Draw Call的时间是由它上边的Tris和Verts数目决定。尽可能得合并物体，会很大程度的提高性能。举个很简单例子，比如场景一种有1000个不同的物体，每个物体都有10个Tris；场景二中有10个不同的物体，每个物体有1000个Tris。在渲染处理中，场景一中会产生1000个Draw Calls，它的渲染时间明显比场景二慢。     </li>
+<li>Unity stats 视图中的 Tris 和 Verts 并不仅仅是视锥中的梯形内的 Tris 和 Verts，而是Camera中 field of view所有取值下的tris和verts，换句话说，哪怕你在当前game视图中看不到这个 cube，如果当你把 field of view调大到 179 过程中都看不到这个cube，stats面板才不会统计，GPU才不会渲染，否则都会渲染，而且unity不会把模型拆分，这个模型哪怕只有1个顶点需要渲染，unity也会把整个模型都渲出来。（参考自Mess的《Unity Camera组件部分参数详解》）</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>Screen:获当前Game屏幕的分辨率大小，后边的2.1MB表示总的内存使用数值。</p>
+</li>
+<li><p>SetPass calls:之前有讲到Batches,比如说场景中有100个gameobject,它们拥有完全一样的Material,那么这100个物体很可能会被Unity里的Batching机制结合成一个Batch。所以用“Batches”来描述Unity的渲染性能是不太合适的，它只能反映出场景中需要批处理物体的数量。那么可否用“Draw calls”来描述呢？答案同样是不适合。每一个“Draw calls”是CPU发送个GPU的一个渲染请求，请求中包括渲染对象所有的顶点参数、三角面、索引值、图元个数等，这个请求并不会占用过多的消耗，真正消耗渲染资源的是在GPU得到请求指令后，把指令发送给对应物体的Shader,让Shader读取指令并通知相应的渲染通道（Pass）进行渲染操作。<br>场景上有1个GameObject，希望能显示很酷炫的效果，它的Material上带有许多特定的Shader。为了实现相应的效果，Shader里或许会包含很多的Pass,每当GPU即将去运行一个Pass之前，就会产生一个“SetPass call”，因此在描述渲染性能开销上，“SetPass calls”更加有说服力。    </p>
+</li>
+<li><p>Shadow casters：表示场景中有多少个可以投射阴影的物体，一般这些物体都作为场景中的光源。</p>
+</li>
+<li><p>visible skinned  meshed：渲染皮肤网格的数量。</p>
+</li>
+<li><p>Animations:正在播放动画的数量。</p>
+</li>
 </ul>
-<h2 id="数据计算"><a href="#数据计算" class="headerlink" title="数据计算"></a>数据计算</h2><ul>
-<li>1:需要计算的顺序必须保持一致,unity的update不可控,需要自己开线程定时 0.033s/f (即 1 秒 30 逻辑帧)计算,保证顺序一致,</li>
-<li>2:需要明确各个客户端计算结果都必须一致才正确,如果计算不正确就是bug.凡是遇到计算全部转成定点数进行计算,并且由服务器发送随机数种子.</li>
-<li>3:帧时间:当前帧序列数*服务器帧更新时间/(填充帧数 + 1),每帧随机数计算都由服务器下发种子来控制.</li>
-<li>4:帧同步伤害算法.</li>
-</ul>
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><ul>
-<li>1:大多数情况下网络是波动的,接收/发送的数据频率是不稳定的.客户端需要等到逻辑帧返回才可以进行下一步.</li>
-<li>2:做一个逻辑帧缓冲区,设置上限,当存入缓存区的帧数据满足上限之后,按照固定频率播放.出现延迟,则填入逻辑帧缓冲区,然后平均分布到固定的频率中去,平滑处理网络波动造成的卡顿</li>
-<li>3:丢帧,采用 UDP(KCP) 进行传输.关键帧里面携带前 2 帧的数据,大大降低帧数据丢失率,同时需要削减包的大小.每个包不要超过 576 byte(一个MTU以下).</li>
-<li>4:实测情况下,最坏可能要 24kb/s 的速度,这个速度很难稳定达到</li>
-</ul>
-<h2 id="渲染层"><a href="#渲染层" class="headerlink" title="渲染层"></a>渲染层</h2><ul>
-<li>1:加速功能,Time.timeScale = 2/1.5/1/0.5;等.计算时需要根据机子性能进行加速调整,因为CPU就是那压力过大,会出现卡顿和跳帧</li>
-<li>2:战斗回放功能,因为关键帧记录,以及关键帧计算的结果都是一致的,所以最后将关键帧数据回放并计算就是正确的回放</li>
-</ul>
-<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><ul>
-<li>1:服务器只处理逻辑,这就要客户端需要将逻辑与渲染分开,客户端采用线程处理逻辑部分,主线程处理渲染部分.</li>
-<li>2:同一份代码如果都是用 C#写的话,需要区分客户端还是服务器代码使用宏定义可以很好的区别</li>
-<li>3:c#核心代码的编写需要另开一个库进行,版本容易管理,需要将 Log/Time/存储 等类进行重写以适配客户端和服务器</li>
-<li>4:</li>
-</ul>
-
+<pre><code>参考
+https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html        
+https://docs.unity3d.com/Manual/ProfilerRendering.html
+</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
     </div>
@@ -747,12 +744,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>帧同步</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.5k</span></p>
+    <p><span class="copy-title">Title:</span>Unity编辑器中Stats窗口详解</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.6k</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-15, 10:57:43</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/Unity/FrameSynchronization/FrameSync/" title="帧同步">http://yoursite.com/2020/05/11/Unity/FrameSynchronization/FrameSync/</a>
+    <p><span class="copy-title">Created At:</span>2020-06-01, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-06-01, 17:01:00</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/06/01/Unity/Optimize/Unity%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%ADStats%E7%AA%97%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="Unity编辑器中Stats窗口详解">http://yoursite.com/2020/06/01/Unity/Optimize/Unity%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%ADStats%E7%AA%97%E5%8F%A3%E8%AF%A6%E8%A7%A3/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
