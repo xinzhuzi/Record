@@ -82,7 +82,7 @@ UIPanel.FillAllDrawCalls 更新所有 DrawCall,如果这种情况经常发生,CP
 > * 动静分离时:自动给动态的组件添加上 cavans 
 > * 如果有动画一直修改 Image 上面的 color 属性,就是修改顶点属性上面的修改会导致重建网格(mesh),需要写个脚本创建一个 material 在 lateUpdate 里面修改创建的material的颜色达到动画的目的
 
-# Overdraw 
+# Overdraw优化,降低填充率
 GPU Overdraw局部像素区域压力过大,单像素填充压力过大.
 * 1:在某个背景上有个按钮，要将按钮绘制在背景上，这个就是Overdraw，Overdraw无法避免，只能优化降低
 
@@ -144,3 +144,6 @@ Unity的Mask组件会增加一层Overdraw，还会多增加4个DrawCall
 7.尽量active，不要destroy，也不要设置Alpha=0这样还是会渲染
 8.不用BestFit(代价高，Unity会为该元素用到的所有字号生成图元保存在Altlas中，增加额外生成时间，还会使得字体对应的atlas变大)
 9.特效粒子
+
+⑴尽量减少alpha = 0的资源的使用，因为这种资源也会参与绘制，占用一定的GPU。 ⑵制作图集的时候，尽量使小图排布紧凑，尽量图集中大面积留白，理由同上。 ⑶避免无用对象及组件的过度使用
+如果sprite是中心镂空且切图为九宫格时，可以去除fill center，以减少over draw游戏中许多时候会使用一个透明的Image组件来监听点击事件或者屏蔽Image后面的按钮事件，空的Image可以解决这个问题，用起来也很方便，但是空的Image照旧会参与绘制，从而产生overdraw。解决办法是扩展Graphic组件来替换Image组件。 如果是只要点击区域，不要显示内容的。
