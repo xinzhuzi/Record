@@ -174,3 +174,29 @@ Wire)去观察；
 > J:控制StartCoroutine的次数：  1.开启一个Coroutine(协程)，至少分配37B的内存. 2.Coroutine类的实例 -- 21B.  3.Enumerator -- 16B.缓存组件: 1.每次GetComponent均会分配一定的GC Allow. 2.每次Object.name都会分配39B的堆内存.
 > K:1:许多贴图采用的Format格式是ARGB 32 bit所以保真度很高但占用的内存也很大。在不失真的前提下，适当压缩贴图，使用ARGB 16 bit就会减少一倍，如果继续Android采用RGBA Compressed ETC2 8 bits（iOS采用RGBA Compressed PVRTC 4 bits），又可以再减少一倍。把不需要透贴但有alpha通道的贴图，全都转换格式Android：RGB Compressed ETC 4 bits，iOS：RGB Compressed PVRTC 4 bits。2:当加载一个新的Prefab或贴图，不及时回收，它就会永驻在内存中，就算切换场景也不会销毁。应该确定物体不再使用或长时间不使用就先把物体制空(null)，然后调用Resources.UnloadUnusedAssets()，才能真正释放内存。3:有大量空白的图集贴图，可以用TexturePacker等工具进行优化或考虑合并到其他图集中。4:要保证每张图得像素宽高都是4得倍数,即除4余0.
 > L:AudioClip:播放时长较长的音乐文件需要进行压缩成.mp3或.ogg格式，时长较短的音效文件可以使用.wav 或.aiff格式。
+
+
+# 宏观性能关注点
+* 1:FPS 帧率需要大于 30 帧
+* 2:PSS 内存,越低越好,但需要根据渠道而定
+* 3:Mono峰值,小于 40M
+* 4:温度均值,越低越好
+* 5:能耗均值,电量,越低越好
+* 6:网络上传
+* 7:网络下载
+
+# 微观性能关注点
+模块    |          前期           |         中期        |后期&上线
+-------|-------------------------|--------------------|--------------
+渲染模块|Draw Call,Triangle,vertex|不透明,半透明,Culling|图像后处理
+逻辑代码| 插件,第三方库调研,bug      |CPU,堆内存,调用次数  |bug
+UI 模块|全屏,半屏,组织结构          |overdraw,重建 CPU   |Draw Call
+UGUI的API|Canvas.BuildBatch,Canvas.SendWillRenderCanvases|EventSystem.Update|RenderSubBatch
+加载模块|缓存池,序列化第三方库        |关注调用频率        |关注耗时
+加载模块的API|Loading.UpdatePreloading,Resources.UnloadUnusedAssets|GameObject.Instantiate|GC.Collect
+资源使用|分辨率,格式,顶点数,骨骼数    |数量,Mipmap,资源利用率,沉余|调用次数
+内存占用|资源,AB 包,Mono,Lua       |内存峰值,堆内存      |内存泄露
+粒子系统|使用指标                  |总体数量,active 数量 |Overdraw
+粒子系统的 API|ParticleSystem.Update,ParticleSystem.SubmitVBO,ParticleSystem.Draw|ParticleSystem.ScheduleGeometryJobs
+动画系统|                        |数量,AC 制作,CPU      |
+动画系统的 API|Animators.Update,Animation.Update|MeshSkinning.Update|Animator.Initialize
