@@ -1,6 +1,7 @@
 ---
 title: Unity 优化总纲
 date: 2020-05-08 11:41:32
+top: 1
 categories:
 - Unity优化
 tags:
@@ -8,14 +9,17 @@ tags:
 ---
 
 
-# 编程代码规范：
+# 编程代码规范
+
 * 1:脚本行数最多500行。
 * 2:如果要发行其他国家的版本需要重新Copy一份客户端代码,在另行修改
 * 3:c#扩展做链式语法非常容易,比如项目里面的WWWFormEx类的数据装载,非常好写.
 * 4:写好代码一定要多个平台测试
 * 5:编程代码规范不是一成不变的,需要根据人数,风格进行有效的变换
 
+
 # 善用工具检测
+
 * 1:使用Unity自带的工具 profile,Frame Debug,Physics Debug
 * 2:使用 UPR
 * 3:使用 UWA
@@ -23,7 +27,9 @@ tags:
 * 5:使用 Android studio 编辑器
 * 6:君子善用其器.一定要先了解一下这个工具再对其进行使用.
 
+
 # 宏观性能关注点
+
 * 1:FPS 帧率需要大于 30 帧
 * 2:PSS 内存,越低越好,但需要根据渠道而定
 * 3:Mono峰值,小于 40M
@@ -32,7 +38,9 @@ tags:
 * 6:网络上传
 * 7:网络下载
 
+
 # 微观性能关注点
+
 模块    |          前期           |         中期        |后期&上线
 -------|-------------------------|--------------------|--------------
 渲染模块|Draw Call,Triangle,vertex|不透明,半透明,Culling|图像后处理
@@ -48,23 +56,39 @@ UGUI的API|Canvas.BuildBatch,Canvas.SendWillRenderCanvases|EventSystem.Update|Re
 动画系统|                        |数量,AC 制作,CPU      |
 动画系统的 API|Animators.Update,Animation.Update|MeshSkinning.Update|Animator.Initialize
 
+
+
 # CPU 优化
+
 * 1:简单代码控制,避免CPU资源浪费
 * 2:避免使用闭包
 * 3:MonoBehaviour优化
 * 4:Component的优化
 * 5:GameObject的优化
+
+
 # GPU 优化
+
+
 
 # 内存优化
 
+
+
 # UI 优化
+
 * 1:NGUI 的优化
 * 2:UGUI 的优化
+
+
 # 资源优化
+
 * AssetBundle
 * 打包
+
+
 # 渲染优化
+
 * shader
 
 
