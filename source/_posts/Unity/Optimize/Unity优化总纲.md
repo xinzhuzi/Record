@@ -1,5 +1,5 @@
 ---
-title: Unity 优化 1
+title: Unity 优化总纲
 date: 2020-05-08 11:41:32
 categories:
 - Unity优化
@@ -7,14 +7,74 @@ tags:
 - Unity优化
 ---
 
-#编程代码规范：
-* 1：脚本行数最多500行。
-* 2:如果要发行其他国家的版本需要重新Copy一份客户端代码,在另行修改
-* 3:声音和国际化文字由策划写在Excel里面
-* 4:c#扩展做链式语法非常容易,比如项目里面的WWWFormEx类的数据装载,非常好写.
-* 5:[ECS架构](http://gad.qq.com/article/detail/28682)
 
-#代码控制
+# 编程代码规范：
+* 1:脚本行数最多500行。
+* 2:如果要发行其他国家的版本需要重新Copy一份客户端代码,在另行修改
+* 3:c#扩展做链式语法非常容易,比如项目里面的WWWFormEx类的数据装载,非常好写.
+* 4:写好代码一定要多个平台测试
+* 5:编程代码规范不是一成不变的,需要根据人数,风格进行有效的变换
+
+# 善用工具检测
+* 1:使用Unity自带的工具 profile,Frame Debug,Physics Debug
+* 2:使用 UPR
+* 3:使用 UWA
+* 4:使用 XCode 编辑器
+* 5:使用 Android studio 编辑器
+* 6:君子善用其器.一定要先了解一下这个工具再对其进行使用.
+
+# 宏观性能关注点
+* 1:FPS 帧率需要大于 30 帧
+* 2:PSS 内存,越低越好,但需要根据渠道而定
+* 3:Mono峰值,小于 40M
+* 4:温度均值,越低越好
+* 5:能耗均值,电量,越低越好
+* 6:网络上传
+* 7:网络下载
+
+# 微观性能关注点
+模块    |          前期           |         中期        |后期&上线
+-------|-------------------------|--------------------|--------------
+渲染模块|Draw Call,Triangle,vertex|不透明,半透明,Culling|图像后处理
+逻辑代码| 插件,第三方库调研,bug      |CPU,堆内存,调用次数  |bug
+UI 模块|全屏,半屏,组织结构          |overdraw,重建 CPU   |Draw Call
+UGUI的API|Canvas.BuildBatch,Canvas.SendWillRenderCanvases|EventSystem.Update|RenderSubBatch
+加载模块|缓存池,序列化第三方库        |关注调用频率        |关注耗时
+加载模块的API|Loading.UpdatePreloading,Resources.UnloadUnusedAssets|GameObject.Instantiate|GC.Collect
+资源使用|分辨率,格式,顶点数,骨骼数    |数量,Mipmap,资源利用率,沉余|调用次数
+内存占用|资源,AB 包,Mono,Lua       |内存峰值,堆内存      |内存泄露
+粒子系统|使用指标                  |总体数量,active 数量 |Overdraw
+粒子系统的 API|ParticleSystem.Update,ParticleSystem.SubmitVBO,ParticleSystem.Draw|ParticleSystem.ScheduleGeometryJobs
+动画系统|                        |数量,AC 制作,CPU      |
+动画系统的 API|Animators.Update,Animation.Update|MeshSkinning.Update|Animator.Initialize
+
+# CPU 优化
+* 1:简单代码控制,避免CPU资源浪费
+* 2:避免使用闭包
+* 3:MonoBehaviour优化
+* 4:Component的优化
+* 5:GameObject的优化
+# GPU 优化
+
+# 内存优化
+
+# UI 优化
+* 1:NGUI 的优化
+* 2:UGUI 的优化
+# 资源优化
+* AssetBundle
+* 打包
+# 渲染优化
+* shader
+
+
+# 扩展阅读
+
+* 1:[守望先锋:ECS架构](http://gad.qq.com/article/detail/28682),[Unity官方文档](https://docs.unity3d.com/Packages/com.unity.entities@0.1/manual/index.html),[云风](http://blog.codingnow.com/2017/06/overwatch_ecs.html),[ECS博客](http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/),[国外谈论](https://www.youtube.com/watch?v=lNTaC-JWmdI),[Entitas-CSharp]( https://github.com/sschmid/Entitas-CSharp),[ET框架](https://github.com/egametang/ET)
+* 2:推荐想学习优化的同学一本书,<<Unity 游戏优化 2>>,作者是:克里斯*迪金森,翻译:蔡俊鸿,雷鸿飞.
+
+
+# 代码控制
 
 * 1: 尽量不用foreach,全使用for,因为foreach产生GC
 * 2: 字典替换成下面的写法
@@ -41,9 +101,9 @@ ArrayList 虽然很完美，但结点类型是 Object，故不是类型安全的
 装箱和拆箱操作，带来很大的性能耗损。对象是值类型的话会带来装箱拆箱操作
 >List 是泛型接口，规避了 ArrayList 的两个问题。利于动态扩展以及移动,但是搜索速度慢
 
-* 7: 不要把枚举当 Tkey (字典的key)使用，不要把枚举转成 string 使用。
+* 7: 不要把枚举当 TKey (字典的key)使用，不要把枚举转成 string 使用。
 
-#闭包
+# 闭包
 
 * 1:变量的作用域,成员变量作用于类、局部变量作用于函数、次局部变量作用于函数局部
 片段。生命周期：变量随着其寄存对象生而生和消亡（不包括非实例化的 static 和 const
@@ -54,7 +114,7 @@ ArrayList 虽然很完美，但结点类型是 Object，故不是类型安全的
 的方法。如何没有涉及到闭包的话，委托代码只生产一个函数而不是一个类。lamda表达式(闭包)
 * 3:    闭包概念：函数和与其相关的引用环境组合而成的实体。本质 1：代码块依然维护着它第一个被创建时环境（执行上下文）- 即它仍可以使用创建它的方法中局部变量，即使那个方法已经执行完了。(循环引用不释放);本质 2 Closures close over variables, not over values。闭包关闭的是变量，而不是值.闭包引用了外部变量就会生成一个新得类.函数调用频繁不使用闭包
 
-#MonoBehaviour 优化
+# MonoBehaviour 优化
 
 * 1:如果没有相应的事件处理，删除对应的空函数
 * 2:Update 优化 在 update 中尽量不要调用查找对象或组件方法如 FindByTag 或 Find 等等。可
@@ -71,16 +131,16 @@ ArrayList 虽然很完美，但结点类型是 Object，故不是类型安全的
             yield return wfs;
         }
 
-#Component 优化
+# Component 优化
 
 * 1:使用内建的数组，比如用 Vector3.zero 而不是 new Vector(0, 0, 0);
 * 2:transform.localRotation = Quaternion.Euler(Vector3.zero);transform.localScale =Vector3.one;transform.localPosition =Vector3.one;等
 
-#GameObject 相关优化
+# GameObject 相关优化
 
 * 1:（脚本和本地引擎 C++代码之间的通信开销）Gameobject 缓存：类似组件的缓存策略。查找对象标签：if (go.CompareTag (“xxx”)来代替 if (go.tag == “xxx”)，因为内部循环调用对象分配的标签属性以及拷贝额外内存。SendMessageUpwards、SendMessage：少用这两个函数，使用委托替代。缓存组件：调用 GetComponent 函数耗性能，用变量先缓存到内存在使用, 有必要时记得更新缓存组件。
 
-#NGUI 相关优化
+# NGUI 相关优化
 
 * 1: Canvas.BuildBatch()，
 合批 Canvas 下所有网格，这个性能热点在 5.2 版本后挪到了子线程去做减轻了
@@ -90,7 +150,7 @@ ArrayList 虽然很完美，但结点类型是 Object，故不是类型安全的
 现的，而 NGUI 只能通过上层的不断创建 Vertex List，这样在堆内存的管理上，
 UGUI 确实要好很多，带来的隐形收益就是 GC 触发次数会少很多。
 
-#UI 资源规范（内存优化）
+# UI 资源规范（内存优化）
 
 * 1:任何的 UI 图集最大 size 1024*1024（内存优化）；
 * 2:同一个界面出现的 UI 资源尽量放到一个图集，重复利用的公用资源放
@@ -113,9 +173,9 @@ common（DrawCall 优化）；
 使用的时候直接按需求修改顶点色即可（内存优化）；
 * 8.关闭 mipmaps（内存优化）。
 
-#GPU 优化
+# GPU 优化
 
-####Shader优化
+#### Shader优化
 
 * 1:Fog { Mode Off }，最早有一个版本我们没有关闭 Fog
 * 2:Fragment 剔除掉 Alpha 为 0 的像素点，减少 OverDraw；
@@ -128,7 +188,7 @@ common（DrawCall 优化）；
 些我们程序可以控制的优化点：1.对于九宫格的 Image，如果去掉 fillcenter 不影响最后出来的效果就要把
 fillcenter 去掉，可以减少中间一片的像素绘制；2.看不见的元素且没有逻辑功能要 disable 或者挪出裁剪区域，而不要通过设置Alpha=0 来隐藏；3.不要使用一张 Alpha=0 的 Image 来实现放大响应区域的功能；4.UI 底层系统来控制隐藏看不见的元素，例如打开全屏 UI 的时候把下面看不见的 UI 挪出裁减区域、关闭主相机渲染。
 
-####CPU优化
+#### CPU优化
 
 * 1:优化DrawCall、Canvas.SendWillRenderCanvases()、Canvas.BuildBatch()
 * 2:DrawCall,DrawCall 是 CPU 调用底层图形接口，频繁的调用对 CPU 性能的影响是很明显
@@ -176,27 +236,3 @@ Wire)去观察；
 > L:AudioClip:播放时长较长的音乐文件需要进行压缩成.mp3或.ogg格式，时长较短的音效文件可以使用.wav 或.aiff格式。
 
 
-# 宏观性能关注点
-* 1:FPS 帧率需要大于 30 帧
-* 2:PSS 内存,越低越好,但需要根据渠道而定
-* 3:Mono峰值,小于 40M
-* 4:温度均值,越低越好
-* 5:能耗均值,电量,越低越好
-* 6:网络上传
-* 7:网络下载
-
-# 微观性能关注点
-模块    |          前期           |         中期        |后期&上线
--------|-------------------------|--------------------|--------------
-渲染模块|Draw Call,Triangle,vertex|不透明,半透明,Culling|图像后处理
-逻辑代码| 插件,第三方库调研,bug      |CPU,堆内存,调用次数  |bug
-UI 模块|全屏,半屏,组织结构          |overdraw,重建 CPU   |Draw Call
-UGUI的API|Canvas.BuildBatch,Canvas.SendWillRenderCanvases|EventSystem.Update|RenderSubBatch
-加载模块|缓存池,序列化第三方库        |关注调用频率        |关注耗时
-加载模块的API|Loading.UpdatePreloading,Resources.UnloadUnusedAssets|GameObject.Instantiate|GC.Collect
-资源使用|分辨率,格式,顶点数,骨骼数    |数量,Mipmap,资源利用率,沉余|调用次数
-内存占用|资源,AB 包,Mono,Lua       |内存峰值,堆内存      |内存泄露
-粒子系统|使用指标                  |总体数量,active 数量 |Overdraw
-粒子系统的 API|ParticleSystem.Update,ParticleSystem.SubmitVBO,ParticleSystem.Draw|ParticleSystem.ScheduleGeometryJobs
-动画系统|                        |数量,AC 制作,CPU      |
-动画系统的 API|Animators.Update,Animation.Update|MeshSkinning.Update|Animator.Initialize
