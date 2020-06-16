@@ -20,7 +20,7 @@ tags:
 
 # 善用工具检测
 
-* 1:使用Unity自带的工具 profile,Frame Debug,Physics Debug
+* 1:使用Unity自带的工具 [profile](https://unity3d.com/cn/learn/tutorials/temas/performance-optimization/diagnosing-performance-problems-using-profiler-window?playlist=44069),Frame Debug,Physics Debug,[数据类型](https://unity3d.com/cn/learn/tutorials/topics/scripting/data-types),[对象池](https://unity3d.com/cn/learn/tutorials/topics/scripting/object-pooling),[官方视频](https://learn.unity.com/tutorial/fixing-performance-problems#),
 * 2:使用 UPR
 * 3:使用 UWA
 * 4:使用 XCode 编辑器
@@ -56,6 +56,20 @@ UGUI的API|Canvas.BuildBatch,Canvas.SendWillRenderCanvases|EventSystem.Update|Re
 动画系统|                        |数量,AC 制作,CPU      |
 动画系统的 API|Animators.Update,Animation.Update|MeshSkinning.Update|Animator.Initialize
 
+
+# 官方数值建议
+
+
+数值名称    |     官方建议数值
+-----------|-------------------------
+ReservedMono峰值(MB)|小于 80MB
+DrawCall峰值(次)| 小于 250 次
+平均帧率|大于 25
+纹理资源峰值(MB)|小于 50MB    
+网格资源峰值(MB)|小于 20MB
+动画资源峰值(MB)|小于 15MB
+音频资源峰值(MB)|小于 15MB
+Tris 峰值(面)  |小于 200000(20W 面)             
 
 
 # CPU 优化
