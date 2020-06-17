@@ -110,3 +110,18 @@ R/W 一般情况下不要开. compression在某些unity版本上面开了比不�
 
 创建与加载monobehavier以后，内存中有大量这种东西，内存中是没有做过优化的，内存结构不合理，不够紧凑，分散点比较多，cpu也没有将这些事情并行处理，monobehavier里面的方法还是有反射到c++层使用的
 
+***
+
+# 内存管理的核心问题
+
+* 1:内存使用是否合适?
+* 2:内存泄露如何解决?
+* 3:Reserved Total 内存总量尽量小于80M
+* 4:纹理资源内存尽量小于 50M,
+* 5:网格资源内存尽量小于 20M,模型的 Tangents 尽量选择 None
+* 6:RenderTexture 内存峰值,需要控制分辨率,需要关注 Antialiasing(反锯齿)
+* 7:ParticleSystem 粒子系统总体使用数量
+* 8:AssetBundle资源冗余,如何做到零冗余-->https://blog.uwa4d.com/archives/1577.html
+* 9:AssetBundle(SerializedFile)尽量小于 50 个
+* 10:关注一次性分配过多内存,关注哪个函数在分配内存.配表解析,New Class,String 操作,Instantiate,格式转换
+* 11:内存泄露,每1000 帧需要获取一下堆内存和变量数.

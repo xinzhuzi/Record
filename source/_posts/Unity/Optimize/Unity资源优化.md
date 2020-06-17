@@ -15,11 +15,11 @@ tags:
 ## 1:加载时瓶颈?
 
 
-引擎阶段|人工阶段       
+引擎阶段(加载阶段)|人工阶段(加载阶段)       
 ------|-------     
 上一场景资源卸载 |       
 当前场景资源加载  |      
-当前场景加载后处理      | 当前场景中,资源加载,
+当前场景加载后处理(GC耗时,GO销毁)      | 当前场景中,资源加载,
 当前场景实例化          | 当前场景中,AB 加载 ,实例化
 当前场景Active/Deactive | 当前场景中的 GameObject,Active/Deactive,实际初始化设置.
 
@@ -31,9 +31,9 @@ UpdatePreloading|(ToLua 第三方库) LuaLooper.LateUpdate;
 Application.WaitForAsyncOperationToComplete|
 Preload Sing Step(真正耗时的函数)|
 Application.LoadLevelAsync;    GarbageCollectAssetsProfile(卸载上一个场景的函数,这个函数是调用 Resources.UnloadUnusedAssets();产生的(手动或者自动触发),会有大量耗时记录)|
-;    Loading.LoadFileHeaders(Loading ReadObject,这一系列函数表示在加载新场景,读取头文件,读取GameObject),LoadAwakeFromLoad(加载后处理,mesh,shader,SetPass)|
+;    Loading.LoadFileHeaders(Loading ReadObject,这一系列函数表示在加载新场景,读取头文件,读取GameObject),LoadAwakeFromLoad(加载后处理,mesh,shader,Shader.Parse)|
 UnityEngine.SetupCoroutine(Coroutine InvokeMoveNext)(Instantiate实例化,Active,Deactive)|
-GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies|
+GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 
 ***
 
@@ -60,14 +60,18 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies|
 
 ### 动画片段
 * 1:片段数量
-* 2:压缩模式/动画精度
+* 2:压缩模式/动画精度/数据精度
 * 3:动画模式,Humanoid要比Generic 小很多
 
 ### 音频片段
 
-* 1:音频数量
-* 2:加载方式
-
+* 1:音频数量,
+* 2:加载方式,Load Type-->选择 Streaming 是最快的
+* 3:压缩格式,Compression Format-->PCM(不压缩),Vorbis(ogg 的格式),ADPCM(轻度压缩),MP3
+* 4:内存最小的选择是  :加载方式选择Streaming,压缩格式选择Vorbis,Vorbis 的 Quality 可以进一步控制,建议 50%
+* 5:建议使用 MP3 格式的音频文件,如果内存压力过大,可以考虑 Streaming 加载方式或较小 Quality 质量的 Vorbis 格式
+* 6:如果是非及时使用音效(背景音乐),建议开启 Load in Background 来提升加载效率
+* 7:如果 存在大量频繁使用的音效,建议选择 Decompressed On Load 来降低 CPU 开销
 
 ###  Particle System
 
@@ -131,7 +135,23 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies|
 * 6:网格:关注顶点渲染密度.
 * 7:音频片段,Streaming 加载方式比较适合于背景音乐,对于同时播放的小音频文件,建议通过 Decompressed 方式.
 
-## 6:Mono堆内存
+*** 
 
-* 1:子线程 Mono 分配,多见于和服务器交互
-* 2:Lua 内存检测,关注 Destroyed 总数
+
+## 6:AB 包
+* 1:建议目前全部采用 LZ4 压缩
+* 2:本地加载,建议使用 LoadFromFile(Async)来加载
+* 3:根据机型,选择适合的 Coroutine 次数
+* 4:如果自己压缩,建议使用 Gzip+LoadFromFile(Async)来加载
+* 5:AssetBundle.LoadAll 比 Asset.Load OneByOne 要好很多.
+* 6:切换场景时,尽可能使用 AssetBundle.Load 来提升加载效率
+* 7:小,细碎的同种类资源打包在一起(Shader,ParticleSystem)
+
+
+*** 
+## 7:Mono堆内存
+
+* 1:子线程 Mono 分配,多见于和服务器交互.
+* 2:Lua 内存检测,关注 Destroyed 总数.
+* 3:Instantiate 实例化频率,实例化的耗时.
+* 4:Active/Deactive 频率和耗时.复杂的界面/带有动画组件的 GameObject 不要频繁使用
