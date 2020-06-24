@@ -22,13 +22,14 @@ tags:
 # 成本
 * 1 开发人员一名;
 * 2 mac 电脑一台;
-* 3 Android手机一部,需要 root;
+* 3 Android手机一部,尽量 root,此 root 会减少搭建流程中的很多细节问题;
 * 4 Jenkins 基本操作,安装并且创建任务,得到可执行结果.(官网:https://www.jenkins.io/)
 * 5 shell 基础(基本学习:https://www.runoob.com/linux/linux-shell.html)
 * 6 Python 基础(B 站上找个全套 Python 看完即可)
 * 7 Unity 打包(https://docs.unity3d.com/Manual/CommandLineArguments.html)
 * 8 UPR 基础操作(https://upr.unity.cn/instructions)
 * 9 Airtest IDE 软件操作(http://airtest.netease.com/)
+* 10 一定要 shell,Python,Unity,Jenkins,UPR,Airtest,adb 串联起来才可以搭建起来整个流程.
 
 ***
 
@@ -143,7 +144,7 @@ cd UPR路径
 ./UnityPerfProfiler -p ip地址 -s ${SessionId}  -n com.xlcw.twgame.cn    
 
 ```
-* 10:python 脚本创建SessionId
+* 10:python 脚本UPR_Get_SessionId.py 进行创建SessionId
 ```
 url = "https://upr.unity.cn/backend/sessions/create"
 # 其中parameter需要自己上网页里面查看是什么,每个人的项目中都不一样,这个地方不贴这些东西了,必填;
@@ -160,9 +161,10 @@ print(json.loads(res.text)["SessionId"])
 *  11:数据二次处理
 等待Auto_End_Game脚本结束,停止UPR,(可选操作:关闭 app,执行完毕AirtestIDE.app 中的自动玩游戏代码,关闭AirtestIDE.app等).等待 10s 之后,使用 Python 进行二次数据处理,具体到某一函数,资源,发送给具体的开发人员.最后,将数据分析结果发送到企业微信群里面.此时可以根据每个开发人员的情况进行分发处理任务.
 ```
+#shell 脚本里面编写
 python3 xxx/GetAndReport.py ${SessionId}
 
-# GetAndReport.py 中编写
+#python文件 GetAndReport.py 中编写
 # headers_get中包含 cookie,请自行查找.
 res = requests.get(
         "https://upr.unity.cn/backend/summary/" + SessionId, headers=headers_get)
