@@ -24,7 +24,7 @@ tags:
 * 2 mac 电脑一台;
 * 3 Android手机一部,尽量 root,此 root 会减少搭建流程中的很多细节问题;
 * 4 Jenkins 基本操作,安装并且创建任务,得到可执行结果.(官网:https://www.jenkins.io/)
-* 5 shell 基础(基本学习:https://www.runoob.com/linux/linux-shell.html)
+* 5 shell 基础(基本学习:https://www.runoob.com/linux/linux-shell.html ;  https://www.bilibili.com/video/BV1bg4y1i7Zj)
 * 6 Python 基础(B 站上找个全套 Python 看完即可)
 * 7 Unity 打包(https://docs.unity3d.com/Manual/CommandLineArguments.html)
 * 8 UPR 基础操作(https://upr.unity.cn/instructions)
@@ -51,7 +51,6 @@ tags:
 ![SVN 目录](SVN目录.png)
 
 * 3:介绍从 shell 脚本Auto_Check_All.sh 运行到打包GetAndReport.py 的步骤.首先是 Unity 打包策略.也就是第一步,形成打包自动化,真正的 Jenkins 打包界面是需要很多参数形成的,此流程仅仅为了方便,因此做简化.需要注意的是,此打包方式一定是开发模式.(请移步官网 https://docs.unity3d.com/Manual/CommandLineArguments.html)
-
 ```
 # unity 中可以执行命令的文件路径
 UNITY_PATH=/Applications/Unity/Unity.app/Contents/MacOS/Unity
@@ -80,10 +79,8 @@ fi
 * 6:覆盖安装apk
 ```
 # adb devices
-
 # 卸载这个 app,目前这一步在启动 APP 的时候会产生Android弹框,不推荐使用,如果 root 手机可以避免这一步,或者其他手段可以避免,则执行这一步是最好的
 # adb uninstall  (apk的唯一标示符)
-
 # 覆盖安装这个 app,此 APK 一定是开发者模式的 APK
 cd UPR路径/platform-tools/
 ./adb install -r xxx/xxx.apk
@@ -94,16 +91,13 @@ cd UPR路径/platform-tools/
 ```
 # 多少毫秒后暂停玩游戏,xxx 表示随意路径
 open -n "xxx/Auto_End_Game.sh"
-
 ############################################
 # Auto_End_Game内容很简单,只有 3 行
-
 sleep ${Runtime} #默认暂停 500s,也就是玩游戏大约有 500s 左右的时间,其他操作请自行扩展,比如自定义截图等
-
 cd UPR路径
 ./UnityPerfProfiler --stop
-```
 
+```
 
 * 8:自动化玩游戏
 我采用的策略比较粗暴.打开 Airtest IDE 软件,并一直连接上 Android 手机,编写自动化玩游戏的代码,编写代码需要根据游戏自行编写,因为在脚本里面提前启动此 app,所有我在自动化玩游戏里面先休眠了 30s,等待游戏开启.此软件在之后的正式流程下会一直连接在手机上面,并且一直开着.
@@ -116,9 +110,7 @@ sleep 2s
 open -a "/Applications/AirtestIDE.app"
 # 暂停 5s ,避免冲突
 sleep 5s
-
 # 模拟按下 F5,启动自动化玩游戏
-
 function prompt() {
   osascript &lt;&lt;EOT
     tell application "System Events"
@@ -126,8 +118,8 @@ function prompt() {
     end tell
 EOT
 }
- 
 value="$(prompt)"
+
 ```
 
 * 9:启动连接到 UPR 服务,此时会UPR自动启动游戏.
@@ -144,20 +136,23 @@ cd UPR路径
 ./UnityPerfProfiler -p ip地址 -s ${SessionId}  -n com.xlcw.twgame.cn    
 
 ```
+
+
 * 10:python 脚本UPR_Get_SessionId.py 进行创建SessionId
 ```
 url = "https://upr.unity.cn/backend/sessions/create"
 # 其中parameter需要自己上网页里面查看是什么,每个人的项目中都不一样,这个地方不贴这些东西了,必填;
 # cookies也一样,必填;
 # headers不填也行.
-
 res = requests.post(url=url, data=parameter,
                         headers=headers_post, cookies=cookies)
 print(json.loads(res.text)["SessionId"])
 # 这样执行完毕之后,即可在 shell 脚本里面拿到这个值
 ```
+
 ![性能检测.png](性能检测.png)   
 ![资源检测.png](资源检测.png)
+
 *  11:数据二次处理
 等待Auto_End_Game脚本结束,停止UPR,(可选操作:关闭 app,执行完毕AirtestIDE.app 中的自动玩游戏代码,关闭AirtestIDE.app等).等待 10s 之后,使用 Python 进行二次数据处理,具体到某一函数,资源,发送给具体的开发人员.最后,将数据分析结果发送到企业微信群里面.此时可以根据每个开发人员的情况进行分发处理任务.
 ```
@@ -181,6 +176,7 @@ data = "\n性能数据:{" + "ReservedMono峰值:" + \
 
 # 然后上报企业微信里面,这个需要根据企业微信进行定制开发,官网:https://work.weixin.qq.com/ 
 ```
+
 ![最终@所有人.png](最终@所有人.png)
 
 * 12:资源与 AB 包检测
@@ -212,3 +208,4 @@ data = "\n性能数据:{" + "ReservedMono峰值:" + \
 * 1 明显效益:可以节省研发人员成本.隐藏效益:嗯~~~,也可以将很多测试人员干掉,为公司节省财富,不过我不建议老板这么干.
 * 2 请一定重视这个 <<Unity后工业化流程>> ,搭建成功就可以为一个项目节省大量时间;推广到整个公司,就能为公司带来巨大效益;如果整个游戏行业都有这个流程,那就是一场改革.
 * 3 本公司招人
+![job.jpg](Report_All.png)
