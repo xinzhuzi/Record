@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Unity 资源优化 | 新诸子</title>
+  <meta name="keywords" content=" Unity优化 ">
+  <meta name="description" content="Unity 资源优化 | 新诸子">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="页面未找到！">
+<meta property="og:type" content="website">
+<meta property="og:title" content="404">
+<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:site_name" content="新诸子">
+<meta property="og:description" content="页面未找到！">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-09-27T03:31:01.000Z">
+<meta property="article:modified_time" content="2020-05-12T02:42:41.559Z">
+<meta property="article:author" content="诸子百家-谁的天下?">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/fontawesome.min.js" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.2/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>诸子百家-谁的天下?</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/xinzhuzi" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/e7aab68810b1" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:1487842110@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1487842110&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(49)</small></div></li>
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="诗词随笔">诗词随笔<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="杂项">杂项<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="指针">指针<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="正则表达式">正则表达式<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Renderer">Renderer<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Unity">Unity<small>(19)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Unity优化">Unity优化<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  " target="_blank" href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="49">
+<input type="hidden" id="yelog_site_word_count" value="90.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/xinzhuzi">诸子百家-谁的天下?</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">诗词随笔</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">杂项</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">指针</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">re</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Protobuf,lua</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">Renderer</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">UnityEditor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">tool</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">BestHttp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Unity</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Unity优化</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">IndustrialAutomation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">VSCode</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="博客 "
+           href="/2020/05/08/Hexo%20%E7%9A%84%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="Hexo 的简单操作">Hexo 的简单操作</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="诗词随笔 "
+           href="/2020/05/10/%E8%AF%97%E8%AF%8D%E9%9A%8F%E7%AC%94/"
+           data-tag="诗词随笔"
+           data-author="" >
+            <span class="post-title" title="诗词随笔">诗词随笔</span>
+            <span class="post-date" title="2020-05-10 11:41:32">2020/05/10</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2020/05/08/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%BC%96%E5%86%99/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="博客搭建以及编写">博客搭建以及编写</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="杂项 "
+           href="/2020/05/08/%E5%85%B1%E4%BA%A7%E5%85%9A%E5%AE%A3%E8%A8%80/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="共产党宣言">共产党宣言</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/05/13/Net/net/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Net/net">Net/net</span>
+            <span class="post-date" title="2020-05-13 13:20:42">2020/05/13</span>
+        </a>
+        
+        <a  class="指针 "
+           href="/2020/05/08/Pointer/%E6%8C%87%E9%92%88/"
+           data-tag="指针"
+           data-author="" >
+            <span class="post-title" title="C/C++指针详解">C/C++指针详解</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="正则表达式 "
+           href="/2020/05/08/RegularExpression/RegularExpression/"
+           data-tag="re"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Potobuf-Lua/ProtobufLua/"
+           data-tag="Protobuf,lua"
+           data-author="" >
+            <span class="post-title" title="Protobuf-Lua-Python">Protobuf-Lua-Python</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Renderer "
+           href="/2020/05/08/Renderer/%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/"
+           data-tag="Renderer"
+           data-author="" >
+            <span class="post-title" title="渲染基本流程">渲染基本流程</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/1%20%E4%BB%8B%E7%BB%8DUnityEditor/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="1 介绍UnityEditor">1 介绍UnityEditor</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/10%20Screenshot/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="10 Screenshot">10 Screenshot</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/11%20Handles/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="11 Handles">11 Handles</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/12%20Gizmos/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="12 Gizmos">12 Gizmos</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/13%20%E7%AE%80%E5%8D%95Node/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="13 简单Node">13 简单Node</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/2%20UnityEditor%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="2 UnityEditor常用属性">2 UnityEditor常用属性</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="3 数据交互">3 数据交互</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/4%20EditorGUI/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="4 EditorGUI">4 EditorGUI</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/6%20MenuItem/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="6 MenuItem">6 MenuItem</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/5%20EditorWindow/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="5 EditorWindow">5 EditorWindow</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/7%20CustomEditor_PropertyDrawer/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="7 CustomEditor_PropertyDrawer">7 CustomEditor_PropertyDrawer</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/8%20EditorGUILayout/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="8 EditorGUILayout">8 EditorGUILayout</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/9%20EditorWindow%E6%A1%88%E4%BE%8B1/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="9 EditorWindow案例1">9 EditorWindow案例1</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="好用的插件软件">好用的插件软件</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E7%A0%B4%E8%A7%A3Teamviewer/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="破解 TeamViewer">破解 TeamViewer</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/md%E6%A0%BC%E5%BC%8F/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="MD 格式">MD 格式</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="科学上网">科学上网</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2020/05/08/algorithm/algorithm/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="学习算法大纲">学习算法大纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Unity "
+           href="/2020/05/11/Unity/BestHttp/BestHttp%E4%BB%8B%E7%BB%8D/"
+           data-tag="BestHttp"
+           data-author="" >
+            <span class="post-title" title="BestHttp介绍1">BestHttp介绍1</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/FrameSynchronization/FrameSync/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="帧同步">帧同步</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class="Unity "
+           href="/2020/05/11/Unity/BestHttp/WebSocket/"
+           data-tag="BestHttp"
+           data-author="" >
+            <span class="post-title" title="BestHttp介绍2">BestHttp介绍2</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/05/12/Unity/OcclusionCulling/Occlusion%20Culling/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/OcclusionCulling/Occlusion Culling">Unity/OcclusionCulling/Occlusion Culling</span>
+            <span class="post-date" title="2020-05-12 10:42:41">2020/05/12</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/AndroidStudio/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity AndroidStudio工具检测优化">Unity AndroidStudio工具检测优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Unity "
+           href="/2020/06/20/Unity/IndustrialAutomation/Unity%E5%90%8E%E5%B7%A5%E4%B8%9A%E5%8C%96%E6%B5%81%E7%A8%8B/"
+           data-tag="IndustrialAutomation"
+           data-author="" >
+            <span class="post-title" title="Unity后工业化流程">Unity后工业化流程</span>
+            <span class="post-date" title="2020-06-20 11:41:32">2020/06/20</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/CPU%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity CPU优化">Unity CPU优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/GPU%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity GPU优化">Unity GPU优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 内存优化">Unity 内存优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity_UI%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity NGUI/UGUI优化">Unity NGUI/UGUI优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E4%BC%98%E5%8C%96%E6%80%BB%E7%BA%B2/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 优化总纲">Unity 优化总纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B7%A5%E5%85%B7/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity工具使用">Unity工具使用</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B7%A5%E5%85%B7UPR/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity工具使用">Unity工具使用</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 渲染优化">Unity 渲染优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B8%A7%E7%8E%87/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 优化总纲">Unity 优化总纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 资源优化">Unity 资源优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/06/15/Unity/Optimize/XCode/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/Optimize/XCode">Unity/Optimize/XCode</span>
+            <span class="post-date" title="2020-06-15 15:02:03">2020/06/15</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E8%A7%84%E8%8C%83/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 代码编写规范">Unity 代码编写规范</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 网络优化">Unity 网络优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/VisualStudioCode/VSCodeUnity/"
+           data-tag="VSCode"
+           data-author="" >
+            <span class="post-title" title="在 Unity 下使用 VSCode 配置">在 Unity 下使用 VSCode 配置</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E8%BD%AF%E4%BB%B6UWA%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity UWA工具检测优化">Unity UWA工具检测优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/UnityEditor/FlatNode/FlatNode/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="14 FlatNode">14 FlatNode</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Unity/Optimize/Unity资源优化" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Unity 资源优化</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a>置顶</a></span>
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="Unity优化">Unity优化</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color3">Unity优化</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='更新时间: 2020-06-17 19:31:02'>2020-05-08 11:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:2.4k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#资源加载模块的核心问题"><span class="toc-text">资源加载模块的核心问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-加载时瓶颈"><span class="toc-text">1:加载时瓶颈?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-资源加载是否合理"><span class="toc-text">2:资源加载是否合理?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#纹理"><span class="toc-text">纹理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网格"><span class="toc-text">网格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动画片段"><span class="toc-text">动画片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#音频片段"><span class="toc-text">音频片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Particle-System"><span class="toc-text">Particle System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#资源加载卸载的-API"><span class="toc-text">资源加载卸载的 API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-引擎如何加载一个-Prefab"><span class="toc-text">3:引擎如何加载一个 Prefab?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-如何优化加载"><span class="toc-text">4:如何优化加载?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-资源内存"><span class="toc-text">5:资源内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-AB-包"><span class="toc-text">6:AB 包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Mono堆内存"><span class="toc-text">7:Mono堆内存</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="资源加载模块的核心问题"><a href="#资源加载模块的核心问题" class="headerlink" title="资源加载模块的核心问题"></a>资源加载模块的核心问题</h1><hr>
+<h2 id="1-加载时瓶颈"><a href="#1-加载时瓶颈" class="headerlink" title="1:加载时瓶颈?"></a>1:加载时瓶颈?</h2><table>
+<thead>
+<tr>
+<th>引擎阶段(加载阶段)</th>
+<th>人工阶段(加载阶段)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>上一场景资源卸载</td>
+<td></td>
+</tr>
+<tr>
+<td>当前场景资源加载</td>
+<td></td>
+</tr>
+<tr>
+<td>当前场景加载后处理(GC耗时,GO销毁)</td>
+<td>当前场景中,资源加载,</td>
+</tr>
+<tr>
+<td>当前场景实例化</td>
+<td>当前场景中,AB 加载 ,实例化</td>
+</tr>
+<tr>
+<td>当前场景Active/Deactive</td>
+<td>当前场景中的 GameObject,Active/Deactive,实际初始化设置.</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>引擎函数</th>
+<th>人工函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EarlyUpdate.UpdatePreloading</td>
+<td>PreLateUpdate.ScriptRunBehaviourLateUpdate</td>
+</tr>
+<tr>
+<td>Loading.UpdatePreloading</td>
+<td>LateBehaviorUpdate;  AssetBundles.Loadxxx 加载,</td>
+</tr>
+<tr>
+<td>UpdatePreloading</td>
+<td>(ToLua 第三方库) LuaLooper.LateUpdate;</td>
+</tr>
+<tr>
+<td>Application.WaitForAsyncOperationToComplete</td>
+<td></td>
+</tr>
+<tr>
+<td>Preload Sing Step(真正耗时的函数)</td>
+<td></td>
+</tr>
+<tr>
+<td>Application.LoadLevelAsync;    GarbageCollectAssetsProfile(卸载上一个场景的函数,这个函数是调用 Resources.UnloadUnusedAssets();产生的(手动或者自动触发),会有大量耗时记录)</td>
+<td></td>
+</tr>
+<tr>
+<td>;    Loading.LoadFileHeaders(Loading ReadObject,这一系列函数表示在加载新场景,读取头文件,读取GameObject),LoadAwakeFromLoad(加载后处理,mesh,shader,Shader.Parse)</td>
+<td></td>
+</tr>
+<tr>
+<td>UnityEngine.SetupCoroutine(Coroutine InvokeMoveNext)(Instantiate实例化,Active,Deactive)</td>
+<td></td>
+</tr>
+<tr>
+<td>GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-资源加载是否合理"><a href="#2-资源加载是否合理" class="headerlink" title="2:资源加载是否合理?"></a>2:资源加载是否合理?</h2><h3 id="纹理"><a href="#纹理" class="headerlink" title="纹理"></a>纹理</h3><ul>
+<li>1:Mac Size,分辨率尽量小于 1024,长宽需要是 2 的幂次方.</li>
+<li>2:Format,格式尽量选用 Unity 官方推荐的格式.</li>
+<li>3:Read/Write 尽量关闭</li>
+<li>4:Mipmap 尽量关闭</li>
+<li>5:Texture streaming</li>
+</ul>
+<h3 id="网格"><a href="#网格" class="headerlink" title="网格"></a>网格</h3><ul>
+<li>1:Model 里面的 Meshs 设置,资源的顶点数量与顶点属性数量</li>
+<li>2:Mesh Compression 尽量选 On</li>
+<li>3:Read/Write Enabled 尽量不勾选 </li>
+<li>4:Normals尽量让 Unity 自己计算</li>
+<li>5:Blend Shape Normals</li>
+<li>6:Tangents 尽量少</li>
+<li>7:Swap UVs 尽量不勾选</li>
+<li>8:Generate Lightmap UVs,尽量不勾选</li>
+<li>9:以上选择,全是为了数据量小而选择的,不为了表现,如果为了表现,需要进行取舍</li>
+</ul>
+<h3 id="动画片段"><a href="#动画片段" class="headerlink" title="动画片段"></a>动画片段</h3><ul>
+<li>1:片段数量</li>
+<li>2:压缩模式/动画精度/数据精度</li>
+<li>3:动画模式,Humanoid要比Generic 小很多</li>
+</ul>
+<h3 id="音频片段"><a href="#音频片段" class="headerlink" title="音频片段"></a>音频片段</h3><ul>
+<li>1:音频数量,</li>
+<li>2:加载方式,Load Type–&gt;选择 Streaming 是最快的</li>
+<li>3:压缩格式,Compression Format–&gt;PCM(不压缩),Vorbis(ogg 的格式),ADPCM(轻度压缩),MP3</li>
+<li>4:内存最小的选择是  :加载方式选择Streaming,压缩格式选择Vorbis,Vorbis 的 Quality 可以进一步控制,建议 50%</li>
+<li>5:建议使用 MP3 格式的音频文件,如果内存压力过大,可以考虑 Streaming 加载方式或较小 Quality 质量的 Vorbis 格式</li>
+<li>6:如果是非及时使用音效(背景音乐),建议开启 Load in Background 来提升加载效率</li>
+<li>7:如果 存在大量频繁使用的音效,建议选择 Decompressed On Load 来降低 CPU 开销</li>
+</ul>
+<h3 id="Particle-System"><a href="#Particle-System" class="headerlink" title="Particle System"></a>Particle System</h3><ul>
+<li>1:粒子系统数量</li>
+<li>2:材质,很多粒子加载,会将相同Material 加载进内存.</li>
+</ul>
+<h3 id="资源加载卸载的-API"><a href="#资源加载卸载的-API" class="headerlink" title="资源加载卸载的 API"></a>资源加载卸载的 API</h3><ul>
+<li>1:Resources.Load</li>
+<li>2:Resources.LoadAsync</li>
+<li>3:AssetBundle.Load</li>
+<li>4:AssetBundle.LoadAsync</li>
+<li>5:异步加载时开启Application.backgroundLoadingPriority=ThreadPriority.High;表示异步操作可以在主线程的单帧花费最长时间。单帧花费时间越多，可加载的数据越多，因此帧率将有所下降，较为影响游戏性能，但可减少加载资源的时间，能更快的进入游戏！反之，单帧花费时间越少，可加载的数据越少，对游戏的游戏性能影响较小，可在游戏进行时有很好的后台加载。<a href="https://docs.unity3d.com/2017.1/Documentation/ScriptReference/Application-backgroundLoadingPriority.html" target="_blank" rel="noopener">官方文档</a></li>
+<li>6:QualitySettings.asyncUploadTimeSlice = 2;为了读取数据和上传纹理数据，重复使用了一个大小可以控制的环形缓冲区。使用asyncUploadTimeSlice以毫秒为单位设置异步纹理上传的时间片框架。最小值为1，最大值为33。</li>
+<li>7:QualitySettings.asyncUploadBufferSize = 4;为了读取数据和上传纹理数据，重复使用了一个大小可以控制的环形缓冲区。设置异步纹理上传的缓冲区大小。大小的单位是兆字节。最小值为2，最大值为512。虽然缓冲区会自动调整大小以适应当前加载的最大纹理，但建议将该值设置为场景中使用的最大纹理的大小，以避免重新调整缓冲区的大小会导致性能损失。</li>
+</ul>
+<h2 id="3-引擎如何加载一个-Prefab"><a href="#3-引擎如何加载一个-Prefab" class="headerlink" title="3:引擎如何加载一个 Prefab?"></a>3:引擎如何加载一个 Prefab?</h2><p>为何我们调整了 资源加载卸载的API 中提到的三个参数,异步加载就变得快了.我们就要了解引擎是如何加载一个 prefab 的.一个 UI 的 Prefab 可能含有 Texture,Mesh,Material 等等很多东西.</p>
+<ul>
+<li>1:加载 Mesh 并传输到 GPU;异步串行;异步串行加载时会寻找 AssetBundle 里面含有哪些资源,然后反序列化这些资源,然后先加载这个 Prefab 的 Mesh 传到 GPU 里面;</li>
+<li>2:加载 Texture 并传输到 GPU;异步串行;</li>
+<li>3:加载 shader &amp; Material;异步串行;前期是加载 shader,后期是主线程解析 shader</li>
+<li>4:加载 Object &amp; Component;异步串行;</li>
+<li>5:加载 AnimationClip 资源;异步串行;完全可以放在异步里面进行加载,不会卡主线程</li>
+<li>6:加载 Audio 资源;异步串行;使用 Streaming 模式是最快的.</li>
+<li>7:大量资源的异步加载均可在子线程中进行</li>
+<li>8:主线程主要处理 AwakeFromLoad &amp; Shader 解析</li>
+<li>9:主线程可以留出大量空间供逻辑代码使用</li>
+</ul>
+<hr>
+<h2 id="4-如何优化加载"><a href="#4-如何优化加载" class="headerlink" title="4:如何优化加载?"></a>4:如何优化加载?</h2><ul>
+<li>1:加快 Mesh,Texture等资源的异步加载效率</li>
+<li>2:加快处理 AwakeFromLoad &amp; Shader 解析</li>
+<li>3:Async Upload Pipeline<blockquote>
+<ul>
+<li>A:加载线程异步加载 Texture 和 Mesh 资源,用了 Mesh 的压缩,需要在主线程进行解压,是不能进行异步加载的,地形的 Texture 开了 Read/Write 是不能进行异步加载的</li>
+<li>B:通过渲染线程直接将其传送到 GPU</li>
+<li>C:目前 Unity 都支持,</li>
+<li>D:代码里面异步加载方法 AsyncUploadBuffer 加载完毕之后,直接回放到渲染线程进行渲染,渲染线程中的渲染方法AsyncUploadTimeSlice将数据上传</li>
+</ul>
+</blockquote>
+</li>
+<li>4:优化方法:将QualitySettings.asyncUploadBufferSize = 4;改为QualitySettings.asyncUploadBufferSize = 16;表示引擎从硬盘里面每次读取 4M,变为读取 16M,读取时都是在子线程.这个参数里面的 buff 缓冲可以认为是流式的读取</li>
+<li>5:优化方法:QualitySettings.asyncUploadTimeSlice = 2;改为QualitySettings.asyncUploadBufferSize = 8;表示渲染线程每一帧使用 2ms 去干活,变为渲染线程每一帧使用  8ms 去干活,有可能就多开了一个渲染线程</li>
+<li>6:AUP 让内存占用更加可控,加载 Upload Buffer 会增加一个恒定的内存,除此之外几乎没有副作用,在内存允许的情况下,可以设置 16MB 或者 32MB.对于asyncUploadTimeSlice方法,如果设置过大,会产生卡顿现象.</li>
+<li>7:压缩主线程上面的资源,控制异步加载资源在主线程的”后加载”耗时,各种资源的 AwakeFromLoad,Shader.Parse,设置代码 Application.backgroundLoadingPriority=ThreadPriority.High;</li>
+<li>8:Texture.AwakeFromLoad 是从主线程里面将Texture传到 GPU</li>
+<li>9:优化异步加载:调整 Upload Buffer 和 Upload Time Slice,调整 BackLoadingPriority,开启多线程渲染,调整资源的加载顺序(比如 shader)</li>
+<li>10:异步加载时需要注意代码的写法,不要搞成一帧加载很多.AssetBundle 加载的写法需要注意</li>
+<li>11:需要查看实例化操作是否合理,实例化的频率,大概需要 10K 帧有大的浮动;  一般正常的加载方式是–&gt;AB a0–&gt;AB a1(依赖 a0)–&gt;加载 a1–&gt;instantiate a1;错误加载方式–&gt;AB a1(依赖 a0)–&gt;加载 a1–&gt;instantiate a1–&gt;AB a0 这种情况下 a0 资源会出现在其他错误的地方;</li>
+<li>12:需要查看Active/Deactive操作是否合理,尤其是在 NGUI/UGUI 上面</li>
+</ul>
+<hr>
+<h2 id="5-资源内存"><a href="#5-资源内存" class="headerlink" title="5:资源内存"></a>5:资源内存</h2><ul>
+<li>1:有很多纹理在内存里面,但是没有进行渲染,也就是没有用到.需要查看 UI图集,技能特效.</li>
+<li>2:注意纹理的分辨率大小,以及 Mipmap 是否物尽其用</li>
+<li>3:在品质设置里面有个 Texture Streaming 选项中,有个参数:Memory Budget,在其足够时,Scene Texture 是满 Mipmap 加载,动态加载的 GO Texture 是最比配的 mipmap 进行加载和实例化,渲染时,则按照距离原因和 budget 进行调整.再其不足时,Scene Texture按照最低配加载,已加载 Streamed Texture 按照距离 Remove Mipmap,越远的越先 Remove 高 Level Mipmap ,动态加载的 GO Texture 只按最低配 Mipmap 加载,实例化和渲染.</li>
+<li>4:Max Level Reduction设定为 1 表示加载 mipmap 第一级,设置为 2 加载第二级</li>
+<li>5:在 mobile 端一定要设置 QualitySettings.streamingMipmapsActive = true;</li>
+<li>6:网格:关注顶点渲染密度.</li>
+<li>7:音频片段,Streaming 加载方式比较适合于背景音乐,对于同时播放的小音频文件,建议通过 Decompressed 方式.</li>
+</ul>
+<hr>
+<h2 id="6-AB-包"><a href="#6-AB-包" class="headerlink" title="6:AB 包"></a>6:AB 包</h2><ul>
+<li>1:建议目前全部采用 LZ4 压缩</li>
+<li>2:本地加载,建议使用 LoadFromFile(Async)来加载</li>
+<li>3:根据机型,选择适合的 Coroutine 次数</li>
+<li>4:如果自己压缩,建议使用 Gzip+LoadFromFile(Async)来加载</li>
+<li>5:AssetBundle.LoadAll 比 Asset.Load OneByOne 要好很多.</li>
+<li>6:切换场景时,尽可能使用 AssetBundle.Load 来提升加载效率</li>
+<li>7:小,细碎的同种类资源打包在一起(Shader,ParticleSystem)</li>
+</ul>
+<hr>
+<h2 id="7-Mono堆内存"><a href="#7-Mono堆内存" class="headerlink" title="7:Mono堆内存"></a>7:Mono堆内存</h2><ul>
+<li>1:子线程 Mono 分配,多见于和服务器交互.</li>
+<li>2:Lua 内存检测,关注 Destroyed 总数.</li>
+<li>3:Instantiate 实例化频率,实例化的耗时.</li>
+<li>4:Active/Deactive 频率和耗时.复杂的界面/带有动画组件的 GameObject 不要频繁使用</li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">Love</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">Title:</span>Unity 资源优化</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.4k</span></p>
+    <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-06-17, 19:31:02</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/Unity/Optimize/Unity%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/" title="Unity 资源优化">http://yoursite.com/2020/05/08/Unity/Optimize/Unity%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/</a>
+    <p>
+        <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '78dbe1e4dd28ca4c4b5e',
+            clientSecret: 'e49ada68130b4d709a242b8dd8f4e844b14f35f9',
+            repo: 'xinzhuzi.github.io',
+            owner: 'xinzhuzi',
+            admin: ['xinzhuzi'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('20',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 xinzhuzi</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/xinzhuzi/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>爱你,爱世人</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.png" class="alipay" title="扫码支持">
+            <img src="/img/weixin.png" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['@新诸子','@诸子百家-谁的天下?','#hexo','#诗词随笔','#杂项','#指针','#re','#Protobuf,lua','#Renderer','#UnityEditor','#tool','#算法','#BestHttp','#Unity','#Unity优化','#IndustrialAutomation','#VSCode',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 542px;
+        }
+        .nav.fullscreen {
+            margin-left: -542px;
+        }
+        .nav-left {
+            width: 150px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 542px;
+            margin-left: -542px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 542px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
