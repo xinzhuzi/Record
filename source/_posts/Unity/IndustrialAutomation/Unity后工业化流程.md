@@ -178,10 +178,11 @@ tags:
 
 * 12:资源与 AB 包检测,根据官网的 shell 写法,直接在 Jenkins 里面输出即可,处理二次数据与上面方式一样.
 
+*** 
 
 # 代码窥探
 
-![Auto_Chack_All.png](Auto_Chack_All.png)
+![Auto_Check_All.png](Auto_Check_All.png)
 ![Auto_End_Game.png](Auto_End_Game.png)
 ![Get_Sessionid.png](Get_Sessionid.png)
 ![Report_All.png](Report_All.png)
