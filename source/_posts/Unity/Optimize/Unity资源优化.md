@@ -155,3 +155,62 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 * 2:Lua 内存检测,关注 Destroyed 总数.
 * 3:Instantiate 实例化频率,实例化的耗时.
 * 4:Active/Deactive 频率和耗时.复杂的界面/带有动画组件的 GameObject 不要频繁使用
+
+
+
+# 资源规范
+
+* 1 Animation 
+```
+检查动画曲线精度:动画曲线精度过高会增加动画占用内存; 此规则仅面向以文本格式序列化的*.anim文件中的浮点精度;用文本编辑器打开.anim动画文件，修改m_EditorCurves::curve::m_Curve下的float值的精度。建议用脚本直接将此文件中所有float精度都调整为5位小数以下。动画曲线精度应小于5 ;
+```
+* 2 AnimationController 
+```
+动画控制器中的动画剪辑个数: 动画控制器中动画剪辑数量过多会造成动画初始化耗时过多;动画剪辑个数应小于2
+```
+* 3 FBX     
+```
+检查读/写标志:开启FBX资源的读/写标志会导致双倍的内存占用;FBX资源的读/写标志应该被禁用      
+检查动画资源压缩方式:动画资源使用最佳压缩方式可以提高加载效率;查看Inspector -> Animation Tab -> Anim. Compression选项;动画资源应该使用最佳压缩方式      
+
+```
+* 4 Prefab
+```
+检查粒子系统的发射速率:当粒子系统渲染Mesh时(Inspector: Particle System -> Renderer -> Render Mode == Mesh), 相比于渲染Billboard时计算资源消耗会明显上升，因此需要对粒子发射速率加以限制;检查Inspector -> Particle System -> Emission -> Rate over Time/Distance配置;渲染Mesh的粒子系统不宜设置过高的粒子发射速率        
+检查Skinned Mesh Renderer:启用Skinned Motion Vectors会使渲染器同时使用当前帧和上一帧的蒙皮网络来渲染目标的动画以提高精度，从而需要双倍大小的缓冲区并占用双倍的显存;启用Skinned Motion Vectors将以消耗双倍内存为代价提高蒙皮网格的精度;      
+检查网格读/写标记:被预制件关联的网格资源应该关闭读/写标记;被预制件关联的网格资源应该关闭读/写标记       
+```
+* 5 Scene
+```
+检查场景未添加tag的GameObject:场景中的所有GameObject都应当添加tag
+;场景包含未添加tag的GameObject;     
+检查场景中mesh collider:Mesh Collider可以在场景中提供更精细化的碰撞检测，随之而来也会消耗大量计算资源，建议审慎使用。 检查场景中所有GameObject下的Mesh Collider组件;场景包含了mesh collider;        
+检查场景渲染设置:在移动平台，建议在渲染设置中关闭对雾的渲染以节省计算资源。检查Window -> Rendering -> Lighting Settings -> Scene -> Other Settings -> Fog选项;在移动平台，应在设置里关闭雾的渲染
+检查场景Animator组件中的ApplyRootMotion选项:如果不需要进行根骨骼动画位移, 建议关闭场景中Animator组件的applyRootMotion选项。场景中包含勾选了applyRootMotion选项的Animator组件;       
+检查场景Animator组件中的cullingMode:场景中Animator组件的cullingMode是AlwaysAnimate会增加CPU使用率。场景中包含cullingMode为AlwaysAnimate的Animator组件;
+```
+
+* 6 Script
+```
+检查OnGUI方法:由于内存使用率高，不应使用OnGUI方法;IMGUI是过时的UI系统，仅建议在开发调试时使用。     
+检查所有的 Mono 生命周期函数 方法:空方法会导致掉帧,建议去除。     
+```
+* 7 Shader
+```
+检查Shader中纹理数量:Shader中过多的纹理可能会增加GPU消耗;Shader中的纹理个数应小于3;
+```
+
+* 8 Texture
+```
+检查纹理读/写标记:开启纹理资源的读/写标志会导致双倍的内存占用; 检查Inspector -> Advanced -> Read/Write Enabled选项;纹理资源的读/写标志应被禁用;         
+检查Mipmap标记:未压缩的纹理资源启用Mipmap标志会增加内存占用; 检查Inspector -> Advanced -> Generate Mip Maps选项;未压缩的纹理应该禁用mipmap ;        
+Android平台纹理压缩格式:检查Android平台的纹理压缩格式;如果希望对各平台统一设置压缩格式，检查Inspector -> Default -> Format选项; 如果希望为Android平台单独设置，打开旁边的Android选项卡，勾选Override for Android并检查下面的Format选项;对安卓平台使用默认值，但格式不是Automatic;           
+纹理资源大小2的幂次:大小非2的幂次的纹理资源将无法使用ETC1和PVRTC压缩格式。在导入时自动伸缩为2的幂次也可能会导致内存占用或者贴图质量问题。 检查Inspector -> Advanced -> Non-Power of 2选项. 建议使用原始大小为2的幂次的贴图;纹理大小不是2的幂次;         
+检查纹理是否过大:过大的纹理资源会更多的消耗内存;Custom Parameters: heightThreshold : 512widthThreshold : 512;纹理大于 512 * 512 ;                
+检查纹理资源的过滤模式:纹理的过滤模式一般不建议使用Trilinear，会占用较高的计算资源。 检查Inspector -> Filter Mode选项;纹理使用了Trilinear过滤模式;          
+检查纹理资源alpha通道:如果纹理包含空的alpha通道，则应禁用'Alpha源'标志，否则会浪费这部分的内存。 检查Inspector -> Alpha Source选项;应禁用具有空Alpha通道的纹理的‘Alpha源’标志;          
+检查纯色纹理:纯色纹理的使用可能可以由一些设置来代替。由于某些情况下纯色纹理是必不可少的，此警告仅会在所使用的纹理较大(>16*16)时才会触发。纯色纹理会浪费内存;        
+检查纹理重复环绕模式:Repeat Wrap模式可能会导致纹理上出现意外的边缘; 检查Inspector -> Wrap Mode选项;重复环绕模式可能会导致纹理上出现意外的边缘;     
+检查重复纹理:检查重复纹理;纹理重复          
+检查雪碧图纹理填充率:填充率是雪碧图分割后的有效面积与总面积的比率，较低的雪碧图纹理填充率会导致显存的浪费。Custom Parameters: fillRateThreshold : 0.5onlyCheckSprite : True; 尝试重新编排雪碧图，尽量缩小总面积以提高填充率;sprite填充率低于 0.5
+```
