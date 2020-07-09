@@ -54,3 +54,24 @@ tags:
 * 4:Blit 带宽性能瓶颈
 * 5:Stencil buffer 在 OnRenderImage 之前会被 Clear,依赖 Depth Buffer
 
+# 问题出在哪里?
+* 不透明物体的渲染
+```
+MeshRenderer.Render 非蒙皮网格渲染
+Mesh.DrawVBO        Draw Call
+MeshSkinning.Render 蒙皮网格渲染
+Material.SetPassFast 设置渲染状态. 调用次数与材质数目成正比,与批次成正比,是在每次提交 Draw Call之前,修改 Render State(混合,深度测试等)
+对于不透明物体的渲染,进行优化,需要:减少 Draw Call,减少材质,减少面片数.
+对于不透明物体的耗时:与物体个数(Draw Call)成正比,与单个物体面片数不敏感,与场景中使用材质数目成正比;对于 CPU 端耗时的影响程度:物体个数>材质数据>单个物体面片数
+```
+* 半透明物体的渲染
+```
+MeshRenderer.Render 场景中半透明渲染
+Mesh.DrawVBO        Draw Call
+Mesh.CreateVBO      NGUI的消耗一般在这个地方
+ParticleSystem.ScheduleGeometryJobs    与在相机窗口内部的粒子系统个数成正比 >> 子线程调用ParticleSystem.GeometryJobs方法
+ParticleSystem.SubmitVBO 粒子系统渲染
+BatchRenderer.Add   UGUI的消耗一般藏在这里
+对于粒子系统,进行优化,需要:减粒子系统个数,减粒子个数
+
+```

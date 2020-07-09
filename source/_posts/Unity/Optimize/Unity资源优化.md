@@ -162,7 +162,8 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 
 * 1 Animation 
 ```
-检查动画曲线精度:动画曲线精度过高会增加动画占用内存; 此规则仅面向以文本格式序列化的*.anim文件中的浮点精度;用文本编辑器打开.anim动画文件，修改m_EditorCurves::curve::m_Curve下的float值的精度。建议用脚本直接将此文件中所有float精度都调整为5位小数以下。动画曲线精度应小于5 ;
+检查动画曲线精度:动画曲线精度过高会增加动画占用内存; 此规则仅面向以文本格式序列化的*.anim文件中的浮点精度;用文本编辑器打开.anim动画文件，修改m_EditorCurves::curve::m_Curve下的float值的精度。建议用脚本直接将此文件中所有float精度都调整为5位小数以下。动画曲线精度应小于5 ;       
+检查动画缩放曲线:动画不应具有缩放曲线,动画中的缩放曲线会增加动画占用内存,用文本编辑器打开.anim动画文件，确认m_EditorCurves和m_FloatCurves下不包括attribute为m_Scale的curve子对象。动画不应具有缩放曲线;
 ```
 * 2 AnimationController 
 ```
@@ -172,7 +173,73 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 ```
 检查读/写标志:开启FBX资源的读/写标志会导致双倍的内存占用;FBX资源的读/写标志应该被禁用      
 检查动画资源压缩方式:动画资源使用最佳压缩方式可以提高加载效率;查看Inspector -> Animation Tab -> Anim. Compression选项;动画资源应该使用最佳压缩方式      
+{
+        "id": 5004,
+        "name" : "Mesh OptimizeMesh",
+        "description": {
+          "en": "OptimizeMesh should be enabled for Mesh asset",
+          "zh": "应为网格资源启用OptimizeMesh"
+        },
+        "longDescription": {
+          "en": "Enabling OptimizeMesh can reduce the size of mesh asset",
+          "zh": "为网格资源启用OptimizeMesh可以减少最终游戏包的大小"
+        },
+        "nameDescription": {
+          "en": "Check OptimizeMesh for Mesh asset",
+          "zh": "检查网格资源的OptimizeMesh"
+        },
+        "hint": {
+          "en": "Check option under: Inspector -> Model Tab -> Meshes -> Optimize mesh",
+          "zh": "查看Inspector -> Model Tab -> Meshes -> Optimize mesh选项"
+        },
+        "advices": [
+          {
+            "id": 5004001,
+            "description": {
+              "en": "OptimizeMesh should be enabled for Mesh asset",
+              "zh": "应为网格资源启用OptimizeMesh"
+            }
+          }
+        ]
 
+        {
+        "id": 5006,
+        "name" : "FBX Vertex Count",
+        "description": {
+          "en": "There is too many vertices in FBX asset, default limit is 500",
+          "zh": "在FBX资源中有太多的顶点, 默认阈值是500"
+        },
+        "longDescription": {
+          "en": "Too many vertices in FBX asset, check if it is necessary",
+          "zh": "FBX资源资源中有太多的顶点, 请检查是否必要"
+        },
+        "nameDescription": {
+          "en": "Check FBX vertex count",
+          "zh": "检查FBX资源定点数"
+        },
+        "customParameters": [
+          {
+            "name": "vertexCountLimit",
+            "description": {
+              "en": "Vertex Count Limit",
+              "zh": "顶点数量限制"
+            }
+          }
+        ],
+        "advices": [
+          {
+            "id": 5006001,
+            "description": {
+              "en": "Too many vertices in FBX asset",
+              "zh": "FBX资源资源中有太多的顶点"
+            },
+            "subDescription": {
+              "en": "Vertex count is %s",
+              "zh": "顶点数量为%s"
+            }
+          }
+        ]
+      }
 ```
 * 4 Prefab
 ```
@@ -213,4 +280,31 @@ Android平台纹理压缩格式:检查Android平台的纹理压缩格式;如果�
 检查纹理重复环绕模式:Repeat Wrap模式可能会导致纹理上出现意外的边缘; 检查Inspector -> Wrap Mode选项;重复环绕模式可能会导致纹理上出现意外的边缘;     
 检查重复纹理:检查重复纹理;纹理重复          
 检查雪碧图纹理填充率:填充率是雪碧图分割后的有效面积与总面积的比率，较低的雪碧图纹理填充率会导致显存的浪费。Custom Parameters: fillRateThreshold : 0.5onlyCheckSprite : True; 尝试重新编排雪碧图，尽量缩小总面积以提高填充率;sprite填充率低于 0.5
+```
+
+* 9 Audio
+```
+启用Force to Mono:检查Inspector -> Force To Mono选项:应为音频资源启用forceMono,如不需要立体声,开启forceMono可以减少内存和磁盘占用;音频应该启用forceMono，以节省存储和内存;      
+检查iOS平台的音频压缩格式:检查Inspector -> iOS Tab -> Compression Format选项;iOS平台的音频剪辑应使用MP3格式;        
+检查安卓平台的音频压缩格式:检查Inspector -> Android Tab -> Compression Format选项;安卓平台的音频剪辑应使用Vorbis格式;       
+检查音频加载类型:检查Inspector -> (Platform Tab) -> Load Type选项;有多少的短音效应使用DecompressOnLoad;有多少的的常规音效应使用CompressedInMemory;有多少的音乐应该使用Streaming;        
+```
+
+* 10 EditorSetting
+应设置CompanyName;检查公司名称设置;检查File -> Build Settings -> Player Settings -> Player -> Company Name的设置;CompanyName不应设置为DefaultCompany;                       
+应设置Build Target Icons;应设置Build Target Icons;检查Build Target图标;检查File -> Build Settings -> Player Settings -> Player -> Default Icon的设置;应设置 %s 的Build Target Icons;                        
+应设置开启GraphicsJobs;这项设置会为图形任务开启多线程. 但这个是实验性质的, 会引起新的问题. 请自行测试;检查GraphicsJobs设置;检查Editor -> Project Settings -> PlayerSettings -> Graphic Jobs(Experimental)*的设置;尝试开启graphicJobs并测试;                     
+应设置开启BakeCollisionMeshes;这项设置可以减少加载/初始化的时间, 虽然会增加一些构建时间和包体积;检查BakeCollisionMeshes设置;检查Editor -> Project Settings -> PlayerSettings -> PreBake Collision Meshes的设置;如果在项目中启用了physics, 可以考虑开启Prebake Collision Meshes选项;                 
+应设置开启StripEngineCode;关闭StripEngineCode会增加包体积;检查StripEngineCode设置;检查Editor -> Project Settings -> PlayerSettings -> Strip Engine Code的设置;关闭StripEngineCode会增加包体积;                  
+在Physics设置中应关闭AutoSyncTransforms;AutoSyncTransforms选项是为了兼容老版本的Unity而设立的, 会增加CPU的使用;检查Physics中的AutoSyncTransforms设置:检查Editor -> Project Settings -> Physics -> Auto Sync Transforms的设置;在Physics设置中开启AutoSyncTransforms会增加CPU的使用;                   
+在Physics设置中LayerCollisionMatrix中的格子不应该都勾选上;这会增加CPU的负担, 应该取消勾选那些没有必要的格子;检查Physics设置中的LayerCollisionMatrix设置;检查Editor -> Project Settings -> Physics -> Layer Collision Matrix的设置;在Physics设置中LayerCollisionMatrix中的格子不应该都勾选上;                         
+在Physics2D设置中应关闭AutoSyncTransforms;AutoSyncTransforms选项是为了兼容老版本的Unity而设立的, 会增加CPU的使用;检查Physics2D中的AutoSyncTransforms设置;检查Editor -> Project Settings -> Physics2D -> Auto Sync Transforms的设置;在Physics2D设置中开启AutoSyncTransforms会增加CPU的使用;          
+在Physics2D设置中LayerCollisionMatrix中的格子不应该都勾选上;这会增加CPU的负担, 应该取消勾选那些没有必要的格子;检查Physics2D中LayerCollisionMatrix设置;检查Editor -> Project Settings -> Physics2D -> Layer Collision Matrix的设置:在Physics2D设置中LayerCollisionMatrix中的格子不应该都勾选上;                            
+StandardShaderQuality选项在所有Graphics Tier中应相同:这会增加编译时间和包体积, 除非你想要支持很多性能跨度很大的设备;检查Graphics中StandardShaderQuality设置;检查Editor -> Project Settings -> Graphics -> Tiers -> Standard Shader Quality的设置;StandardShaderQuality选项在所有Graphics Tier中应相同;             
+Android设置中的ManagedStrippingLevel选项不应为Low或者Disabled:这会增加包体积;检查Android的ManagedStrippingLevel设置;检查Editor -> Project Settings -> PlayerSettings -> Managed Stripping Level的设置;ndroid设置中的ManagedStrippingLevel选项应为Medium或者High;        
+iOS设置中的Architecture选项不应为Universal;这会增加包体积. 如果工程并不准备支持32位的 iOS 设备, 将其设为 ARM64;检查iOS的Architecture设置;检查Editor -> Project Settings -> PlayerSettings -> Architecture的设置;iOS设置中的Architecture选项不应为Universal;
+iOS设置中的AccelerometerFrequency选项应为 Disabled;如果项目没有用到设备的加速度计, 禁用 AccelerometerFrequency 可以节省一些 CPU 处理时间;检查iOS的AccelerometerFrequency设置;检查Editor -> Project Settings -> PlayerSettings -> Accelerometer Frequency的设置;iOS设置中的AccelerometerFrequency选项应为 Disabled;                
+在 iOS 的 GraphicsAPIs 设置里应只包含 Metal:如果设备支持Metal, 在 GraphicsAPIs 里只开启 Metal 可以减少包体积和得到更好的 CPU 表现;检查iOS的GraphicsAPIs设置;检查Editor -> Project Settings -> PlayerSettings -> GraphicsAPIs的设置;在 iOS 的 GraphicsAPIs 设置里应只包含 Metal;           
+"Editor iOSManagedStrippingLevel Setting":iOS设置中的ManagedStrippingLevel选项不应为Low;这会增加包体积;检查iOS的ManagedStrippingLevel设置;检查Editor -> Project Settings -> PlayerSettings -> Managed Stripping Level的设置;iOS设置中的ManagedStrippingLevel选项应为Medium或者High;                 
+不建议使用Resources系统来管理asset;使用Resources系统可能会延长程序的启动时间。此系统已经过时，不建议使用。检查项目目录下是否存在Resources文件夹;不建议使用Resources系统来管理asset;     
 ```
