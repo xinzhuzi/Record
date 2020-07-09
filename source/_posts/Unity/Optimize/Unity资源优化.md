@@ -173,86 +173,26 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 ```
 检查读/写标志:开启FBX资源的读/写标志会导致双倍的内存占用;FBX资源的读/写标志应该被禁用      
 检查动画资源压缩方式:动画资源使用最佳压缩方式可以提高加载效率;查看Inspector -> Animation Tab -> Anim. Compression选项;动画资源应该使用最佳压缩方式      
-{
-        "id": 5004,
-        "name" : "Mesh OptimizeMesh",
-        "description": {
-          "en": "OptimizeMesh should be enabled for Mesh asset",
-          "zh": "应为网格资源启用OptimizeMesh"
-        },
-        "longDescription": {
-          "en": "Enabling OptimizeMesh can reduce the size of mesh asset",
-          "zh": "为网格资源启用OptimizeMesh可以减少最终游戏包的大小"
-        },
-        "nameDescription": {
-          "en": "Check OptimizeMesh for Mesh asset",
-          "zh": "检查网格资源的OptimizeMesh"
-        },
-        "hint": {
-          "en": "Check option under: Inspector -> Model Tab -> Meshes -> Optimize mesh",
-          "zh": "查看Inspector -> Model Tab -> Meshes -> Optimize mesh选项"
-        },
-        "advices": [
-          {
-            "id": 5004001,
-            "description": {
-              "en": "OptimizeMesh should be enabled for Mesh asset",
-              "zh": "应为网格资源启用OptimizeMesh"
-            }
-          }
-        ]
-
-        {
-        "id": 5006,
-        "name" : "FBX Vertex Count",
-        "description": {
-          "en": "There is too many vertices in FBX asset, default limit is 500",
-          "zh": "在FBX资源中有太多的顶点, 默认阈值是500"
-        },
-        "longDescription": {
-          "en": "Too many vertices in FBX asset, check if it is necessary",
-          "zh": "FBX资源资源中有太多的顶点, 请检查是否必要"
-        },
-        "nameDescription": {
-          "en": "Check FBX vertex count",
-          "zh": "检查FBX资源定点数"
-        },
-        "customParameters": [
-          {
-            "name": "vertexCountLimit",
-            "description": {
-              "en": "Vertex Count Limit",
-              "zh": "顶点数量限制"
-            }
-          }
-        ],
-        "advices": [
-          {
-            "id": 5006001,
-            "description": {
-              "en": "Too many vertices in FBX asset",
-              "zh": "FBX资源资源中有太多的顶点"
-            },
-            "subDescription": {
-              "en": "Vertex count is %s",
-              "zh": "顶点数量为%s"
-            }
-          }
-        ]
-      }
+应为网格资源启用OptimizeMesh;为网格资源启用OptimizeMesh可以减少最终游戏包的大小;检查网格资源的OptimizeMesh;查看Inspector -> Model Tab -> Meshes -> Optimize mesh选项;应为网格资源启用OptimizeMesh;        
+在FBX资源中有太多的顶点, 默认阈值是500;FBX资源资源中有太多的顶点, 请检查是否必要;检查FBX资源定点数;顶点数量限制;FBX资源资源中有太多的顶点;顶点数量有多少;             
 ```
 * 4 Prefab
 ```
-检查粒子系统的发射速率:当粒子系统渲染Mesh时(Inspector: Particle System -> Renderer -> Render Mode == Mesh), 相比于渲染Billboard时计算资源消耗会明显上升，因此需要对粒子发射速率加以限制;检查Inspector -> Particle System -> Emission -> Rate over Time/Distance配置;渲染Mesh的粒子系统不宜设置过高的粒子发射速率        
+Prefab Max Particle Limit;渲染Mesh的粒子系统不宜设置过高的粒子总数, 默认阈值为30;当粒子系统渲染Mesh时(Inspector: Particle System -> Renderer -> Render Mode == Mesh), 相比于渲染Billboard时计算资源消耗会明显上升，因此需要对粒子总数加以限制;检查最高粒子总数限制;检查Inspector -> Particle System -> Max Particles配置;渲染Mesh的粒子系统不宜设置过高的粒子总数;              
+检查粒子系统的发射速率:当粒子系统渲染Mesh时(Inspector: Particle System -> Renderer -> Render Mode == Mesh), 相比于渲染Billboard时计算资源消耗会明显上升，因此需要对粒子发射速率加以限制;检查Inspector -> Particle System -> Emission -> Rate over Time/Distance配置;渲染Mesh的粒子系统不宜设置过高的粒子发射速率, 不应超过5             
 检查Skinned Mesh Renderer:启用Skinned Motion Vectors会使渲染器同时使用当前帧和上一帧的蒙皮网络来渲染目标的动画以提高精度，从而需要双倍大小的缓冲区并占用双倍的显存;启用Skinned Motion Vectors将以消耗双倍内存为代价提高蒙皮网格的精度;      
 检查网格读/写标记:被预制件关联的网格资源应该关闭读/写标记;被预制件关联的网格资源应该关闭读/写标记       
 ```
 * 5 Scene
 ```
-检查场景未添加tag的GameObject:场景中的所有GameObject都应当添加tag
-;场景包含未添加tag的GameObject;     
+检查场景未添加tag的GameObject:场景中的所有GameObject都应当添加tag;场景包含未添加tag的GameObject;          
+Scene Multiple Audio Listeners:一个场景不应包含多个Audio Listener;一个场景不应包含多个Audio Listener;检查场景中的Audio Listener;检查场景中所有GameObject下的Audio Listener组件;场景包含多个音频侦听器;                    
 检查场景中mesh collider:Mesh Collider可以在场景中提供更精细化的碰撞检测，随之而来也会消耗大量计算资源，建议审慎使用。 检查场景中所有GameObject下的Mesh Collider组件;场景包含了mesh collider;        
-检查场景渲染设置:在移动平台，建议在渲染设置中关闭对雾的渲染以节省计算资源。检查Window -> Rendering -> Lighting Settings -> Scene -> Other Settings -> Fog选项;在移动平台，应在设置里关闭雾的渲染
+检查场景渲染设置:在移动平台，建议在渲染设置中关闭对雾的渲染以节省计算资源。检查Window -> Rendering -> Lighting Settings -> Scene -> Other Settings -> Fog选项;在移动平台，应在设置里关闭雾的渲染;           
+Scene Shadow Resolution;场景中灯光的阴影分辨率应与项目设置一致;场景中灯光的阴影分辨率应与项目设置一致;检查场景阴影分辨率;检查Inspector -> Light -> Shadow Type -> Realtime Shadows -> Resolution选项，建议使用'Use Quality Settings';场景中灯光的阴影分辨率应与项目设置一致;            
+Scene Rigidbody;场景中的静态GameObject不应关联Rigidbody;静态GameObject的Rigidbody模块是无用的;检查场景中的Rigidbody;静态GameObject不应关联Rigidbody;        
+Scene Canvas Component;包含太多组件的Canvas可能会影响UI刷新的性能;包含太多组件的Canvas可能会影响UI刷新的性能，并进一步影响应用的帧率;检查Canvas中的component数量;包含太多组件的Canvas可能会影响UI刷新的性能;            
+Scene UI Outside Screen;场景包含屏幕外的UI组件;放置在屏幕外的UI组件尽管不可见仍会消耗渲染资源，建议删掉此组件或者修正可能出现的设置错误;检查屏幕外的UI组件;场景包含屏幕外的UI组件;            
 检查场景Animator组件中的ApplyRootMotion选项:如果不需要进行根骨骼动画位移, 建议关闭场景中Animator组件的applyRootMotion选项。场景中包含勾选了applyRootMotion选项的Animator组件;       
 检查场景Animator组件中的cullingMode:场景中Animator组件的cullingMode是AlwaysAnimate会增加CPU使用率。场景中包含cullingMode为AlwaysAnimate的Animator组件;
 ```
@@ -264,19 +204,22 @@ GC.Collect;    GC.FindLiveObjects,GC.MarkDependencies;UnloadScene|
 ```
 * 7 Shader
 ```
-检查Shader中纹理数量:Shader中过多的纹理可能会增加GPU消耗;Shader中的纹理个数应小于3;
+检查Shader中纹理数量:Shader中过多的纹理可能会增加GPU消耗;Shader中的纹理个数应小于3,Shader Texture Count
 ```
 
 * 8 Texture
 ```
 检查纹理读/写标记:开启纹理资源的读/写标志会导致双倍的内存占用; 检查Inspector -> Advanced -> Read/Write Enabled选项;纹理资源的读/写标志应被禁用;         
 检查Mipmap标记:未压缩的纹理资源启用Mipmap标志会增加内存占用; 检查Inspector -> Advanced -> Generate Mip Maps选项;未压缩的纹理应该禁用mipmap ;        
+Texture iOS compression format;检查iOS平台的纹理压缩格式;检查iOS平台的纹理压缩格式;iOS平台纹理压缩格式;如果希望对各平台统一设置压缩格式，检查Inspector -> Default -> Format选项; 如果希望为iOS平台单独设置，打开旁边的iOS选项卡，勾选Override for iOS并检查下面的Format选项;iOS平台的纹理格式应该是astc;对iOS平台使用默认值，但格式不是Automatic;         
 Android平台纹理压缩格式:检查Android平台的纹理压缩格式;如果希望对各平台统一设置压缩格式，检查Inspector -> Default -> Format选项; 如果希望为Android平台单独设置，打开旁边的Android选项卡，勾选Override for Android并检查下面的Format选项;对安卓平台使用默认值，但格式不是Automatic;           
 纹理资源大小2的幂次:大小非2的幂次的纹理资源将无法使用ETC1和PVRTC压缩格式。在导入时自动伸缩为2的幂次也可能会导致内存占用或者贴图质量问题。 检查Inspector -> Advanced -> Non-Power of 2选项. 建议使用原始大小为2的幂次的贴图;纹理大小不是2的幂次;         
-检查纹理是否过大:过大的纹理资源会更多的消耗内存;Custom Parameters: heightThreshold : 512widthThreshold : 512;纹理大于 512 * 512 ;                
+检查纹理是否过大:过大的纹理资源会更多的消耗内存;Custom Parameters: heightThreshold : 512widthThreshold : 512;纹理大于 512 * 512 ;       
+检查Aniso级别:检查Inspector -> Aniso Level滑动条;纹理资源的Aniso级别大于1;Aniso级别大于1的纹理资源会增加内存占用和采样率;纹理资源的Aniso级别不应大于1;                
 检查纹理资源的过滤模式:纹理的过滤模式一般不建议使用Trilinear，会占用较高的计算资源。 检查Inspector -> Filter Mode选项;纹理使用了Trilinear过滤模式;          
 检查纹理资源alpha通道:如果纹理包含空的alpha通道，则应禁用'Alpha源'标志，否则会浪费这部分的内存。 检查Inspector -> Alpha Source选项;应禁用具有空Alpha通道的纹理的‘Alpha源’标志;          
 检查纯色纹理:纯色纹理的使用可能可以由一些设置来代替。由于某些情况下纯色纹理是必不可少的，此警告仅会在所使用的纹理较大(>16*16)时才会触发。纯色纹理会浪费内存;        
+Texture edge transparent;边缘有较大透明部分的纹理应裁剪以节省内存;边缘有较大透明部分的纹理应裁剪以节省内存;检查纹理透明边缘;边缘有较大透明部分的纹理应裁剪以节省内存;           
 检查纹理重复环绕模式:Repeat Wrap模式可能会导致纹理上出现意外的边缘; 检查Inspector -> Wrap Mode选项;重复环绕模式可能会导致纹理上出现意外的边缘;     
 检查重复纹理:检查重复纹理;纹理重复          
 检查雪碧图纹理填充率:填充率是雪碧图分割后的有效面积与总面积的比率，较低的雪碧图纹理填充率会导致显存的浪费。Custom Parameters: fillRateThreshold : 0.5onlyCheckSprite : True; 尝试重新编排雪碧图，尽量缩小总面积以提高填充率;sprite填充率低于 0.5
@@ -307,4 +250,18 @@ iOS设置中的AccelerometerFrequency选项应为 Disabled;如果项目没有用
 在 iOS 的 GraphicsAPIs 设置里应只包含 Metal:如果设备支持Metal, 在 GraphicsAPIs 里只开启 Metal 可以减少包体积和得到更好的 CPU 表现;检查iOS的GraphicsAPIs设置;检查Editor -> Project Settings -> PlayerSettings -> GraphicsAPIs的设置;在 iOS 的 GraphicsAPIs 设置里应只包含 Metal;           
 "Editor iOSManagedStrippingLevel Setting":iOS设置中的ManagedStrippingLevel选项不应为Low;这会增加包体积;检查iOS的ManagedStrippingLevel设置;检查Editor -> Project Settings -> PlayerSettings -> Managed Stripping Level的设置;iOS设置中的ManagedStrippingLevel选项应为Medium或者High;                 
 不建议使用Resources系统来管理asset;使用Resources系统可能会延长程序的启动时间。此系统已经过时，不建议使用。检查项目目录下是否存在Resources文件夹;不建议使用Resources系统来管理asset;     
+```
+
+11 Mesh
+```
+Mesh Read&Write Flag:应为网格资源禁用读/写标志;开启Mesh资源的读/写标志会导致双倍的内存占用;检查网格资源读/写标记;网格资源应禁用读/写标志;       
+```
+
+12 Model
+```
+Model Read&Write Flag;应为模型资源禁用读/写标志;开启M资源的读/写标志会导致双倍的内存占用;检查模型资源读/写标记;模型资源应禁用读/写标志;     
+```
+13 Video
+```
+导入的视频文件大小应小于某一限制，默认为256MB;检查视频大小;导入的视频文件体积不应过大;视频大小限制;;      
 ```
