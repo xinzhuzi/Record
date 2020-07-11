@@ -8,10 +8,12 @@ tags:
 - Unity优化
 ---
 
-https://zhuanlan.zhihu.com/p/61105374
 
-# 官方视频
+
+# 参考资料
+https://docs.unity.cn/cn/current/Manual/BestPracticeGuides.html
 https://www.bilibili.com/video/BV1aJ411t7N6
+https://zhuanlan.zhihu.com/p/61105374
 
 # GC
 * 1:[GC优化](https://mp.weixin.qq.com/s/ARNJtujrHKgxBWuanO0tpA)
@@ -262,7 +264,7 @@ new实例|	返回值本身|	返回内存地址，如果垃圾回收器第0代内
 
 * 怎么确定数据分配到了哪个内存区？怎么确定数据分配在栈还是堆上？
 > 值类型和指针总分配在被声明的地方，即他们的分配与声明的位置有关，声明在哪儿就分配在哪儿
-> 非空引用类型对象和所有装箱值类型对象总是分配在堆内存上
+> 非空引用类型对象和所有装箱值类型对象总是分配在堆内存上;严格来说，必须在托管堆上分配所有非 null 引用类型对象和所有装箱值类型对象
 > 栈内存由当前线程管理,堆内存由 GC 管理
 
 * 值类型一定分配在栈上吗？
