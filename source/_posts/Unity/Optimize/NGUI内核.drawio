@@ -1,56 +1,53 @@
-<mxfile host="" modified="2020-05-23T12:20:59.151Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.45.1 Chrome/78.0.3904.130 Electron/7.2.4 Safari/537.36" etag="d5xur5drPxMkIszUmGvs" version="13.1.3">
+<mxfile host="53835680-8acd-430a-a1bc-49896b550070" modified="2020-07-16T08:28:41.286Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.47.1 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="PHALrcn20Z-9xtFVzqHN" version="13.1.3">
     <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
-        <mxGraphModel dx="1378" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="3031" dy="1984" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="2" value="BetterList是System.Collections.Generic的改进版本.优点是:在 Clear()不会释放缓冲区列表,GC 更少,添加和删除比 List 更快.缺点是排序比 List 很差." style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="70" y="50" width="300" height="140" as="geometry"/>
+                    <mxGeometry x="150" y="190" width="300" height="140" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="字体&lt;br&gt;BMFont字体,BMGlyph字形,BMSymbol 字符(富文本).&lt;br&gt;NGUIText 动态字体相关的工具类" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="490" y="50" width="300" height="130" as="geometry"/>
+                <mxCell id="24" value="UIRoot 管理屏幕的缩放比例" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-1310" y="-110" width="280" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="ByteReader,自定义行阅读器" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="230" width="260" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="12" value="EventDelegate,事件委托,事件传递的核心类,&lt;br&gt;UIEventListener,给对象添加事件" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="600" width="280" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="13" value="Localization 多语言本地化管理器,可以从 CSV 里面读取数据" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="510" y="230" width="280" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="14" value="NGUIDebug,内部使用,使用 OnGUI显示在屏幕左上角" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="330" width="260" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="15" value="NGUIMath计算工具类.&lt;br&gt;NGUITools音频,磁盘,碰撞器,对象的层次结构,查找 xxx,添加xxx,调整位置等等" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="320" width="280" height="120" as="geometry"/>
-                </mxCell>
-                <mxCell id="16" value="PropertyBinding 属性绑定,观察者模式设计,绑定 2 个属性,一个改变,另一个随即改变.&lt;br&gt;PropertyReference,可以通过 Inspector 设置特定字段与属性." style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="90" y="430" width="260" height="130" as="geometry"/>
-                </mxCell>
-                <mxCell id="17" value="SpringPanel,给 ScrollView 添加滑动,也可以用于其他Panel,类似于弹簧,主要手感" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="500" width="280" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=18;" parent="1" source="19" target="20" edge="1">
+                <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="26" target="27">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="UIRect&lt;br&gt;抽象的 UI 矩形,每个 UI 都在屏幕以矩形而展示,矩形是包含这个 UI 的边框,继承 Monobehaviour" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="620" width="290" height="90" as="geometry"/>
+                <mxCell id="26" value="UIRect确定一个 UI 以矩形的方式进行绘制" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-560" y="-100" width="280" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=18;" parent="1" source="20" target="22" edge="1">
+                <mxCell id="33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="27" target="32">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="UIWidget&lt;br&gt;创建其他 UI 的时候应该继承自此类,这是一个容器单位类,更新几何,填充变化," style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="790" width="290" height="90" as="geometry"/>
+                <mxCell id="27" value="UIPanel,收集排序以及更新 UIWidget,生成几何形状生成 Mesh" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-560" y="60" width="280" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="UIBasicSprite&lt;br&gt;主要是绘制 Sprite 的功能" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="960" width="290" height="90" as="geometry"/>
+                <mxCell id="37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="32" target="36">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="24" value="UIDrawCall" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="730" width="280" height="80" as="geometry"/>
+                <mxCell id="32" value="UIWidget,容器单位,更新数据,保存几何数据" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-560" y="220" width="280" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="UIGeometry&lt;br&gt;几何数据缓存类,所有的 widget 都有这样一个类,可以根据此内容判断某个 widget 内容发生了改变,根据改变的 widget 进行重建,使用此类,会增加内存,但是也有性能上面的提升." style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
-                    <mxGeometry x="70" y="970" width="280" height="160" as="geometry"/>
+                <mxCell id="38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="36" target="2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="UIGeometry 保存UIWidget 的几何数据,提供给渲染层,顶点,颜色,UV 等数据" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-200" y="220" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="UICamera管理整个事件系统,所有事件都是从这个类发出,然后到某个脚本里面的,事件系统" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-1310" y="30" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="NGUIAtlas 图集一系列" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-1310" y="190" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="NGUIFont 字体一系列" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-1310" y="350" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="34" target="26">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="NGUI 渲染系列" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="-560" y="-270" width="280" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
