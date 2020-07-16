@@ -19,8 +19,11 @@ tags:
 
 # NGUI优化
 ![NGUI代码文件](NGUIFile.png)
+![NGUI内核](NGUIInternal.png)
 
-* https://blog.uwa4d.com/archives/USparkle_NGUI.html
+* 参考文档:         
+https://blog.uwa4d.com/archives/USparkle_NGUI.html,       
+https://zhuanlan.zhihu.com/p/102544809
 * 元素更新方式:一个 UI 展示在界面上面,是将图片以及文字转换成为顶点,UV,颜色,法线,切线,三角形顶点索引等合成 Mesh,然后在 GPU 上面呈现响应的人体识别的像素.
 * 使用 BetterList进行优化
 * 对于 NGUI 使用大量的 SetActive(false),适量的:Color.a=0,移除,Timer+二级缓存
