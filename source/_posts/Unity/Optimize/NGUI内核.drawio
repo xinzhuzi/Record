@@ -8,7 +8,7 @@
                     <mxGeometry x="150" y="190" width="300" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="24" value="UIRoot 管理屏幕的缩放比例" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="-1310" y="-110" width="280" height="80" as="geometry"/>
+                    <mxGeometry x="-970" y="-270" width="280" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="26" target="27">
                     <mxGeometry relative="1" as="geometry"/>
