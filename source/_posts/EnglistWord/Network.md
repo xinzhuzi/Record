@@ -41,3 +41,6 @@ tags:
 |服务器|server|
 |用户|user|
 |对等连接/P2P|peer-to-peer|
+|路由器|router|
+|分组交换|packet switching|
+|交换|switching|
