@@ -44,3 +44,18 @@ tags:
 |路由器|router|
 |分组交换|packet switching|
 |交换|switching|
+|报文|message|
+|header|首部|
+|分组|packet|
+|报文交换|message switching|
+|广域网 WAN|Wide Area Network|
+|远程网 WAN|long haul network|
+|城域网 MAN|Metropolitan Area Network|
+|局域网 LAN|Local Area Network|
+|个人区域网 PAN|pERSONAL aREA nETWORK|
+|无限个人区域网 WPAN|Wireless PAN|
+|公用网/公众网|public network|
+|专用网|private network|
+|比特/0或者1|bit/binary digit|
+|数据率|data rate|
+|比特率|bit rate|
