@@ -59,3 +59,31 @@ tags:
 |比特/0或者1|bit/binary digit|
 |数据率|data rate|
 |比特率|bit rate|
+|网络协议|network protocol|
+|激活|activate|
+|系统网络体系结构/SNA|system network architecture|
+|开放系统互连基本参考模型 OSI/RM|open systems interconnection reference model|
+|体系结构|architecture|
+|实现|implementation|
+|应用层|application layer|
+|运输层|transport layer|
+|传输控制协议TCP|transmission control protocol|
+|用户数据报协议 UDP|User Datagram Protocol|
+|网络层|network layer|
+|异构|heterogeneous|
+|网际协议IP|Internet protocol|
+|数据链路层|data link layer|
+|帧|frame|
+|物理层|physical layer|
+|TCP/IP 协议簇|protocol suite|
+|协议数据单元 PDU|protocol Data Unit|
+|对等层|peer layers|
+|协议栈|protocol stack|
+|实体|entity|
+|服务访问点SAP|service access point|
+|服务数据单元 SDU|service data unit|
+|源点|source|
+|终点|destination|
+|信号|signal|
+|调制|modulation|
+|载波|carrier|
