@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>1 Canvas | 新诸子</title>
-  <meta name="keywords" content=" UGUI ">
-  <meta name="description" content="1 Canvas | 新诸子">
+  <title>图片与字符串互转 | 新诸子</title>
+  <meta name="keywords" content=" UnityEditor ">
+  <meta name="description" content="图片与字符串互转 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -859,9 +859,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Unity/UGUI/介绍" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Unity/Utils/小技巧" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">1 Canvas</h1>
+        <h1 class="article-title">图片与字符串互转</h1>
     
     <div class="article-meta">
         
@@ -871,26 +871,26 @@
         
         <span class="book">
             
-                <a  data-rel="UGUI">UGUI</a>
+                <a  data-rel="Unity">Unity</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color5">UGUI</a>
+            <a class="color2">UnityEditor</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-07-25 16:51:34'>2020-05-11 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-09-24 13:35:50'>2020-05-11 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:4.3k</span>
+        <span>字数:169</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -920,7 +920,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UGUI-介绍"><span class="toc-text">UGUI 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RectTransform"><span class="toc-text">RectTransform</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UGUI-的-C-层"><span class="toc-text">UGUI 的 C++ 层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UI整体介绍"><span class="toc-text">UI整体介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UGUI原理介绍"><span class="toc-text">UGUI原理介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见问题"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#规范"><span class="toc-text">规范</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -936,126 +936,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="UGUI-介绍"><a href="#UGUI-介绍" class="headerlink" title="UGUI 介绍"></a>UGUI 介绍</h1><ul>
-<li>1 Unity 原生的 UI 系统,与 NGUI 的作者是一个,但是 UGUI 有官方的加持,意思就是,UGUI 的有些代码放在了 C++ 层管理,而 NGUI 是没有代码放在 C++ 层管理的.</li>
-<li>2 UGUI,NGUI都属于游戏运行时展示的 UI; UIWidgets 属于为 APP 设计的 UI ,用于APP 展示,和游戏关系不太大;FGUI 在 Unity,Coco,UE游戏引擎上面都可以使用.</li>
-<li>3 编辑器 UI,意思就是只在 Unity 编辑器里面搭建的UI,用于帮助工具,方便使用而创建的;有一套 GUI,已逐渐不再使用,就是在OnGui()函数里写的那些东西; IMGUI 则替代了GUI原来的作用：用于游戏调试和自定义Inspector面板,目前都使用 IMGUI;UI Element是 2019 版最新的 UI 系统,替代 IMGUI 而存在的;</li>
-<li>4 UGUI,NGUI,UI Element,IMGUI,GUI,UIWidgets,FGUI都可以使用,其中UGUI,NGUI,FGUI是一类,UI Element,IMGUI,GUI是一类,UIWidgets是一类;艹,耍我们就跟耍猴子一样,这么多 UI,UI 仔都不一定能全部了解.</li>
-</ul>
-<h1 id="RectTransform"><a href="#RectTransform" class="headerlink" title="RectTransform"></a>RectTransform</h1><ul>
-<li>1 Pivot 轴心的概念,在RectTransform的 Inspector 展示的效果里面,是一个小圆,在某一点上面的一个蓝色的圆,轴心是相对于当前控件本身的位置,轴心的位置会影响旋转、大小调整或缩放的结果.一般情况下,轴心是在矩形框内部的;但是也有在外部的情况,这种情况不好控制,一般是旋转使用.矩形旋转围绕的轴心点的位置，定义为矩形本身大小的一个比例。0,0 相当于左下角，而 1,1 相当于右上角。</li>
-<li>2 Anchors 锚点的概念,在RectTransform的 Inspector 展示的效果里面,是 4 个花瓣,4 个花瓣可以分开,也就是说,锚点有 4 个,锚点是相对于当前控件的父控件来描述其相对位置的.用来解决,父控件进行的变换,对子控件的影响,当父控件进行旋转、大小调整或缩放,子控件也相应的进行旋转、大小调整或缩放.</li>
-</ul>
-<h1 id="UGUI-的-C-层"><a href="#UGUI-的-C-层" class="headerlink" title="UGUI 的 C++ 层"></a>UGUI 的 C++ 层</h1><ul>
-<li>1 有些控件表面上是属于 UGUI 的,但是在 UGUI 的源码里面又找不到其核心代码,只是在 C# 层暴漏了接口.</li>
-<li>2 Canvas.cs CanvasGroup.cs CanvasRender.cs 在 UGUI 的源码里面都看不见其核心代码,Canvas里面的方法可能会在子线程中执行</li>
-</ul>
-<h1 id="UI整体介绍"><a href="#UI整体介绍" class="headerlink" title="UI整体介绍"></a>UI整体介绍</h1><ul>
-<li>1 可视化 UI : Text(文本),Image(图像),Raw Image(原始图像),Mask(遮罩);</li>
-<li>2 事件交互 UI : 按钮 (Button),开关 (Toggle),开关组 (Toggle Group),滑动条 (Slider),滚动条 (Scrollbar),下拉选单 (Dropdown),输入字段 (Input Field),滚动矩形/滚动视图 (Scroll Rect/Scroll View);</li>
-<li>3 自动布局:布局元素,Minimum width(最小宽度);Minimum height(最小高度);Preferred width(首选/偏好的宽度);Preferred height(首选/偏好的高度);Flexible width(灵活/最大的宽度);Flexible height(灵活/最大的高度); 布局组中的布局元素大小设置的基本原则如下:1)首先分配最小大小。2)如果有足够的可用空间，则分配偏好大小。3)如果有额外的可用空间，则分配灵活大小。布局元素组件(Layout Element),内容大小适配器 (Content Size Fitter),宽高比适配器 (Aspect Ratio Fitter)</li>
-<li>4 富文本</li>
-</ul>
-<h1 id="UGUI原理介绍"><a href="#UGUI原理介绍" class="headerlink" title="UGUI原理介绍"></a>UGUI原理介绍</h1><ul>
-<li><p>1 Canvas Batch: Canvas下的UI元素最终都会被Batch到同一个Mesh中，而在Batch前，会根据这些UI元素的材质（通常就是Atlas）以及渲染顺序进行重排，在不改变渲染结果的前提下，尽可能将相同材质的UI元素合并在同一个SubMesh中，从而把DrawCall降到最低。Batch的结果会被缓存复用，直到这个Canvas被标记为dirty。</p>
-</li>
-<li><p>2 影响合批的因素: Unity官方的重要提示：当给定Canvas上的任何可绘制UI元素发生更改时，Canvas必须重新执行合批过程。此过程重新分析Canvas上的每个可绘制UI元素，不管它是否被修改。注意，“更改”是指影响UI元素外观的任何变动，包括修改sprite renderer的sprite、transform的position和scale、文本网格的text等。</p>
-</li>
-<li><p>3 Canvas嵌套：Canvas可以嵌套使用，一个子Canvas下dirty的子物体不会触发父Canvas的rebuild。</p>
-</li>
-<li><p>4 UI顶点属性变化会引发网格更新:<br>修改Image、Text的color属性，会改变UIVertex.color;<br>修改RectTransform的Size、Anchors、Pivot等，会改变UIVertex.position;<br>注意：在UGUI中颜色的变化是通过修改顶点色实现的，避免生成了新的DrawCall;<br>注意：UIVertex.position记录的是本地空间下的坐标;            </p>
-</li>
-</ul>
-<hr>
-<p><img src="/2020/05/11/Unity/UGUI/%E4%BB%8B%E7%BB%8D/%E9%87%8D%E5%BB%BA%E6%B5%81%E7%A8%8B.png" alt="重建流程"></p>
-<ul>
-<li>1 该过程由CanvasUpdateRegistry监听Canvas的WillRenderCanvases（上图中1）而执行,主要是对当前标记为dirty的layout和graphic执行rebuild。</li>
-<li>2 在rebuild layout之前会对Layout rebuild queue中的元素依据它们在heiarchy中的层次进行排序（上图中的2），排列的结果是越靠近根的节点越会被优先处理。</li>
-<li>3 rebuild layout（上图中的3）,主要是执行ILayoutElement和ILayoutController接口中的方法来计算位置，Rect的大小等布局信息。</li>
-<li>4 rebulid graphic（上图中的4）,主要是调用UpdateGeometry重建网格的顶点数据（上图中5）以及调用UpdateMeterial更新CanvasRender的材质信息（上图中6）。</li>
-<li>5 为什么在rebuild layout的时候，要优先处理根节点的元素?</li>
-</ul>
-<hr>
-<p>合批原理            </p>
-<ul>
-<li>1 UGUI的合批规则是进行重叠检测，然后分层合并。</li>
-<li>2 第一步计算每个UI元素的层级号(类似于 NGUI 的 Depth)：如果有一个UI元素，它所占的矩形范围内，如果没有任何UI在它的底下，那么它的层级号就是0（最底下）；如果有一个UI在其底下且该UI可以和它Batch，那它的层级号与底下的UI层级一样；如果有一个UI在其底下但是无法与它Batch，那它的层级号为底下的UI的层级+1；如果有多个UI都在其下面，那么按前两种方式遍历计算所有的层级号，其中最大的那个作为自己的层级号。</li>
-<li>3 第二步合并相同层级中可以Batch的元素作为一个批次，并对批次进行排序 ：有了层级号之后，Unity会将每一层的所有元素进行一个排序（按照材质、纹理等信息），合并掉可以Batch的元素成为一个批次。经过以上排序，就可以得到一个有序的批次序列了。这时Unity会再做一个优化，即如果相邻间的两个批次正好可以Batch的话就会进行Batch。合批的Batch数据，最后会分别放在CanvasMesh的SubMesh里。</li>
-</ul>
-<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><p>开发过程中四个常见的问题<br>过多的GPU片段着色器使用率（如屏幕填充率过高）<br>过多的CPU时间开销在重建一个画布上<br>过多的CPU时间开销在生成顶点上（通常是文本）<br>过多的画布重建次数      </p>
-<p>针对这四个问题来分组介绍优化策略<br>网格重建优化策略(优化 Mesh)        </p>
-<blockquote>
-<ul>
-<li>1 使用尽可能少的UI元素：在制作UI时，一定要仔细查检UI层级，删除不必要的UI元素，这样可以减少深度排序的时间以及Rebuild的时间。</li>
-<li>2 减少Rebuild的频率：将动态UI元素（频繁改变例如顶点、alpha、坐标和大小等的元素）与静态UI元素分离出来，放到特定的Canvas中。</li>
-<li>3 谨慎使用UI元素的active操作：因为它们会触发耗时较高的rebuild。使用 Scale 代替.</li>
-<li>4 谨慎使用Canvas的Pixel Perfect选项：该选项的开启会导致UI元素在发生位移时，其长宽会被进行微调（为了对齐像素），从而造成layout Rebuild。（比如ScrollRect滚动时，会使得Canvas.SendWillRenderCanvas消耗较高）</li>
-<li>5 Animator最佳用法： Animator每帧都会改变元素，即使动画中的数值没有变化，因为Animator没有空指令检查。对于仅响应事件时才变化的元素，可以自行编写代码或使用第三方补间插件。换成 DoTween</li>
-<li>6 谨慎用Tiled类型的Image</li>
-</ul>
-</blockquote>
-<p>屏幕填充率优化策略(OverDraw)      </p>
-<blockquote>
-<ul>
-<li>1 禁用不可见的面板：比如当打开一个系统时如果完全挡住了另外一个系统，则可以将被遮挡住的系统面板禁用。（龙与少女优化方案：通过修改Canvas对象的Layer隐藏面板。）</li>
-<li>2 不要使用空的Image做按键响应：在Unity中Raycast使用Graphic作为基本元素来检测touch。如果使用空的image也会产生不必要的overdraw。可以实现一个只在逻辑上响应Raycast但是不参与绘制的组件即可。使用网上的 Empty4Raycast 方案</li>
-<li>3 Polygon Mode Sprites：如果图片边缘有大片留白就会产生很多无用填充。Unity和Texture Packer目前都支持了Polygon Mode，也就是说将原来的矩形Sprite用更加紧致的Polygon来描述。</li>
-<li>4 Image Fill Center：在Image Type选项为Sliced的情况下，不需要Fill Center的时候去掉勾选。</li>
-</ul>
-</blockquote>
-<p>合批优化策略(DrawCall)        </p>
-<blockquote>
-<ul>
-<li>1 相同层级原则：父节点下所有子节点，尽量保持相同的层次结构。相同层级下的UI元素可以Batch.</li>
-<li>2 Mask组件：Mask组件使用了模版缓存，Mask中的UI元素无法与外界UI元素合批，Mask组件还会额外增加2个DrawCall.</li>
-<li>3 隐藏的Image：Image组件中sprite为空，都是占用drawcall渲染的，并且还会打断前后元素的合批。</li>
-<li>4 Screen Space-Camera模式：一个Canvas中的任何一个UI元素只要在屏幕中，则这个Canvas中的其他UI元素即使在屏幕外DrawCall仍不会减少。</li>
-<li>5 Hierarchy穿插重叠问题：如下图红点和Icon在不同图集中，如果红点稍微大一点，遮挡了旁边的Icon，就不能合批，须要调整Icon和红点的节点关系，4个Icons放在一个节点下，4个红点放在一个借点下。</li>
-</ul>
-</blockquote>
-<p>字体优化策略(Font)        </p>
-<blockquote>
-<ul>
-<li>1  字体图集的重建机制：当一个新文字出现的时候，会被添加到字体图集，如果图集已经没有空余的地方，那么图集会被重建。图集会以相同的尺寸重建，打包当前激活的所有UI text组件中要显示的文字，如果发现图集尺寸不够用的时候，图集会重新扩充尺寸。</li>
-<li>2 后备字体机制：对于字体库里没有的文字，会被放进后备字体图集里，后背字体图集会常驻内存里，不会被销毁。后备字体取自于系统自带的系统字库Arial.ttf，在发布的游戏安装包里该字库是不存在的。我们在一些Unity开发的游戏里，偶尔会发现一些生僻字的字形和其它常见文字的字形不统一。</li>
-<li>3 Text的网格重建：Text组件被重新启用的时候，会重建Text的网格。如果含有大量的文字，会造成严重的CPU开销。</li>
-<li>4 提前生成动态字体：准备游戏非常常用的文字集合，通过Font.RequestCharactersInTexture接口提前放入字体图集里。注意使用Font.textureRebuilt 委托，在字体图集被重新重建的时候，把我们提前准备的文字集合再次添加进去。</li>
-<li>5 使用美术数字：游戏的分数，可以使用美术数字（精灵图片）来代替Text组件</li>
-<li>6 谨慎使用Text的Best Fit选项：虽然这个选项可以动态的调整字体大小以适应UI布局而不会超框，但其代价是很高的，Unity会为用到的该元素所用到的所有字号生成图元保存在图集里，不但增加额外的生成时间，还会使得字体对应的图集变大。</li>
-<li>7 减少长文本Text的变动，慎用UI/Effect：描边和阴影效果都会增大四倍的顶点数</li>
-</ul>
-</blockquote>
-<p>滚动视图优化策划(ScrollView)        </p>
-<blockquote>
-<ul>
-<li>1  有两种方法填充滚动视图:用所有需要出现在滚动视图的元素填充滚动视图(子控件很少的情况下使用).用池处理这些元素，根据需要重新放置它们的位置(子控件很多,或者无限的情况下使用)</li>
-<li>2 RectMask2D组件：俩种方法可以通过给滚动视图添加一个RectMask2D组件来提高性能。该组件确保在滚动视图窗口外面的滚动视图元素不会出现在可画的元素列表中，省去了该元素的batch。</li>
-<li>3 一种简单的缓存池策略：在UI中布局中，使用带有Layout Element组件的对象占位（ Slot ）。给可见UI元素实例一个池，来填充滚动视图看可见区域，Slot作为父物体来定位。</li>
-<li>4 基于位置的缓存池策略：通过移动布局里UI元素的RectTransforms坐标值，来排序显示位置。通常写一个自定义的滚动视图类或者写一个自定义布局组的组件。</li>
-</ul>
-</blockquote>
-<p>其它优化策略        </p>
-<blockquote>
-<ul>
-<li>1 禁用无用的Raycast：UGUI的touch处理消耗也可能会成为性能热点。因为UGUI在默认情况下会对所有可见的Graphic组件调用raycast。对于不需要接收touch事件的grahic，一定要禁用raycast。（龙与少女为策划提供了检视的辅助脚本）</li>
-<li>2 OverrideSorting：子Canvas中的OverrideSorting属性将会造成Graphic Raycast测试停止遍历Transform层级。</li>
-<li>3 UI对象的坐标Z值：Z值不为零的时候会影响对象渲染顺序并不能合批。（例如：龙与少女里的阵型界面都是修改Spine的SortingOrder来实现位置排序）</li>
-<li>4 网格开销巨大：如果出现了WaitingForJob或PutGeometryJobFence，则说明合并网格开销巨大（子线程网格合并）</li>
-<li>5 高级技巧：对于处于选中播放动画的需求，并且所处canvas下内容比较多的情况下，可以单独把选中对象放到预先建好的动态canvas里，取消选中时再放回去。</li>
-<li>6 CanvasGroup的使用:在窗口的GameObject上添加一个CanvasGroup，通过控制它的Alpha值来淡入或淡出整个窗口;在窗口的GameObject上添加一个CanvasGroup，通过设置它Interactable值来控制底层所有控件的交互开关;在 UI 元素或其某个父元素上放置画布组 (Canvas Group) 组件并将其 Block Raycasts 属性设置为 false 来使一个或多个 UI 元素不阻止鼠标事件。</li>
-<li>7 使用 Profiler 以及 FrameDebug 检测</li>
-</ul>
-</blockquote>
-<h1 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h1><p>规范化的重要性：有规范就会有约束有限制，在一个团队的角度上来讲，大家遵守同一套规范，可以避免多余的沟通，增加开发效率，是保证团队协作、项目稳定推进的利器。</p>
-<p>设计模板：根据游戏风格和类型设计几套模板：尺寸(比如大中小三套)、布局(比如左右,左中右等)、样式(一级底+二级底+三级底)等，根据游戏内容选择模板，既保持UI统一，又能方便拼UI，大概百分之九十的窗口都在这几个模板中选择。其他比如充值等需要有表现力的窗口再自由设计尺寸和布局。</p>
-<p>路径一致性：美术UI目录和客户端目录保持一致，可以很方便替换新版UI，而不会出现名字不一致，目录不一致，策划找瞎眼的情况。</p>
-<p>图片命名：可以参考功能、颜色、尺寸等特点命名，命名尽量使用英文，可以添加前缀表示所属功能，后缀也可以使用拼音。</p>
-<p>公用图集：多个面板都会用到的图片放到公用图集里面。为了减少合批的障碍，有必要的时候，需要复制公共图片到单独的面板图集里。</p>
-<p>合理的出图尺寸：可以减小硬盘大小，减少第一次导入项目时的图片序列化时间。</p>
-<p>图片分类：图片可以根据用途分为UISprite、UIFrame 、 Icon、Photo、背景原画。<br>UISprite：尽量九宫格或者平铺，并且尽量复用。<br>UIFrame：是一些尺寸巨大的背景框。<br>Photo：英雄形象等大尺寸图片合并图集太大，因此不会打进图集。</p>
-<p>字体大小：研发过程中确立大中小几号字体。每级再分三类，一共九种字体大小。</p>
-<p>色值表：颜色可以由美术出一张色值表，包括一种颜色的RGBA值和16进制值，方便开发人员快速定位准确颜色。颜色值可以存储在unity的颜色模板里。</p>
+        <p>[MenuItem(“test/test”)]<br>    public static void ShowImage()<br>    {<br>        string headerPath = Application.dataPath + “/zhuzizheng/Images/“;<br>        List<string> fileContentsList = new List<string>();<br>        var files = Directory.GetFiles(headerPath, “*.png”);<br>        foreach (var fileName in files)<br>        {<br>            Debug.Log(fileName);<br>            fileContentsList.Add(string.Format(“public static Texture2D {0}Image()”, fileName.Replace(headerPath,””).Replace(“.png”,””)));<br>            fileContentsList.Add(“{“);<br>            fileContentsList.Add(“    string base64PNG =”);<br>            fileContentsList.Add(“    &quot;“ + Texture2dToBase64(fileName) + “&quot;;” );<br>            fileContentsList.Add(“    return LoadBase64String(base64PNG);” );<br>            fileContentsList.Add(“}\n” );<br>        }<br>        File.AppendAllLines(Application.dataPath + “Image.txt”, fileContentsList);<br>        Debug.Log(Application.dataPath + “Image.txt”);<br>    }</string></string></p>
+<pre><code>//图片转base64string
+public static string Texture2dToBase64(string texture2d_path)
+{
+    //将图片文件转为流文件
+    FileStream fs = new System.IO.FileStream(texture2d_path, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+    byte[]     thebytes = new byte[fs.Length];
 
+    fs.Read(thebytes, 0, (int)fs.Length);
+    //转为base64string
+    string base64_texture2d = Convert.ToBase64String(thebytes);
+    return base64_texture2d;
+}  
+//字符串转图片
+private static Texture2D LoadBase64String(string base64PNG)
+{
+    Texture2D pic  = new Texture2D(1024, 1024);
+    byte[]    data = System.Convert.FromBase64String(base64PNG);
+    pic.LoadImage(data);
+    byte[] bytes = pic.EncodeToPNG();
+    return pic;
+}</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
     </div>
@@ -1068,12 +970,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>1 Canvas</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">4.3k</span></p>
+    <p><span class="copy-title">Title:</span>图片与字符串互转</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">169</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
     <p><span class="copy-title">Created At:</span>2020-05-11, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-07-25, 16:51:34</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/Unity/UGUI/%E4%BB%8B%E7%BB%8D/" title="1 Canvas">http://yoursite.com/2020/05/11/Unity/UGUI/%E4%BB%8B%E7%BB%8D/</a>
+    <p><span class="copy-title">Updated At:</span>2020-09-24, 13:35:50</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/11/Unity/Utils/%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="图片与字符串互转">http://yoursite.com/2020/05/11/Unity/Utils/%E5%B0%8F%E6%8A%80%E5%B7%A7/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
