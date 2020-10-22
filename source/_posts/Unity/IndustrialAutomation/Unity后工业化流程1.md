@@ -32,6 +32,10 @@ tags:
 https://www.jianshu.com/p/5ad61bb45b32
 https://github.com/XINCGer/Unity3DTraining/tree/master/CI
 ```
+* 6:附加静态资源检测
+```
+https://upr.unity.cn/
+```
 
 # Jenkins 安装
 
@@ -44,3 +48,7 @@ https://www.jianshu.com/p/5ad61bb45b32
 # 最终效果
 
 https://www.jianshu.com/p/5ad61bb45b32
+
+# 静态资源检测
+* 1:使用 UPR 配合 Jenkins 检查游戏内的静态资源
+* 2:直接在 UPR 网站上面查看到项目资源
