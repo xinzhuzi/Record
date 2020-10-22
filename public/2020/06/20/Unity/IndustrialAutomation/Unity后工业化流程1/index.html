@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>正则表达式 | 新诸子</title>
-  <meta name="keywords" content=" re ">
-  <meta name="description" content="正则表达式 | 新诸子">
+  <title>Unity后工业化流程2 | 新诸子</title>
+  <meta name="keywords" content=" IndustrialAutomation ">
+  <meta name="description" content="Unity后工业化流程2 | 新诸子">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="页面未找到！">
 <meta property="og:type" content="website">
@@ -867,9 +867,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-RegularExpression/RegularExpression" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Unity/IndustrialAutomation/Unity后工业化流程1" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">正则表达式</h1>
+        <h1 class="article-title">Unity后工业化流程2</h1>
     
     <div class="article-meta">
         
@@ -877,26 +877,26 @@
         
         <span class="book">
             
-                <a  data-rel="正则表达式">正则表达式</a>
+                <a  data-rel="Unity">Unity</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color3">re</a>
+            <a class="color1">IndustrialAutomation</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='更新时间: 2020-05-15 10:55:07'>2020-05-08 11:41</time>
+            Created At : <time class="date" title='更新时间: 2020-10-22 10:51:16'>2020-06-20 11:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:12</span>
+        <span>字数:413</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -926,7 +926,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式"><span class="toc-text">正则表达式</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins-安装"><span class="toc-text">Jenkins 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#脚本编写"><span class="toc-text">脚本编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最终效果"><span class="toc-text">最终效果</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -942,7 +942,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>学习正则表达式</p>
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><ul>
+<li>1:打包自动化,快速便捷交付产品给测试,运营,发布商.输出的产品类型为: iOS xxx.ipa;Android xxx.apk;Window xxx.exe;Mac xxx.dmg</li>
+<li>2:程序通过 <a href="https://www.w3cschool.cn/jenkins/jenkins-5h3228n2.html" target="_blank" rel="noopener">Jenkins</a> 布置打包自动化流程,维护打包机,web 服务器等,只需要在 Jenkins 上面选择参数,点击构建,等待 10 分钟,即可得出最后结果.</li>
+<li>3:构建打包自动化学习条件<br>目前在 windows 上面打包 iOS 产品异常麻烦,选择 mac 构建 Android 以及 iOS 产品比较节省学习成本.(windows 和 Mac 都可以构建完成)<pre><code>1:windows 操作系统,windows 命令以及windows bat 文件编写,windows搭建 web 服务.
+2:mac操作系统,mac 命令以及mac shell 脚本编写,mac 搭建 web 服务
+3:Jenkins 基础,需要知道执行流程以及效果.
+4:unity 手动打包,unity 代码打包,unity 提供的打包命令
+6:Android Studio 打包,Xcode 打包 以及打包命令
+7:Python 基础,需要知道Python 类方法与其他脚本交互的程度.</code></pre></li>
+<li>4:工作流程<pre><code>1:在 mac 电脑上面安装 Jenkins.(不要使用 pkg 安装,官网下载然后放入应用程序里面即可)
+2:编写脚本调用,查看Unity官网命令(https://docs.unity3d.com/Manual/CommandLineArguments.html).编写C#打包脚本.形成调用链
+3:开启 Mac 的 Apache 服务器,编写 PHP脚本,外部机器内网访问即可</code></pre></li>
+<li>5:参考网址<pre><code>https://www.jianshu.com/p/5ad61bb45b32
+https://github.com/XINCGer/Unity3DTraining/tree/master/CI</code></pre></li>
+</ul>
+<h1 id="Jenkins-安装"><a href="#Jenkins-安装" class="headerlink" title="Jenkins 安装"></a>Jenkins 安装</h1><p><a href="https://www.jianshu.com/p/5ad61bb45b32" target="_blank" rel="noopener">https://www.jianshu.com/p/5ad61bb45b32</a></p>
+<h1 id="脚本编写"><a href="#脚本编写" class="headerlink" title="脚本编写"></a>脚本编写</h1><p><a href="https://www.jianshu.com/p/5ad61bb45b32" target="_blank" rel="noopener">https://www.jianshu.com/p/5ad61bb45b32</a></p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><a href="https://www.jianshu.com/p/5ad61bb45b32" target="_blank" rel="noopener">https://www.jianshu.com/p/5ad61bb45b32</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
@@ -956,12 +973,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">Title:</span>正则表达式</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">12</span></p>
+    <p><span class="copy-title">Title:</span>Unity后工业化流程2</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">413</span></p>
     <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
-    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
-    <p><span class="copy-title">Updated At:</span>2020-05-15, 10:55:07</p>
-    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/RegularExpression/RegularExpression/" title="正则表达式">http://yoursite.com/2020/05/08/RegularExpression/RegularExpression/</a>
+    <p><span class="copy-title">Created At:</span>2020-06-20, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2020-10-22, 10:51:16</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/06/20/Unity/IndustrialAutomation/Unity%E5%90%8E%E5%B7%A5%E4%B8%9A%E5%8C%96%E6%B5%81%E7%A8%8B1/" title="Unity后工业化流程2">http://yoursite.com/2020/06/20/Unity/IndustrialAutomation/Unity%E5%90%8E%E5%B7%A5%E4%B8%9A%E5%8C%96%E6%B5%81%E7%A8%8B1/</a>
     <p>
         <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
