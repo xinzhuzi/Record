@@ -3,7 +3,7 @@ title: 1 Canvas
 date: 2020-05-11 11:41:32
 top: 1
 categories:
-- UGUI
+- UI
 tags:
 - UGUI
 ---
@@ -14,6 +14,7 @@ tags:
 * 2 UGUI,NGUI都属于游戏运行时展示的 UI; UIWidgets 属于为 APP 设计的 UI ,用于APP 展示,和游戏关系不太大;FGUI 在 Unity,Coco,UE游戏引擎上面都可以使用.
 * 3 编辑器 UI,意思就是只在 Unity 编辑器里面搭建的UI,用于帮助工具,方便使用而创建的;有一套 GUI,已逐渐不再使用,就是在OnGui()函数里写的那些东西; IMGUI 则替代了GUI原来的作用：用于游戏调试和自定义Inspector面板,目前都使用 IMGUI;UI Element是 2019 版最新的 UI 系统,替代 IMGUI 而存在的;
 * 4 UGUI,NGUI,UI Element,IMGUI,GUI,UIWidgets,FGUI都可以使用,其中UGUI,NGUI,FGUI是一类,UI Element,IMGUI,GUI是一类,UIWidgets是一类;艹,耍我们就跟耍猴子一样,这么多 UI,UI 仔都不一定能全部了解.
+* 5 参考 https://gameinstitute.qq.com/community/detail/112745   https://v.qq.com/x/page/l0329fvbrfn.html
 
 # RectTransform
 
@@ -29,25 +30,115 @@ tags:
 * 1 可视化 UI : Text(文本),Image(图像),Raw Image(原始图像),Mask(遮罩);
 * 2 事件交互 UI : 按钮 (Button),开关 (Toggle),开关组 (Toggle Group),滑动条 (Slider),滚动条 (Scrollbar),下拉选单 (Dropdown),输入字段 (Input Field),滚动矩形/滚动视图 (Scroll Rect/Scroll View);
 * 3 自动布局:布局元素,Minimum width(最小宽度);Minimum height(最小高度);Preferred width(首选/偏好的宽度);Preferred height(首选/偏好的高度);Flexible width(灵活/最大的宽度);Flexible height(灵活/最大的高度); 布局组中的布局元素大小设置的基本原则如下:1)首先分配最小大小。2)如果有足够的可用空间，则分配偏好大小。3)如果有额外的可用空间，则分配灵活大小。布局元素组件(Layout Element),内容大小适配器 (Content Size Fitter),宽高比适配器 (Aspect Ratio Fitter)
-* 4 富文本
+* 4 富文本等等
 
-# UGUI原理介绍
+# UGUI核心类
 
-* 1 Canvas Batch: Canvas下的UI元素最终都会被Batch到同一个Mesh中，而在Batch前，会根据这些UI元素的材质（通常就是Atlas）以及渲染顺序进行重排，在不改变渲染结果的前提下，尽可能将相同材质的UI元素合并在同一个SubMesh中，从而把DrawCall降到最低。Batch的结果会被缓存复用，直到这个Canvas被标记为dirty。
-* 2 影响合批的因素: Unity官方的重要提示：当给定Canvas上的任何可绘制UI元素发生更改时，Canvas必须重新执行合批过程。此过程重新分析Canvas上的每个可绘制UI元素，不管它是否被修改。注意，“更改”是指影响UI元素外观的任何变动，包括修改sprite renderer的sprite、transform的position和scale、文本网格的text等。
-* 3 Canvas嵌套：Canvas可以嵌套使用，一个子Canvas下dirty的子物体不会触发父Canvas的rebuild。
+## EventSystem 簇
+* 1: 这个时间系统,是一些列类组合而成的,复杂度大于 NGUI; EventTriggerType,EventData,InputModules,Raycasters
+* 2: EventSystem 的核心原理是使用 Camera.ScreenPointToRay ,Physics.Raycast(这个地方用了反射) 等,创建 RaycastHit/RaycastHit2D,最终生成RaycastResult发送出去;
+* 3: 事件也是从 Input 类里面拿到的;包装层数很多,包装了很多东西供上层使用.
 
-* 4 UI顶点属性变化会引发网格更新:       
+## CanvasRenderer
+* 1: CanvasRenderer类比 NGUI 的 UIDrawCall.
+* 2: 需要原材料 mat,颜色,mesh,透明度等.
+* 3: 当只有渲染器CanvasRenderer存在时,Unity内才可能出现正常的可视化界面,否则无法出现正常的可视化图像.
+* 4: VBO (Vertex buffer object)是显卡存储空间里一块缓存区BUFFER，用于存储和顶点以及其属性相关的信息（顶点信息，颜色信息，法线信息，纹理坐标信息和索引信息等）,Mesh 的另一种叫法;如果出现的 xxxVBO,要明确这是在改变顶点数据.
+* 5: AddUIVertexStream 此类可以直接添加 UI 的顶点数据流.此类比MeshRenderer要更加适合 UI.
+* 6: 单独为 UI 写了一个类似于MeshRenderer的渲染器,而不是用的MeshRenderer,这种可能性更大;
+
+## VertexHelper
+* 1: 这个类记录了,位置,顶点,UI,颜色,三角形,三角形排列顺序.类似于 NGUI 的UIGeometry类
+* 2: 这个使用的是原生的 List;ObjectPool类似于 NGUI 的 BetterList ,单独为 Mesh 做的优化类,VertexHelper使用的数据结构类就是ObjectPool;使用栈的模型,因为整个 UI 树就是一个栈的模型.
+
+## Graphic 
+
+* 1: Mesh 数据组装类,类比 NGUI 的 UIWidget,是所有 Mesh 的原材料类;
+* 2: 这个类将 Mesh 数据塞给 CanvasRenderer;
+* 3: Text-->MaskableGraphic-->Graphic-->UIBehaviour-->MonoBehaviour
+* 4: Image-->MaskableGraphic-->Graphic-->UIBehaviour-->MonoBehaviour
+
+
+## Canvas
+
+* 1: Canvas 类比 NGUI 的 panel
+* 2: Canvas Batch--> Canvas下的UI元素最终都会被Batch到同一个Mesh中，而在Batch前，会根据这些UI元素的材质（通常就是Atlas）以及渲染顺序进行重排，在不改变渲染结果的前提下，尽可能将相同材质的UI元素合并在同一个SubMesh中，从而把DrawCall降到最低。Batch的结果会被缓存复用，直到这个Canvas被标记为dirty。
+* 3: 影响合批的因素: Unity官方的重要提示：当给定Canvas上的任何可绘制UI元素发生更改时，Canvas必须重新执行合批过程。此过程重新分析Canvas上的每个可绘制UI元素，不管它是否被修改。注意，“更改”是指影响UI元素外观的任何变动，包括修改sprite renderer的sprite、transform的position和scale、文本网格的text等。
+* 4: Canvas嵌套：Canvas可以嵌套使用，一个子Canvas下dirty的子物体不会触发父Canvas的rebuild。
+* 5: UI顶点属性变化会引发网格更新:       
 修改Image、Text的color属性，会改变UIVertex.color;        
 修改RectTransform的Size、Anchors、Pivot等，会改变UIVertex.position;     
 注意：在UGUI中颜色的变化是通过修改顶点色实现的，避免生成了新的DrawCall;         
 注意：UIVertex.position记录的是本地空间下的坐标;            
 
+* 5: 合批调用栈,取用 Profiler Frame Debugger
+```
+Camera.Render
+    Drawing
+        Camera.RenderSkybox
+            Draw Mesh
+        Render.TransparentGeometry
+            RenderForwardAlpha.Render
+                RenderForwardAlpha.RenderLoopJob
+                    Canvas.RenderSubBath
+                        Draw Mesh
+```
+* 6: Pixel Perfect 每次 UI 控件移动,都需要对 RectTransform 进行微调,相关的顶点移动了,也就会产生 sendWillRenderCanvas
+
 ****
+
+## Layout 布局类
+
+* 1: Layout 系列组件一直在 rebuild,重绘频率太高,不建议使用,建议去优化
+
+
+# 问题以及解决方案
+
+* 1: 导致UI重建的/Batches过多/浪费性能的原因:
+```
+    UI 的重叠,拓扑关系变得复杂,直接导致 Batches 升高.      
+    渲染顺序.靠近根节点显示在底层，而靠近叶子节点显示在顶层；这样的渲染方式使得调整UI的层级比较方便和直观。UI 的层级尽量保持同步.       
+    图集的分配不合理.       
+    Layout  重绘频率太高.(不停的 UI 运动).Canvas的Pixel Perfect选项,ui元素在发生位置变化时，造成layout Rebuild;        
+    Graphic 重建频率太高.(不停的添加删除,尽量不用SetActive,使用 scale)         
+    Text的Best Fit选项,这个选项可以动态的调整字体大小以适应UI布局而不会超框.代价很高.outline,shadow.不建议用               
+    UGUI的touch处理消耗也可能会成为性能热点,UGUI在默认情况下会对所有可见的Graphic组件调用raycast,touch事件的grahic，一定要禁用raycast,例如纯展示的 Image/Text       
+    减少 Mask 组件的使用,因为 mask 里面有 mat 的切换,使用了切割顶点技术Clip.    
+```
+* 2: 一个界面占用多少个 DC 合适?
+>  一个界面尽量保证功能的情况下占有 3 个 DC 即可,Common,Font,Texture 等最原始的可以保证 UI 功能.如果特别炫酷的可能需要 20 个 DC 左右,也就保证完成即可.
+
+* 3: 如何定位 CPU 的性能热点函数.
+```
+    profiler    
+    Frame Debugger       
+
+    查看根函数可以更快的知道性能问题
+    Canvas.BuildBatch:合并Canvas节点下所有UI元素的网格，合并后的网格会缓存起来，只有其下面的UI元素的网格发生改变时才会重新合并.
+    Canvas.SendWillRenderCanvases:UI元素的网络变化主要是因为此调用时，rebuild了Layout或者graphic(Text,Image);原因-->例如增加删除UI对象，UI元素的顶点，rec尺寸改变等
+    这里的 重建布局与重建UI 与 NGUI 有异曲同工之处
+
+``` 
+
+* 4: 如何定位 GPU 的性能热点并优化
+```
+    渲染数据过多,Mesh(VBO),顶点,三角形,颜色,UV,法线,光线等导致 shader 计算量太大.            
+    渲染状态切换太频繁,单位时间内,mat 在 GPU 中切换多次进行渲染.         
+    渲染过度(overdraw),含义是在一个像素点上面渲染了很多次,简单解释就是,UI 叠加,物体被遮挡了,但是仍然进入了渲染管道.         
+
+
+    根据以上三条定理进行渲染优化:
+    不可见的物体不让其进入渲染管道.例如不可见 UI,直接设置 scale 为 0.01;在摄像机照射范围内,物体被遮挡情况下,直接进行算法切割,也就是所谓的 Occlude 优化.使用多边形镂空脚本PolygonImage(https://blog.uwa4d.com/archives/fillrate.html).                
+    减少 Mesh 的数据,这个做法就很多了.          
+    渲染状态,记录 mat 切换的所有事件,自己做个工具,然后根据某一段切换频率是否过快,来进行优化.    
+
+```
+
+* 5: 以上问题以及优化方案不可能完全满足你的需求,UI 业务的变化神鬼莫测,但是万变不离其宗,掌握了万剑归宗的剑法,即可对所有性能下降的方面做出平衡性极佳的操作.
 
 ![重建流程](重建流程.png)
 
-* 1 该过程由CanvasUpdateRegistry监听Canvas的WillRenderCanvases（上图中1）而执行,主要是对当前标记为dirty的layout和graphic执行rebuild。
+* 1 该过程由CanvasUpdateRegistry监听Canvas的WillRenderCanvases（上图中1）而执行,主要是对当前标记为dirty的layout和graphic执行rebuild。也就是顶点数据改变了;
 * 2 在rebuild layout之前会对Layout rebuild queue中的元素依据它们在heiarchy中的层次进行排序（上图中的2），排列的结果是越靠近根的节点越会被优先处理。
 * 3 rebuild layout（上图中的3）,主要是执行ILayoutElement和ILayoutController接口中的方法来计算位置，Rect的大小等布局信息。
 * 4 rebulid graphic（上图中的4）,主要是调用UpdateGeometry重建网格的顶点数据（上图中5）以及调用UpdateMeterial更新CanvasRender的材质信息（上图中6）。
