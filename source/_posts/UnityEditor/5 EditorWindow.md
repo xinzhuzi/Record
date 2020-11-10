@@ -7,6 +7,7 @@ categories:
 tags:
 - UnityEditor
 ---
+
 # EditorWindow 编辑器窗口
 
 * 1:介绍,unity中的场景窗口、游戏窗口、电影窗口等，所有这些都是EditorWindow。Unity编辑是集合了具有各种功能的editor窗而成的。

@@ -7,6 +7,7 @@ categories:
 tags:
 - UnityEditor
 ---
+
 # MenuItem
 
 * 1:是在Unity editer上侧的菜单栏或上下文菜单上追加项目所需的功能.

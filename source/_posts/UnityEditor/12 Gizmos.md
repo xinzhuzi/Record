@@ -7,6 +7,7 @@ categories:
 tags:
 - UnityEditor
 ---
+
 # Gizmos
 
 * 1:创建 Gizmos文件夹,可以在Scene视图中做一个预览的线,展示摄像机轨迹,即辅助线框

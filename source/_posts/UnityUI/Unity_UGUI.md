@@ -3,9 +3,9 @@ title: Unity UGUI优化
 date: 2020-05-11 11:41:32
 top: 2
 categories:
-- UI
+- UnityUI
 tags:
-- UI
+- UnityUI
 ---
 
 # UGUI 介绍
@@ -14,7 +14,8 @@ tags:
 * 2 UGUI,NGUI都属于游戏运行时展示的 UI; UIWidgets 属于为 APP 设计的 UI ,用于APP 展示,和游戏关系不太大;FGUI 在 Unity,Coco,UE游戏引擎上面都可以使用.
 * 3 编辑器 UI,意思就是只在 Unity 编辑器里面搭建的UI,用于帮助工具,方便使用而创建的;有一套 GUI,已逐渐不再使用,就是在OnGui()函数里写的那些东西; IMGUI 则替代了GUI原来的作用：用于游戏调试和自定义Inspector面板,目前都使用 IMGUI;UI Element是 2019 版最新的 UI 系统,替代 IMGUI 而存在的;
 * 4 UGUI,NGUI,UI Element,IMGUI,GUI,UIWidgets,FGUI都可以使用,其中UGUI,NGUI,FGUI是一类,UI Element,IMGUI,GUI是一类,UIWidgets是一类;艹,耍我们就跟耍猴子一样,这么多 UI,UI 仔都不一定能全部了解.
-* 5 参考 https://gameinstitute.qq.com/community/detail/112745   https://v.qq.com/x/page/l0329fvbrfn.html
+* 5 参考 https://gameinstitute.qq.com/community/detail/112745   https://v.qq.com/x/page/l0329fvbrfn.html 
+* 6 UGUI仓库 https://bitbucket.org/Unity-Technologies/ui   https://github.com/Unity-Technologies/uGUI
 
 # RectTransform
 
@@ -39,6 +40,12 @@ tags:
 * 2: EventSystem 的核心原理是使用 Camera.ScreenPointToRay ,Physics.Raycast(这个地方用了反射) 等,创建 RaycastHit/RaycastHit2D,最终生成RaycastResult发送出去;
 * 3: 事件也是从 Input 类里面拿到的;包装层数很多,包装了很多东西供上层使用.
 
+## RectTransform 
+* 1: 瞄点,轴心,坐标值,旋转值,缩放值
+* 2: 在 UnityEngine 命名空间内,看不到源码
+* 3: 一切布局系统的基础,没有这个就没有布局系统,功能上面类似于 UIRect
+
+
 ## CanvasRenderer
 * 1: CanvasRenderer类比 NGUI 的 UIDrawCall.
 * 2: 需要原材料 mat,颜色,mesh,透明度等.
@@ -61,7 +68,7 @@ tags:
 
 ## Canvas
 
-* 1: Canvas 类比 NGUI 的 panel
+* 1: Canvas 类比 NGUI 的 panel;三种模式,Screen Space - Overlay：不需要指定UI相机，渲染会覆盖整个画面，永远在屏幕的最上面,自身就是一个 Batches;Screen Space - Camera：需要指定UI相机，画布会被放置在相机前，通过该相机渲染;World Space：把画布当成普通的3D对象放置在世界坐标系中，画布可以自由移动旋转,类似于 3D 物体;       
 * 2: Canvas Batch--> Canvas下的UI元素最终都会被Batch到同一个Mesh中，而在Batch前，会根据这些UI元素的材质（通常就是Atlas）以及渲染顺序进行重排，在不改变渲染结果的前提下，尽可能将相同材质的UI元素合并在同一个SubMesh中，从而把DrawCall降到最低。Batch的结果会被缓存复用，直到这个Canvas被标记为dirty。
 * 3: 影响合批的因素: Unity官方的重要提示：当给定Canvas上的任何可绘制UI元素发生更改时，Canvas必须重新执行合批过程。此过程重新分析Canvas上的每个可绘制UI元素，不管它是否被修改。注意，“更改”是指影响UI元素外观的任何变动，包括修改sprite renderer的sprite、transform的position和scale、文本网格的text等。
 * 4: Canvas嵌套：Canvas可以嵌套使用，一个子Canvas下dirty的子物体不会触发父Canvas的rebuild。
@@ -71,7 +78,12 @@ tags:
 注意：在UGUI中颜色的变化是通过修改顶点色实现的，避免生成了新的DrawCall;         
 注意：UIVertex.position记录的是本地空间下的坐标;            
 
-* 5: 合批调用栈,取用 Profiler Frame Debugger
+
+
+![重建流程](重建流程.png)
+
+
+* 6: 合批调用栈,取用 Profiler Frame Debugger
 ```
 Camera.Render
     Drawing
@@ -83,7 +95,7 @@ Camera.Render
                     Canvas.RenderSubBath
                         Draw Mesh
 ```
-* 6: Pixel Perfect 每次 UI 控件移动,都需要对 RectTransform 进行微调,相关的顶点移动了,也就会产生 sendWillRenderCanvas
+* 7: Pixel Perfect 每次 UI 控件移动,都需要对 RectTransform 进行微调,相关的顶点移动了,也就会产生 sendWillRenderCanvas
 
 ****
 
@@ -136,7 +148,6 @@ Camera.Render
 
 * 5: 以上问题以及优化方案不可能完全满足你的需求,UI 业务的变化神鬼莫测,但是万变不离其宗,掌握了万剑归宗的剑法,即可对所有性能下降的方面做出平衡性极佳的操作.
 
-![重建流程](重建流程.png)
 
 * 1 该过程由CanvasUpdateRegistry监听Canvas的WillRenderCanvases（上图中1）而执行,主要是对当前标记为dirty的layout和graphic执行rebuild。也就是顶点数据改变了;
 * 2 在rebuild layout之前会对Layout rebuild queue中的元素依据它们在heiarchy中的层次进行排序（上图中的2），排列的结果是越靠近根的节点越会被优先处理。
@@ -160,7 +171,7 @@ Camera.Render
 过多的画布重建次数      
 
 针对这四个问题来分组介绍优化策略        
-网格重建优化策略(优化 Mesh)        
+### 网格重建优化策略(优化 Mesh)        
 > * 1 使用尽可能少的UI元素：在制作UI时，一定要仔细查检UI层级，删除不必要的UI元素，这样可以减少深度排序的时间以及Rebuild的时间。
 > * 2 减少Rebuild的频率：将动态UI元素（频繁改变例如顶点、alpha、坐标和大小等的元素）与静态UI元素分离出来，放到特定的Canvas中。
 > * 3 谨慎使用UI元素的active操作：因为它们会触发耗时较高的rebuild。使用 Scale 代替.
@@ -168,20 +179,20 @@ Camera.Render
 > * 5 Animator最佳用法： Animator每帧都会改变元素，即使动画中的数值没有变化，因为Animator没有空指令检查。对于仅响应事件时才变化的元素，可以自行编写代码或使用第三方补间插件。换成 DoTween
 > * 6 谨慎用Tiled类型的Image
 
-屏幕填充率优化策略(OverDraw)      
+### 屏幕填充率优化策略(OverDraw)      
 > * 1 禁用不可见的面板：比如当打开一个系统时如果完全挡住了另外一个系统，则可以将被遮挡住的系统面板禁用。（龙与少女优化方案：通过修改Canvas对象的Layer隐藏面板。）
 > * 2 不要使用空的Image做按键响应：在Unity中Raycast使用Graphic作为基本元素来检测touch。如果使用空的image也会产生不必要的overdraw。可以实现一个只在逻辑上响应Raycast但是不参与绘制的组件即可。使用网上的 Empty4Raycast 方案
 > * 3 Polygon Mode Sprites：如果图片边缘有大片留白就会产生很多无用填充。Unity和Texture Packer目前都支持了Polygon Mode，也就是说将原来的矩形Sprite用更加紧致的Polygon来描述。
 > * 4 Image Fill Center：在Image Type选项为Sliced的情况下，不需要Fill Center的时候去掉勾选。
 
-合批优化策略(DrawCall)        
+### 合批优化策略(DrawCall)        
 > * 1 相同层级原则：父节点下所有子节点，尽量保持相同的层次结构。相同层级下的UI元素可以Batch.
 > * 2 Mask组件：Mask组件使用了模版缓存，Mask中的UI元素无法与外界UI元素合批，Mask组件还会额外增加2个DrawCall.
 > * 3 隐藏的Image：Image组件中sprite为空，都是占用drawcall渲染的，并且还会打断前后元素的合批。
 > * 4 Screen Space-Camera模式：一个Canvas中的任何一个UI元素只要在屏幕中，则这个Canvas中的其他UI元素即使在屏幕外DrawCall仍不会减少。
 > * 5 Hierarchy穿插重叠问题：如下图红点和Icon在不同图集中，如果红点稍微大一点，遮挡了旁边的Icon，就不能合批，须要调整Icon和红点的节点关系，4个Icons放在一个节点下，4个红点放在一个借点下。
 
-字体优化策略(Font)        
+### 字体优化策略(Font)        
 > * 1  字体图集的重建机制：当一个新文字出现的时候，会被添加到字体图集，如果图集已经没有空余的地方，那么图集会被重建。图集会以相同的尺寸重建，打包当前激活的所有UI text组件中要显示的文字，如果发现图集尺寸不够用的时候，图集会重新扩充尺寸。
 > * 2 后备字体机制：对于字体库里没有的文字，会被放进后备字体图集里，后背字体图集会常驻内存里，不会被销毁。后备字体取自于系统自带的系统字库Arial.ttf，在发布的游戏安装包里该字库是不存在的。我们在一些Unity开发的游戏里，偶尔会发现一些生僻字的字形和其它常见文字的字形不统一。
 > * 3 Text的网格重建：Text组件被重新启用的时候，会重建Text的网格。如果含有大量的文字，会造成严重的CPU开销。
@@ -190,13 +201,13 @@ Camera.Render
 > * 6 谨慎使用Text的Best Fit选项：虽然这个选项可以动态的调整字体大小以适应UI布局而不会超框，但其代价是很高的，Unity会为用到的该元素所用到的所有字号生成图元保存在图集里，不但增加额外的生成时间，还会使得字体对应的图集变大。
 > * 7 减少长文本Text的变动，慎用UI/Effect：描边和阴影效果都会增大四倍的顶点数
 
-滚动视图优化策划(ScrollView)        
+### 滚动视图优化策划(ScrollView)        
 > * 1  有两种方法填充滚动视图:用所有需要出现在滚动视图的元素填充滚动视图(子控件很少的情况下使用).用池处理这些元素，根据需要重新放置它们的位置(子控件很多,或者无限的情况下使用)
 > * 2 RectMask2D组件：俩种方法可以通过给滚动视图添加一个RectMask2D组件来提高性能。该组件确保在滚动视图窗口外面的滚动视图元素不会出现在可画的元素列表中，省去了该元素的batch。
 > * 3 一种简单的缓存池策略：在UI中布局中，使用带有Layout Element组件的对象占位（ Slot ）。给可见UI元素实例一个池，来填充滚动视图看可见区域，Slot作为父物体来定位。
 > * 4 基于位置的缓存池策略：通过移动布局里UI元素的RectTransforms坐标值，来排序显示位置。通常写一个自定义的滚动视图类或者写一个自定义布局组的组件。
 
-其它优化策略        
+### 其它优化策略        
 > * 1 禁用无用的Raycast：UGUI的touch处理消耗也可能会成为性能热点。因为UGUI在默认情况下会对所有可见的Graphic组件调用raycast。对于不需要接收touch事件的grahic，一定要禁用raycast。（龙与少女为策划提供了检视的辅助脚本）
 > * 2 OverrideSorting：子Canvas中的OverrideSorting属性将会造成Graphic Raycast测试停止遍历Transform层级。
 > * 3 UI对象的坐标Z值：Z值不为零的时候会影响对象渲染顺序并不能合批。（例如：龙与少女里的阵型界面都是修改Spine的SortingOrder来实现位置排序）
