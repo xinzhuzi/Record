@@ -11,11 +11,56 @@ tags:
 ****
 
 # UI优化
-* 1,降低界面的渲染开销.2,降低界面的更新开销(网格合并).3,高效处理大量 HUD 元素.
-* NGUI 与 UGUI 的不同点在于:元素更新方式(字/图片更新时的不同), DrawCall合并规则,网格更新机制
-* 直播视频 https://blog.uwa4d.com/archives/video_UI.html
-* https://blog.uwa4d.com/archives/USparkle_NGUI.html
+* 1: 降低界面的渲染开销.2,降低界面的更新开销(网格合并).3,高效处理大量 HUD 元素.
+* 2: NGUI 与 UGUI 的不同点在于:元素更新方式(字/图片更新时的不同), DrawCall合并规则,网格更新机制
+* 3: 直播视频 https://blog.uwa4d.com/archives/video_UI.html
+* 4: 大幅度降低 NGUI 内存 https://blog.uwa4d.com/archives/USparkle_NGUI.html
 ****
+
+# UWA 
+
+* 1: UWA 文档,性能诊断与优化,最好全部背下来 https://www.uwa4d.com/doc-main.html?page=quick-start
+* 2: UWA 例子 https://www.uwa4d.com/demo/rc.html#bundle/abassets
+* 3: UWA 简单概念理解 https://zhuanlan.zhihu.com/p/261378070
+
+# 内存
+* 1: NGUI 的堆内存是 30M 一下,UGUI 的堆内存是 3M 一下
+
+
+# UI shader
+* 1: 如果让你使用自己的一套 shader 去重新制作 UI,如何做?直接从 Unity 官网下载内建(build in )shader,拖入 unity项目内打包即可.
+
+# 概念理解
+*  1. drawCall 和 batch 的区别
+   DrawCall : CPU发送渲染命令给GPU , 如:glDrawElements(OpenGL) / glDrawArrays(OpenGL) / DrawIndexedPrimitive(DX)
+   Batch : CPU发送渲染的数据给GPU(CPU Write) , 如 设置顶点数据 glBufferData(OpenGL) / glBufferSubData(OpenGL) 等.
+   相关更多:https://zhuanlan.zhihu.com/p/68530142;      
+   OpenGL:一个Batch里面装的是一个 Mesh, 1个Mesh的数据我们称之为1批;     
+   官方对于Batch的定义:调用一次渲染API的绘制接口（如OpenGL的glDrawArrays/glDrawElements）来向GPU提交使用相同渲染状态的一定数量的三角形的行为为一个渲染批次。        
+   我们应该保证在没有达到GPU的性能极限的情况下，尽可能的去增大Batch的大小,而GPU的性能好坏以及Batch的大小关系影响不大.            
+   渲染状态改变,GPU 的缓存中的CommandBuffer必须根据 新的渲染状态进行刷新,会领CPU从用户模式转换到内核模式(计算机组成原理),非常耗费性能;
+* 2. 降低 DC的 Batch 操作:Static Batching(静态合批),Dynamic Batching(动态合批),手动合批,GPU Instance,以及最新推出的 SRP Batch;       
+   静态合批降低渲染状态的切换,增大内存.      
+   动态合批在每一帧中针对动态物体进行合批,最高能有900个定点属性,2 部分占用顶点数量,shader 里面使用的顶点数量越多,模型的顶点数量就越少.      
+   手动合批 public static void Combine(GameObject[] gos, GameObject staticBatchRoot)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # UGUI 优化
 * 元素更新方式:使用 Scale=0,Alpha Group =0 
