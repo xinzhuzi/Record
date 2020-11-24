@@ -14,6 +14,17 @@ tags:
 * 1. https://www.lua.org/
 * 2. https://blog.csdn.net/yuanlin2008
 * 3. https://blog.csdn.net/pyf09/category_9283453_2.html
+* 4. https://www.zhihu.com/topic/20134522/newest <<Lua设计与实现>>
+* 5. https://blog.csdn.net/yuanlin2008/category_1307277.html 编译器与虚拟机
+
+
+
+## Lua 阅读书籍
+* 1. Lua 编程 << Programming in Lua >> ,编写 Lua 代码的基本操作. 初级
+* 2. << Lua 程序设计第四版 >> 中级
+* 3. << Lua 设计与实现 >> 高级,Lua 实现的算法,虚拟机讲解,编译器讲解,GC 等
+
+
 
 ## Lua 虚拟机 
 

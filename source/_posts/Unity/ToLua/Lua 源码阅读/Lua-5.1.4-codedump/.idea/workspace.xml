@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d0cf05a4-a628-48cc-80f8-07683e403587" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kgXvNASOQVscgfujjFScmU3HlJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="Makefile.clean">
+    <configuration name="all (1)" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="default" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/Makefile" target="default" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="macosx" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/src/Makefile" target="macosx" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.clean" />
+        <item itemvalue="Makefile.macosx" />
+        <item itemvalue="Makefile.all (1)" />
+        <item itemvalue="Makefile.default" />
+        <item itemvalue="Makefile.all" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="WindowStateProjectService">
+    <state width="1859" height="346" key="GridCell.Tab.0.bottom" timestamp="1606134416020">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1859" height="346" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
+    <state width="1859" height="346" key="GridCell.Tab.0.center" timestamp="1606134416020">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1859" height="346" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
+    <state width="1859" height="346" key="GridCell.Tab.0.left" timestamp="1606134416019">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1859" height="346" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416019" />
+    <state width="1859" height="346" key="GridCell.Tab.0.right" timestamp="1606134416020">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1859" height="346" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
+    <state x="511" y="195" width="898" height="712" key="find.popup" timestamp="1606130708489">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="511" y="195" width="898" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606130708489" />
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1606183071585">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606183071585" />
+  </component>
+</project>
