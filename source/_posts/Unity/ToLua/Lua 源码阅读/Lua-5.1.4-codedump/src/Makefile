@@ -21,17 +21,18 @@ MYLIBS=
 # == END OF USER SETTINGS. NO NEED TO CHANGE ANYTHING BELOW THIS LINE =========
 
 PLATS= aix ansi bsd freebsd generic linux macosx mingw posix solaris
-
+# 虚拟机文件
 LUA_A=	liblua.a
 CORE_O=	lapi.o lcode.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o \
 	lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o  \
 	lundump.o lvm.o lzio.o
+#内嵌库,也就是 Lua 的核心库
 LIB_O=	lauxlib.o lbaselib.o ldblib.o liolib.o lmathlib.o loslib.o ltablib.o \
 	lstrlib.o loadlib.o linit.o
-
+# 解释器,用于将源代码解析成操作码(机器码)并运行
 LUA_T=	lua
 LUA_O=	lua.o
-
+# 编译器,用于将源代码编译成二进制格式的源码
 LUAC_T=	luac
 LUAC_O=	luac.o print.o
 

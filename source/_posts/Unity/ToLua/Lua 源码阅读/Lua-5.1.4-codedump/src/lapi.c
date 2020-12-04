@@ -93,7 +93,7 @@ void luaA_pushobject (lua_State *L, const TValue *o) {
   api_incr_top(L);
 }
 
-
+// sz/size 是额外栈的位置的数量,如果可能,会增加栈的大小,以容纳更多的空间
 LUA_API int lua_checkstack (lua_State *L, int size) {
   int res = 1;
   lua_lock(L);
@@ -424,6 +424,7 @@ LUA_API const void *lua_topointer (lua_State *L, int idx) {
 */
 
 
+//在虚拟栈顶压入 nil
 LUA_API void lua_pushnil (lua_State *L) {
   lua_lock(L);
   setnilvalue(L->top);
@@ -431,7 +432,7 @@ LUA_API void lua_pushnil (lua_State *L) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入Number double
 LUA_API void lua_pushnumber (lua_State *L, lua_Number n) {
   lua_lock(L);
   setnvalue(L->top, n);
@@ -439,7 +440,7 @@ LUA_API void lua_pushnumber (lua_State *L, lua_Number n) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入 integer https://baike.baidu.com/item/ptrdiff_t/8166624?fr=aladdin
 LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {
   lua_lock(L);
   setnvalue(L->top, cast_num(n));
@@ -447,7 +448,7 @@ LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入字符串
 LUA_API void lua_pushlstring (lua_State *L, const char *s, size_t len) {
   lua_lock(L);
   luaC_checkGC(L);
@@ -456,7 +457,7 @@ LUA_API void lua_pushlstring (lua_State *L, const char *s, size_t len) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入字符串
 LUA_API void lua_pushstring (lua_State *L, const char *s) {
   if (s == NULL)
     lua_pushnil(L);
@@ -464,7 +465,7 @@ LUA_API void lua_pushstring (lua_State *L, const char *s) {
     lua_pushlstring(L, s, strlen(s));
 }
 
-
+//在虚拟栈顶压入字符串
 LUA_API const char *lua_pushvfstring (lua_State *L, const char *fmt,
                                       va_list argp) {
   const char *ret;
@@ -475,7 +476,7 @@ LUA_API const char *lua_pushvfstring (lua_State *L, const char *fmt,
   return ret;
 }
 
-
+//在虚拟栈顶压入字符串
 LUA_API const char *lua_pushfstring (lua_State *L, const char *fmt, ...) {
   const char *ret;
   va_list argp;
@@ -511,7 +512,7 @@ LUA_API void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入bool 值
 LUA_API void lua_pushboolean (lua_State *L, int b) {
   lua_lock(L);
   setbvalue(L->top, (b != 0));  /* ensure that true is 1 */
@@ -519,7 +520,7 @@ LUA_API void lua_pushboolean (lua_State *L, int b) {
   lua_unlock(L);
 }
 
-
+//在虚拟栈顶压入轻量级用户数据,由原生程序管理声明周期(也就是内存由 C 管理)
 LUA_API void lua_pushlightuserdata (lua_State *L, void *p) {
   lua_lock(L);
   setpvalue(L->top, p);

@@ -103,6 +103,10 @@ typedef struct global_State {
 
 /*
 ** `per thread' state
+ * 虚拟栈使用 索引(index) 来引用栈中的元素.
+ * 第一个被压入栈中的元素为 1,第二个被压入栈中的元素为 2;
+ * 可以用负数索引 -1 表示栈顶,-2 表示在-1 之前被压入栈的元素
+ * 在不同的场景下使用不同的索引方式
 */
 struct lua_State {
   CommonHeader;

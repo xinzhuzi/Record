@@ -16,17 +16,17 @@
 
 static const luaL_Reg lualibs[] = {
   {"", luaopen_base},
-  {LUA_LOADLIBNAME, luaopen_package},
-  {LUA_TABLIBNAME, luaopen_table},
-  {LUA_IOLIBNAME, luaopen_io},
-  {LUA_OSLIBNAME, luaopen_os},
-  {LUA_STRLIBNAME, luaopen_string},
-  {LUA_MATHLIBNAME, luaopen_math},
-  {LUA_DBLIBNAME, luaopen_debug},
+  {LUA_LOADLIBNAME, luaopen_package},//package  函数库
+  {LUA_TABLIBNAME, luaopen_table}, // table 函数库
+  {LUA_IOLIBNAME, luaopen_io}, // io 函数库
+  {LUA_OSLIBNAME, luaopen_os},//os 函数库
+  {LUA_STRLIBNAME, luaopen_string},// string 函数库
+  {LUA_MATHLIBNAME, luaopen_math}, // math 函数库
+  {LUA_DBLIBNAME, luaopen_debug}, // debug 函数库
   {NULL, NULL}
 };
 
-
+//打开标准库
 LUALIB_API void luaL_openlibs (lua_State *L) {
   const luaL_Reg *lib = lualibs;
   for (; lib->func; lib++) {
@@ -36,7 +36,7 @@ LUALIB_API void luaL_openlibs (lua_State *L) {
     lua_pushstring(L, lib->name);
     // 调用注册的C函数, 也就是上面的一堆luaopen_*函数
     // 问题: 为什么这里不直接调用呢?非得压入lua栈中调用?
-    // 传入1的原因是要跳过上一步压入的函数名,0的意思是这些函数全都返回值为0即没有返回值
+    // 传入1的原因是要跳过上一步压入的函数名,0的意思是这些函数全都返回值为0,即没有返回值
     lua_call(L, 1, 0);
   }
 }

@@ -47,7 +47,7 @@ tags:
 
 
 ## CanvasRenderer
-* 1: CanvasRenderer类比 NGUI 的 UIDrawCall.
+* 1: CanvasRenderer类比 NGUI 的.
 * 2: 需要原材料 mat,颜色,mesh,透明度等.
 * 3: 当只有渲染器CanvasRenderer存在时,Unity内才可能出现正常的可视化界面,否则无法出现正常的可视化图像.
 * 4: VBO (Vertex buffer object)是显卡存储空间里一块缓存区BUFFER，用于存储和顶点以及其属性相关的信息（顶点信息，颜色信息，法线信息，纹理坐标信息和索引信息等）,Mesh 的另一种叫法;如果出现的 xxxVBO,要明确这是在改变顶点数据.

@@ -83,7 +83,10 @@ typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);
 
 
 
-/* minimum Lua stack available to a C function */
+/* minimum Lua stack available to a C function
+ * C函数可用的最小的 Lua 堆栈.
+ * 有些任务需要更多的栈空间,特别是循环向栈中压入元素时,需要调用 lua_checkstack 来检查栈中是否有足够的空间
+ * */
 #define LUA_MINSTACK	20
 
 
@@ -123,7 +126,7 @@ LUA_API void  (lua_pushvalue) (lua_State *L, int idx);
 LUA_API void  (lua_remove) (lua_State *L, int idx);
 LUA_API void  (lua_insert) (lua_State *L, int idx);
 LUA_API void  (lua_replace) (lua_State *L, int idx);
-LUA_API int   (lua_checkstack) (lua_State *L, int sz);
+LUA_API int   (lua_checkstack) (lua_State *L, int sz);//sz 是额外栈位置的数量
 
 LUA_API void  (lua_xmove) (lua_State *from, lua_State *to, int n);
 
@@ -252,7 +255,7 @@ LUA_API void lua_setallocf (lua_State *L, lua_Alloc f, void *ud);
 ** some useful macros
 ** ===============================================================
 */
-
+//从 Lua 虚拟栈弹出一个值
 #define lua_pop(L,n)		lua_settop(L, -(n)-1)
 
 #define lua_newtable(L)		lua_createtable(L, 0, 0)

@@ -18,6 +18,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="NewLua" />
+      </list>
+    </option>
+  </component>
   <component name="MakefileLocalSettings">
     <option name="projectSyncType">
       <map>
@@ -33,16 +40,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Makefile.clean">
+  <component name="RunManager" selected="Makefile.all (1)">
     <configuration name="all (1)" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/src/Makefile" target="all" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
-    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -65,41 +67,75 @@
       </makefile>
       <method v="2" />
     </configuration>
+    <configuration name="test.lua" type="lua.app" factoryName="Lua Application" activateToolWindowBeforeRun="false" singleton="false" temporary="true">
+      <option name="program" value="/usr/local/bin/lua" />
+      <option name="file" value="$PROJECT_DIR$/test.lua" />
+      <option name="workingDir" value="" />
+      <option name="debuggerType" value="2" />
+      <option name="params" value="" />
+      <option name="charset" value="UTF-8" />
+      <option name="showConsole" value="true" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Makefile.clean" />
+        <item itemvalue="Lua Application.test.lua" />
         <item itemvalue="Makefile.macosx" />
+        <item itemvalue="Makefile.clean" />
         <item itemvalue="Makefile.all (1)" />
         <item itemvalue="Makefile.default" />
-        <item itemvalue="Makefile.all" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="WindowStateProjectService">
-    <state width="1859" height="346" key="GridCell.Tab.0.bottom" timestamp="1606134416020">
+    <state width="1889" height="330" key="GridCell.Tab.0.bottom" timestamp="1606560511936">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1859" height="346" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
-    <state width="1859" height="346" key="GridCell.Tab.0.center" timestamp="1606134416020">
+    <state width="1889" height="330" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1889" height="330" key="GridCell.Tab.0.center" timestamp="1606560511936">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1859" height="346" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
-    <state width="1859" height="346" key="GridCell.Tab.0.left" timestamp="1606134416019">
+    <state width="1889" height="330" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1889" height="330" key="GridCell.Tab.0.left" timestamp="1606560511935">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1859" height="346" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416019" />
-    <state width="1859" height="346" key="GridCell.Tab.0.right" timestamp="1606134416020">
+    <state width="1889" height="330" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511935" />
+    <state width="1889" height="330" key="GridCell.Tab.0.right" timestamp="1606560511936">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1859" height="346" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606134416020" />
-    <state x="511" y="195" width="898" height="712" key="find.popup" timestamp="1606130708489">
+    <state width="1889" height="330" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1889" height="330" key="GridCell.Tab.1.bottom" timestamp="1606560511937">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="511" y="195" width="898" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606130708489" />
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1606183071585">
+    <state width="1889" height="330" key="GridCell.Tab.1.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511937" />
+    <state width="1889" height="330" key="GridCell.Tab.1.center" timestamp="1606560511936">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606183071585" />
+    <state width="1889" height="330" key="GridCell.Tab.1.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1889" height="330" key="GridCell.Tab.1.left" timestamp="1606560511936">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1889" height="330" key="GridCell.Tab.1.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1889" height="330" key="GridCell.Tab.1.right" timestamp="1606560511937">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1889" height="330" key="GridCell.Tab.1.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511937" />
+    <state x="0" y="23" width="1392" height="1057" key="SettingsEditor" timestamp="1606204790074">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="0" y="23" width="1392" height="1057" key="SettingsEditor/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606204790074" />
+    <state x="511" y="195" width="985" height="712" key="find.popup" timestamp="1607065451668">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="511" y="195" width="985" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607065451668" />
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1607053306331">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607053306331" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1607070385058">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607070385058" />
   </component>
 </project>

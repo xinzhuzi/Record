@@ -1,7 +1,8 @@
 /*
 ** $Id: lauxlib.h,v 1.88.1.1 2007/12/27 13:02:25 roberto Exp $
-** Auxiliary functions for building Lua libraries
+** Auxiliary functions for building Lua libraries  构建Lua库的辅助功能,一般以 luaL 开头
 ** See Copyright Notice in lua.h
+** 使用 lua.h 提供的基础 API 来提供更高层次的抽象,特别是对标准库用到的相关机制进行抽象.追求实用
 */
 
 
