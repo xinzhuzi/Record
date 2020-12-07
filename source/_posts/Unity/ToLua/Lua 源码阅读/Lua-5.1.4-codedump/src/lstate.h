@@ -35,9 +35,9 @@ struct lua_longjmp;  /* defined in ldo.c */
 
 
 
-typedef struct stringtable {
+typedef struct stringtable {//散列数组,专门用于存放字符串
   GCObject **hash;
-  lu_int32 nuse;  /* number of elements */
+  lu_int32 nuse;  /* number of elements 元素数量 */
   int size;       // hash桶数组大小
 } stringtable;
 
@@ -143,6 +143,7 @@ struct lua_State {
 
 /*
 ** Union of all collectable objects
+ * 所有需要进行垃圾回收的数据类型
 */
 union GCObject {
   GCheader gch;

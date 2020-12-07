@@ -89,6 +89,10 @@
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="WindowStateProjectService">
+    <state x="360" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1607305856844">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="360" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607305856844" />
     <state width="1889" height="330" key="GridCell.Tab.0.bottom" timestamp="1606560511936">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
@@ -125,17 +129,17 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="0" y="23" width="1392" height="1057" key="SettingsEditor/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606204790074" />
-    <state x="511" y="195" width="985" height="712" key="find.popup" timestamp="1607065451668">
+    <state x="511" y="195" width="985" height="712" key="find.popup" timestamp="1607074189803">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="511" y="195" width="985" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607065451668" />
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1607053306331">
+    <state x="511" y="195" width="985" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607074189803" />
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1607305891724">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607053306331" />
-    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1607070385058">
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607305891724" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1607309086065">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607070385058" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607309086065" />
   </component>
 </project>

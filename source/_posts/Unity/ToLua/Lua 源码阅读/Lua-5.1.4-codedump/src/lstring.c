@@ -18,7 +18,7 @@
 #include "lstring.h"
 
 
-// 对保存string的hash桶进行resize
+// 数据量非常大时,分配到每个桶上的数据也会非常多, 对保存string的hash桶进行resize,重新分配散列桶的数量,降低每个桶上分配到的数据数量,
 void luaS_resize (lua_State *L, int newsize) {
   GCObject **newhash;
   stringtable *tb;

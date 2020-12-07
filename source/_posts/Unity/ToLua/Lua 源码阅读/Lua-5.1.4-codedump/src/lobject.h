@@ -37,8 +37,11 @@ typedef union GCObject GCObject;
 
 
 /*
-** Common Header for all collectable objects (in macro form, to be
-** included in other objects)
+** Common Header for all collectable objects (in macro form, to be included in other objects)
+** 所有可收集对象的公共标头(以宏形式，将包含在其他对象中)
+ * next :指向下一个 GC 链表的成员
+ * tt : 表示数据的类型,即前面的那些表示数据类型的宏
+ * marked : GC 相关的标记位
 */
 #define CommonHeader	GCObject *next; lu_byte tt; lu_byte marked
 
@@ -55,6 +58,8 @@ typedef struct GCheader {
 
 /*
 ** Union of all Lua values
+ * Lua 是一门动态语言,所以使用这一个联合体,来表示所有类型的数据结构.
+ * 此类型是 Lua 虚拟机中直接使用的类型,外包装真正的类型的数据结构
 */
 typedef union {
   GCObject *gc;
@@ -113,7 +118,9 @@ typedef struct lua_TValue {
   ((ttype(obj) == (obj)->value.gc->gch.tt) && !isdead(g, (obj)->value.gc)))
 
 
-/* Macros to set values */
+/* Macros to set values
+ * TValue与具体的类型数据的转换,通过宏设置
+ * */
 #define setnilvalue(obj) ((obj)->tt=LUA_TNIL)
 
 #define setnvalue(obj,x) \
@@ -185,7 +192,7 @@ typedef struct lua_TValue {
 
 #define setttype(obj, tt) (ttype(obj) = (tt))
 
-// 只有这些类型的数据 才是可回收的数据
+// 大于等于字符串类型的需要进行 GC 回收操作,
 #define iscollectable(o)	(ttype(o) >= LUA_TSTRING)
 
 
@@ -194,10 +201,10 @@ typedef TValue *StkId;  /* index to stack elements */
 
 
 /*
-** String headers for string table
+** String headers for string table 字符串的数据结构
 */
 typedef union TString {
-  L_Umaxalign dummy;  /* ensures maximum alignment for strings */
+  L_Umaxalign dummy;  /* ensures maximum alignment for strings 确保字符串的最大对齐 */
   struct {
     CommonHeader;
     lu_byte reserved;
