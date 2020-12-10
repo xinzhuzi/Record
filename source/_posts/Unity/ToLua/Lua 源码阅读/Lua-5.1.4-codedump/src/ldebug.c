@@ -228,7 +228,7 @@ static int auxgetinfo (lua_State *L, const char *what, lua_Debug *ar,
   return status;
 }
 
-
+//获取当前栈帧的调试信息
 LUA_API int lua_getinfo (lua_State *L, const char *what, lua_Debug *ar) {
   int status;
   Closure *f = NULL;

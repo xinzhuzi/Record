@@ -30,7 +30,7 @@
 
 
 /*
-** Main thread combines a thread state and the global state
+** Main thread combines a thread state and the global state 主线程结合了线程状态和全局状态
 */
 typedef struct LG {
   lua_State l;

@@ -34,8 +34,8 @@ LUALIB_API void (luaL_setn) (lua_State *L, int t, int n);
 
 
 typedef struct luaL_Reg {
-  const char *name;
-  lua_CFunction func;
+  const char *name;//模块名
+  lua_CFunction func;//初始化模块函数
 } luaL_Reg;
 
 

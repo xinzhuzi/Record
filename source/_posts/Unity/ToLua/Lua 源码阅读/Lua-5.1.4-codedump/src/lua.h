@@ -321,12 +321,12 @@ LUA_API void lua_setlevel	(lua_State *from, lua_State *to);
 
 
 /*
-** Event masks
+** Event masks 钩子,在 lua_state 栈上的钩子,为了调试库使用
 */
-#define LUA_MASKCALL	(1 << LUA_HOOKCALL)
-#define LUA_MASKRET	(1 << LUA_HOOKRET)
-#define LUA_MASKLINE	(1 << LUA_HOOKLINE)
-#define LUA_MASKCOUNT	(1 << LUA_HOOKCOUNT)
+#define LUA_MASKCALL	(1 << LUA_HOOKCALL)//在函数被调用时触发
+#define LUA_MASKRET	(1 << LUA_HOOKRET)//在函数返回时被触发;
+#define LUA_MASKLINE	(1 << LUA_HOOKLINE)//在每执行一行代码时被触发
+#define LUA_MASKCOUNT	(1 << LUA_HOOKCOUNT)//每执行 count 条 lua 指令触发一次,这里的 count 在 lua_sethook 函数的第三个参数中传入,使用其他 hook 类型时,其他参数无效.
 
 typedef struct lua_Debug lua_Debug;  /* activation record */
 
@@ -347,20 +347,20 @@ LUA_API lua_Hook lua_gethook (lua_State *L);
 LUA_API int lua_gethookmask (lua_State *L);
 LUA_API int lua_gethookcount (lua_State *L);
 
-
-struct lua_Debug {
-  int event;
-  const char *name;	/* (n) */
-  const char *namewhat;	/* (n) `global', `local', `field', `method' */
-  const char *what;	/* (S) `Lua', `C', `main', `tail' */
-  const char *source;	/* (S) */
-  int currentline;	/* (l) */
-  int nups;		/* (u) number of upvalues */
-  int linedefined;	/* (S) */
-  int lastlinedefined;	/* (S) */
-  char short_src[LUA_IDSIZE]; /* (S) */
+//在函数 lua_getinfo
+struct lua_Debug {//在调试过程中,需要知道当前虚拟机的一些状态,为此,Lua 提供了 lua_Debug 结构体,里面的成员变量用来保存当前程序的一些信息
+  int event;//用于表示触发hook 的事件,事件类型就是LUA_MASKCALL,LUA_MASKRET,LUA_MASKLINE,LUA_MASKCOUNT
+  const char *name;	/* (n) 当前所在函数的名称*/
+  const char *namewhat;	/* (n) `global', `local', `field', `method' name 域的含义,可能取值为 global,local,method,field 或者空字符串,空字符串意味着 Lua 无法找到这个函数名字 */
+  const char *what;	/* (S) `Lua', `C', `main', `tail' 函数类型,如果是普通的函数,就是 Lua,如果是 C 函数就是 C,如果是 Lua的主代码段,结果为 main */
+  const char *source;	/* (S) 函数定义位置,如果函数在字符串内被定义(通过 loadstring 函数),source 就是该字符串,如果函数在文件中被定义,source 就是带@前缀的文件名 */
+  int currentline;	/* (l) 当前所在行号 */
+  int nups;		/* (u) number of upvalues 该函数 upvalue 的数量 */
+  int linedefined;	/* (S) source 中函数被定义处的行号*/
+  int lastlinedefined;	/* (S) 该函数最后一行代码在源代码中的行号*/
+  char short_src[LUA_IDSIZE]; /* (S) source 的简短版本(60个字符以内),对错误信息很有用 */
   /* private part */
-  int i_ci;  /* active function */
+  int i_ci;  /* active function 存放当前函数在 lua_state 结构体的 callinfo 数组中的索引,通过这个变量,就能在 lua_state 结构体中拿到对应的 callinfo 数据*/
 };
 
 /* }====================================================================== */

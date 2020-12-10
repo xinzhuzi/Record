@@ -233,7 +233,7 @@ typedef union Udata {
 
 
 /*
-** Function Prototypes
+** Function Prototypes  这个里面保存的是分析过程完结之后生成的字节码信息.
 */
 // 存放函数原型的数据结构
 typedef struct Proto {
@@ -300,12 +300,12 @@ typedef struct UpVal {
 /*
 ** Closures
 */
-
+//env 表
 #define ClosureHeader \
 	CommonHeader; lu_byte isC; lu_byte nupvalues; GCObject *gclist; \
 	struct Table *env
 
-typedef struct CClosure {
+typedef struct CClosure {//env 表存放在这个结构体中
   ClosureHeader;
   lua_CFunction f;
   TValue upvalue[1];
@@ -348,16 +348,16 @@ typedef struct Node {
 } Node;
 
 
-typedef struct Table {
+typedef struct Table {//数组与哈希表的结合
   CommonHeader;
-  lu_byte flags;  /* 1<<p means tagmethod(p) is not present */ 
-  lu_byte lsizenode;  /* log2 of size of `node' array */
-  struct Table *metatable;
-  TValue *array;  /* array part */
-  Node *node;
-  Node *lastfree;  /* any free position is before this position */
-  GCObject *gclist;
-  int sizearray;  /* size of `array' array */
+  lu_byte flags;  /* 1<<p means tagmethod(p) is not present 表示提供了哪些元方法 */
+  lu_byte lsizenode;  /* log2 of size of `node' array,以 2 为底的散列表大小的对数值,散列表部分的大小一定是 2 的幂,散列桶数组要扩展,在原大小上每次乘以 2 */
+  struct Table *metatable;//存放该表的元表
+  TValue *array;  /* array part 数组的指针,数组部分 */
+  Node *node;//指向该表的散列桶数组起始位置的指针
+  Node *lastfree;  /* any free position is before this position 指向该表散列桶数组的最后位置的指针*/
+  GCObject *gclist;//GC 相关的链表,
+  int sizearray;  /* size of `array' array 数组部分的大小*/
 } Table;
 
 

@@ -76,15 +76,15 @@ static void reallymarkobject (global_State *g, GCObject *o) {
   white2gray(o);
   switch (o->gch.tt) {
     case LUA_TSTRING: {
-      // 字符串不做处理
+      // 字符串不做处理,由于这一类型没有引用其他数据,所以略过将其颜色改为灰色的流程,直接将不是黑色的字符串对象回收即可.
       return;
     }
-    case LUA_TUSERDATA: {
+    case LUA_TUSERDATA: {//这一类型也不引用其他数据,这里也是一步到位,直接将其标记位黑色.
       Table *mt = gco2u(o)->metatable;
       // gray2black表示将与之关联的obj也mark了
       gray2black(o);  /* udata are never gray */
-      if (mt) markobject(g, mt);
-      markobject(g, gco2u(o)->env);
+      if (mt) markobject(g, mt);//标记其 metatable 表
+      markobject(g, gco2u(o)->env);//标记其 env 表
       return;
     }
     case LUA_TUPVAL: {
@@ -93,7 +93,7 @@ static void reallymarkobject (global_State *g, GCObject *o) {
       // 说明现在没有值与这个upval关联，可以直接置为black
       // uv->v == &uv->u.value表示这个upval是close状态
       // open状态是不会变成black的,因为open的时候关联的对象还在呢
-      if (uv->v == &uv->u.value)  /* closed? */
+      if (uv->v == &uv->u.value)  /* closed? */ //如果当前是 close 状态的话,那么该 UpValue 已经没有与其他数据的引用关系了,可以直接标记为黑色
         gray2black(o);  /* open upvalues are never black */
       return;
     }
@@ -323,16 +323,15 @@ static l_mem propagatemark (global_State *g) {
     case LUA_TTABLE: {
       Table *h = gco2h(o);
       g->gray = h->gclist;
-      // 如果是弱表,变回到灰色----这又是为什么呢?
-      if (traversetable(g, h))  /* table is weak? */
-        black2gray(o);  /* keep it gray */
+      if (traversetable(g, h))  /* table is weak? *///如果扫描到该表是弱表,那么将会把该对象加入到 weak 链表中,这个链表将在扫描阶段的最后一步进行一次不能中断的处理
+        black2gray(o);  /* keep it gray */// 如果是弱表,变回到灰色,重新进行扫描
       return sizeof(Table) + sizeof(TValue) * h->sizearray +
                              sizeof(Node) * sizenode(h);
     }
     case LUA_TFUNCTION: {
       Closure *cl = gco2cl(o);
       g->gray = cl->c.gclist;
-      traverseclosure(g, cl);
+      traverseclosure(g, cl);//对函数中的所有 UpValue 进行标记.
       return (cl->c.isC) ? sizeCclosure(cl->c.nupvalues) :
                            sizeLclosure(cl->l.nupvalues);
     }
@@ -342,15 +341,15 @@ static l_mem propagatemark (global_State *g) {
       // 线程对象由于也是1:N的对应关系，所以也是加入到grayagain链表中
       th->gclist = g->grayagain;
       g->grayagain = o;
-      black2gray(o);
-      traversestack(g, th);
+      black2gray(o);//将颜色退回到灰色,以备后面的原子阶段再做一次扫描.
+      traversestack(g, th);//因为 thread 上关联的对象是 Lua 运行时的状态,变化很频繁,所以这里只是简单的放在 grayagain 链表中,后面再一次性标记完毕.
       return sizeof(lua_State) + sizeof(TValue) * th->stacksize +
                                  sizeof(CallInfo) * th->size_ci;
     }
-    case LUA_TPROTO: {
+    case LUA_TPROTO: {//特殊类型Proto,这个是翻译源码的操作码
       Proto *p = gco2p(o);
       g->gray = p->gclist;
-      traverseproto(g, p);
+      traverseproto(g, p);//标记一个 proto 数据中的文件名,字符串,upvalue,局部变量等所有被引用的对象.
       return sizeof(Proto) + sizeof(Instruction) * p->sizecode +
                              sizeof(Proto *) * p->sizep +
                              sizeof(TValue) * p->sizek + 
@@ -564,18 +563,18 @@ static void markmt (global_State *g) {
 }
 
 
-/* mark root set */
+/* mark root set GC 初始化阶段,将所有对象的颜色从白色变成灰色 */
 static void markroot (lua_State *L) {
   global_State *g = G(L);
   // 首先置空这几个链表
   g->gray = NULL;
   g->grayagain = NULL;
   g->weak = NULL;
-  markobject(g, g->mainthread);
+  markobject(g, g->mainthread);//标记对象的颜色为灰色
   /* make global table be traversed before main stack */
   // 标记g表和reg表
-  markvalue(g, gt(g->mainthread));
-  markvalue(g, registry(L));
+  markvalue(g, gt(g->mainthread));//标记对象的颜色为灰色
+  markvalue(g, registry(L));//标记对象的颜色为灰色
   // 标记meta表
   markmt(g);
   g->gcstate = GCSpropagate;
@@ -592,17 +591,17 @@ static void remarkupvals (global_State *g) {
   }
 }
 
-// 一个原子的过程,不可被中断
+// 一个原子的过程,不可被中断,扫描所有对象,弱表链表和前面提到的 grayagain 链表
 static void atomic (lua_State *L) {
   global_State *g = G(L);
   size_t udsize;  /* total size of userdata to be finalized */
   /* remark occasional upvalues of (maybe) dead threads */
-  remarkupvals(g);
+  remarkupvals(g);//标记 open 状态的 upvalue,gray 链表又会有新的对象,于是需要propagateall再次将 gray 链表中的对象标记一下.
   /* traverse objects cautch by write barrier and by 'remarkupvals' */
   propagateall(g);
   /* remark weak tables */
   // 标记弱表
-  g->gray = g->weak;
+  g->gray = g->weak;//修改 gray 链表的指针,使其执行管理弱表的 weak 指针,同时标记当前的 Lua_state 指针以及基本的 meta 表
   g->weak = NULL;
   lua_assert(!iswhite(obj2gco(g->mainthread)));
   markobject(g, L);  /* mark running thread */
@@ -610,7 +609,7 @@ static void atomic (lua_State *L) {
   propagateall(g);
   /* remark gray again */
   // 遍历again链表进行标记
-  g->gray = g->grayagain;
+  g->gray = g->grayagain;//修改 gray 链表指针指向 grayagain 指针,同样是调用propagateall函数进行遍历扫描操作.
   g->grayagain = NULL;
   propagateall(g);
   udsize = luaC_separateudata(L, 0);  /* separate userdata to be finalized */
@@ -618,7 +617,7 @@ static void atomic (lua_State *L) {
   udsize += propagateall(g);  /* remark, to propagate `preserveness' */
   // 一个原子的过程去mark弱表
   cleartable(g->weak);  /* remove collected objects from weak tables */
-  /* flip current white */
+  /* flip current white 修改状态到下个回收阶段 */
   g->currentwhite = cast_byte(otherwhite(g));
   g->sweepstrgc = 0;
   g->sweepgc = &g->rootgc;
@@ -626,31 +625,31 @@ static void atomic (lua_State *L) {
   g->estimate = g->totalbytes - udsize;  /* first estimate */
 }
 
-// GC状态机的单步工作
+// GC状态机的单步工作 ,从这个方法开始进行 GC 流程,Lua的 GC 是增量的,中间是可以被打断的,每一次单独进入 GC 时,都会根据当前 GC 所处的阶段来进行不同的处理
 static l_mem singlestep (lua_State *L) {
   global_State *g = G(L);
   /*lua_checkmemory(L);*/
   switch (g->gcstate) {
     case GCSpause: {
-      markroot(L);  /* start a new collection */
+      markroot(L);  /* start a new collection 初始化阶段,从 root 节点触发,遍历 root 链表上所有节点,将它们的颜色从白色变成灰色,加入到 gray 链表中 */
       return 0;
     }
-    case GCSpropagate: {
+    case GCSpropagate: {//扫描阶段就是遍历灰色对象链表来分析对象的引用情况, 这个阶段是 GC 所有阶段中步骤最长的
       // 当gray链表还有元素的时候,持续mark该元素关联的值,每次mark一个对象
       if (g->gray)
-        return propagatemark(g);
+        return propagatemark(g);//第一步遍历 gray 链表来标记所有数据,在这个过程中,有些数据需要重新扫描,这些数据会放在 grayagain 链表中,调用 atomic 函数重新扫描,此阶段可中断
       else {  /* no more `gray' objects */
-    	  // 再也没有灰色的对象了,来一个原子的mark过程
+    	  // 再也没有灰色的对象了,来一个原子的mark过程;第二步一次性扫描 grayagain 链表中的所有数据,完成标记阶段,不可中断
         atomic(L);  /* finish mark phase */
         return 0;
       }
     }
-    case GCSsweepstring: {
+    case GCSsweepstring: {//回收阶段,针对字符串进行回收
       // 回收某个string hash table
       // 首先保存旧的总大小
       lu_mem old = g->totalbytes;
       // 对某个string的hash table进行回收
-      sweepwholelist(L, &g->strt.hash[g->sweepstrgc++]);
+      sweepwholelist(L, &g->strt.hash[g->sweepstrgc++]);//每次调用回收字符串散列桶数组中的一个字符串链表,其中每次操作的散列桶索引值放在sweepgc中,当所有字符串散列桶数据全部遍历完毕时,切换到洗衣歌状态 GCSsweep 进行其他数据回收
       // 如果已经回收完了，进入下一个阶段GCSsweep
       if (g->sweepstrgc >= g->strt.size)  /* nothing more to sweep? */
         g->gcstate = GCSsweep;  /* end sweep-string phase */
@@ -661,7 +660,7 @@ static l_mem singlestep (lua_State *L) {
       // 是因为前面扫描阶段已经返回实际的值了？
       return GCSWEEPCOST;
     }
-    case GCSsweep: {
+    case GCSsweep: {//回收阶段,针对其他类型进行回收
       lu_mem old = g->totalbytes;
       g->sweepgc = sweeplist(L, g->sweepgc, GCSWEEPMAX);
       if (*g->sweepgc == NULL) {  /* nothing more to sweep? */
@@ -674,7 +673,7 @@ static l_mem singlestep (lua_State *L) {
       // 是因为前面扫描阶段已经返回实际的值了？
       return GCSWEEPMAX*GCSWEEPCOST;
     }
-    case GCSfinalize: {
+    case GCSfinalize: {//结束阶段,也可以中断,只要 tmudata 链表中还有对象,GCTM 函数来处理.
       if (g->tmudata) {
         GCTM(L);
         if (g->estimate > GCFINALIZECOST)
@@ -762,7 +761,7 @@ void luaC_fullgc (lua_State *L) {
   setthreshold(g);
 }
 
-// GC向前走一步
+// GC向前走一步,分布增量式 GC,中间被打断,新增对象与被扫描对象中间关系的变化,新创对象被黑色对象引用了,将新创对象变为灰色.
 void luaC_barrierf (lua_State *L, GCObject *o, GCObject *v) {
   global_State *g = G(L);
   // o是黑色的，v是白色的，同时都是活着的
@@ -784,7 +783,7 @@ void luaC_barrierf (lua_State *L, GCObject *o, GCObject *v) {
 // back仅针对table类型成员,因为table对象经常出现1个table对象存放的是N个对象也就是1:N的情况
 // 如果每个table在受到其中一个对象的影响都要重新标记，那会操作的很频繁，所以就索性回退处理
 // 等待后续的atomic过程才一次性处理这个重新加入grayagain链表的对象
-void luaC_barrierback (lua_State *L, Table *t) {
+void luaC_barrierback (lua_State *L, Table *t) {//回退操作仅仅针对 table 类型的对象,而其他类型的对象都是向前操作
   global_State *g = G(L);
   GCObject *o = obj2gco(t);
   lua_assert(isblack(o) && !isdead(g, o));
@@ -799,13 +798,13 @@ void luaC_barrierback (lua_State *L, Table *t) {
 void luaC_link (lua_State *L, GCObject *o, lu_byte tt) {
   global_State *g = G(L);
   o->gch.next = g->rootgc;
-  g->rootgc = o;
-  o->gch.marked = luaC_white(g);
-  o->gch.tt = tt;
+  g->rootgc = o;//将对象挂载到链表上
+  o->gch.marked = luaC_white(g);//设置颜色为白色
+  o->gch.tt = tt;//设置数据的类型
 }
 
 // 这里需要问一下:upval和一般的对象有什么区别?为什么要单独一个函数来处理?
-void luaC_linkupval (lua_State *L, UpVal *uv) {
+void luaC_linkupval (lua_State *L, UpVal *uv) {//luaC_link方法是将颜色设置为白色,而这个 upvalue 是根据颜色是不是灰色来做后面的一些操作,原因在于,upvalue 是针对已有对象的间接引用
   global_State *g = G(L);
   GCObject *o = obj2gco(uv);
   o->gch.next = g->rootgc;  /* link upvalue into `rootgc' list */

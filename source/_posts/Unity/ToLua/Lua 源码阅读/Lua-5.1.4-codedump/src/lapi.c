@@ -76,13 +76,13 @@ static TValue *index2adr (lua_State *L, int idx) {
   }
 }
 
-// 获取当前环境表
+// 获取当前环境表,函数的 env 表创建
 static Table *getcurrenv (lua_State *L) {
   if (L->ci == L->base_ci)  /* no enclosing function? */
 	// 如果当前不在任何函数中,那个使用全局表
     return hvalue(gt(L));  /* use global table as environment */
   else {
-    Closure *func = curr_func(L);
+    Closure *func = curr_func(L);//如果是内嵌函数,就会返回其母函数的 env 表
     return func->c.env;
   }
 }

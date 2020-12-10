@@ -21,7 +21,7 @@ struct lua_longjmp;  /* defined in ldo.c */
 /* table of globals */
 #define gt(L)	(&L->l_gt)
 
-/* registry */
+/* registry 表,是全局唯一的,它存放在 global_state 结构体中,这个结构体在整个运行环境中只有一个 */
 #define registry(L)	(&G(L)->l_registry)
 
 
@@ -66,24 +66,21 @@ typedef struct CallInfo {
 ** `global state', shared by all threads of this state
 */
 typedef struct global_State {
-  stringtable strt;  /* hash table for strings */
+  stringtable strt;  /* hash table for strings 所有字符串的 hash 表 */
   lua_Alloc frealloc;  /* function to reallocate memory */
   void *ud;         /* auxiliary data to `frealloc' */
-  lu_byte currentwhite;
-  lu_byte gcstate;  /* state of garbage collector */
-  int sweepstrgc;  /* position of sweep in `strt' */
-  GCObject *rootgc;  /* list of all collectable objects */
-  GCObject **sweepgc;  /* position of sweep in `rootgc' */
-  GCObject *gray;  /* list of gray objects */
-  GCObject *grayagain;  /* list of objects to be traversed atomically */
-  GCObject *weak;  /* list of weak tables (to be cleared) */
-  // 所有有GC方法的udata都放在tmudata链表中
-  GCObject *tmudata;  /* last element of list of userdata to be GC */
+  lu_byte currentwhite;//存放当前 GC 的白色
+  lu_byte gcstate;  /* state of garbage collector 存放 GC 状态 (lgc.h 17-21行) */
+  int sweepstrgc;  /* position of sweep in `strt' 字符串回收阶段,每次针对字符串散列桶的一组字符串进行回收,这个值用于记录对应的散列桶索引 */
+  GCObject *rootgc;  /* list of all collectable objects 存放待 GC 对象的链表,所有对象创建之后都会放入该链表中 */
+  GCObject **sweepgc;  /* position of sweep in `rootgc' 待处理的回收数据都存放在 rootgc 链表中,由于回收阶段不是一次性全部回收这个链表的所有数据,所以使用这个变量来保存当前回收的位置,下一次从这个位置开始继续回收操作 */
+  GCObject *gray;  /* list of gray objects 存放灰色节点的链表 */
+  GCObject *grayagain;  /* list of objects to be traversed atomically 存放需要一次性扫描处理的灰色节点的链表,也就是说,这个链表上所有数据的处理需要一步到位,不能被打断 */
+  GCObject *weak;  /* list of weak tables (to be cleared) 存放弱表的链表*/
+  GCObject *tmudata;  /* last element of list of userdata to be GC ; 所有有GC方法的udata都放在tmudata链表中,这个成员指向这个链表的最后一个元素 */
   Mbuffer buff;  /* temporary buffer for string concatentation */
-  // 一个阈值，当这个totalbytes大于这个阈值时进行自动GC
-  lu_mem GCthreshold;
-  // 保存当前分配的总内存数量
-  lu_mem totalbytes;  /* number of bytes currently allocated */
+  lu_mem GCthreshold; // 一个阈值，当这个totalbytes大于这个阈值时进行自动GC
+  lu_mem totalbytes;  /* number of bytes currently allocated  // 保存当前分配的总内存数量 */
   // 一个估算值，根据这个计算GCthreshold
   lu_mem estimate;  /* an estimate of number of bytes actually in use */
   // 当前待GC的数据大小，其实就是累加totalbytes和GCthreshold的差值
@@ -93,7 +90,7 @@ typedef struct global_State {
   // 每次进行GC操作回收的数据比例，见lgc.c/luaC_step函数
   int gcstepmul;  /* GC `granularity' */
   lua_CFunction panic;  /* to be called in unprotected errors */
-  TValue l_registry;
+  TValue l_registry;//这个 registry 表只能由 C 代码访问,不能由 Lua 代码访问.key 必须是字符串类型的.这个表提供全局变量的存储,env 表提供的是函数内全局变量的存储.
   struct lua_State *mainthread;
   UpVal uvhead;  /* head of double-linked list of all open upvalues */
   struct Table *mt[NUM_TAGS];  /* metatables for basic types */

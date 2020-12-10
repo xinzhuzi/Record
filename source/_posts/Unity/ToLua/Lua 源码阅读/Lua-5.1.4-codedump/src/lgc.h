@@ -12,13 +12,13 @@
 
 
 /*
-** Possible states of the Garbage Collector
+** Possible states of the Garbage Collector GC状态
 */
-#define GCSpause	0
-#define GCSpropagate	1
-#define GCSsweepstring	2
-#define GCSsweep	3
-#define GCSfinalize	4
+#define GCSpause	0 //暂停阶段
+#define GCSpropagate	1//传播阶段,用于遍历灰色节点检查对象的引用情况,
+#define GCSsweepstring	2//字符串回收阶段
+#define GCSsweep	3//回收阶段,用于对除了字符串之外的所有其他数据类型进行回收
+#define GCSfinalize	4//终止阶段
 
 
 /*
@@ -39,15 +39,15 @@
 
 
 /*
-** Layout for bit use in `marked' field:
-** bit 0 - object is white (type 0)
-** bit 1 - object is white (type 1)
-** bit 2 - object is black
+** Layout for bit use in `marked' field:  GCHeader 中的 marked 标记字段的值
+** bit 0 - object is white (type 0) 第一种白色类型
+** bit 1 - object is white (type 1) 第二种白色类型
+** bit 2 - object is black 黑色
 ** bit 3 - for userdata: has been finalized
-** bit 3 - for tables: has weak keys
-** bit 4 - for tables: has weak values
-** bit 5 - object is fixed (should not be collected)
-** bit 6 - object is "super" fixed (only the main thread)
+** bit 3 - for tables: has weak keys 表中的弱key
+** bit 4 - for tables: has weak values 表中的弱value
+** bit 5 - object is fixed (should not be collected) 不可被回收(lua_state对象)
+** bit 6 - object is "super" fixed (only the main thread) 不可被回收(字符串对象)
 */
 
 
@@ -120,3 +120,21 @@ LUAI_FUNC void luaC_barrierback (lua_State *L, Table *t);
 
 
 #endif
+
+
+/* *
+ * 在 Lua 代码中,有 2 种回收方式,一种是自动回收,一种是程序自己调用 API 来触发一次回收.
+ *
+ *
+ * 自动回收会在每次调用内存分配相关的操作时检查是否满足触发条件,这个操作在宏 luaC_checkGC 中进行.
+ * 触发自动 GC 的条件就是:totalbytes 大于等于 GCthreshold 值,在这两个变量中,totalbytes 用于保存当前分配的内存大小,而 GCthreshold 是一个阈值,
+ * 这个值可以由一些参数影响和控制,由此改变触发的条件.此情况不可控,关闭方式是将GCthreshold设置为一个非常大的值,来达到一直不满足自动触发的条件.
+ *
+ *
+ * 手动 GC 受哪些参数影响? estimate/gcpause 两个成员将影响每次 GCthreshold 的值;#define setthreshold(g)  (g->GCthreshold = (g->estimate/100) * g->gcpause)
+ * estimate 是一个预估的当前使用的内存数量,gcpause 则是一个百分比,这个宏的作用就是按照估计值的百分比计算出新的阈值.
+ * gcpause 通过 lua_gc 这个C的接口来进行设置,可以看到,百分比越大,下一次开始 GC 的时间就会越长.
+ * 另一个影响 GC 进度的参数是 gcstepmul 成员,它同样可以通过 lua_gc 来设置,这个参数将影响每次手动 GC 时调用 singlestep 函数的次数,从而影响 GC 回收的速度.
+ * 如果希望关闭 GC,还需要再手动执行完一次 GC 之后,重新设置关闭自动 GC
+ *
+ * */

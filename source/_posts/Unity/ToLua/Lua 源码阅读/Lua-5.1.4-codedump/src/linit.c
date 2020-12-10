@@ -15,7 +15,7 @@
 
 
 static const luaL_Reg lualibs[] = {
-  {"", luaopen_base},
+  {"", luaopen_base},//模块名为空,因此方位这个模块的函数不需要加模块名前缀,比如 print
   {LUA_LOADLIBNAME, luaopen_package},//package  函数库
   {LUA_TABLIBNAME, luaopen_table}, // table 函数库
   {LUA_IOLIBNAME, luaopen_io}, // io 函数库
