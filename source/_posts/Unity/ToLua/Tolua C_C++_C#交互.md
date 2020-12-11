@@ -8,6 +8,16 @@ tags:
 - ToLua
 ---
 
+
+# C# 需要阅读的书籍
+* 1. << NET探秘：MSIL权威指南 >> Serge Lidin 著作,包建强 翻译.
+* 2. << NET CLR via C#(第4版) >> Jeffrey Richter 著作,周靖 翻译.
+* 3. << 精通.NET互操作：P／Invoke、C..Interop和COM.Interop.黄际洲等 >> 黄际洲 崔晓源 编著.
+
+# C# 需要知道的基础
+* 1. C#特性 Attribute 是一种可由用户自由定义的修饰符(Modifier),特性Attribute 的作用是添加元数据.一般用法是,放在方法的上面用反射来遍历所有这种带有特性的方法/类/属性等,用来做一些特殊设置.
+
+
 # C/C++ C# 交互
 
 * 1. 首先介绍这本书 <<NET CLR via C#(第4版)>> 这本书说明了高级 windows 系开发程序猿需要掌握的技能.以及<<[精通.NET互操作：P／Invoke、C..Interop和COM.Interop].黄际洲等>>这本书.需要深研才能正常理解 toLua 的背景知识
