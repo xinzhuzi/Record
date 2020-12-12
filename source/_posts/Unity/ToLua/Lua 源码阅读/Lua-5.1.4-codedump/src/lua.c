@@ -212,7 +212,7 @@ static int loadline (lua_State *L) {
     return status;
 }
 
-
+//Lua 解释器循环执行的逻辑 loadline
 static void dotty (lua_State *L) {
     int status;
     const char *oldprogname = progname;
@@ -362,11 +362,11 @@ static int pmain (lua_State *L) {
         s->status = handle_script(L, argv, script);
     if (s->status != 0) return 0;
     if (has_i)
-        dotty(L);
+        dotty(L);//Lua 解释器的核心函数
     else if (script == 0 && !has_e && !has_v) {
         if (lua_stdin_is_tty()) {
             print_version();
-            dotty(L);
+            dotty(L);//Lua 解释器的核心函数
         }
         else dofile(L, NULL);  /* executes stdin as a file */
     }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="Lua_C_Invoke" targetName="Lua_C_Invoke" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23ffccc2-f111-42e0-af64-29d49a614cb7" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="NewLua" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1lVmtJtRfgzXTU6DwJee2uwgvzT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmake-build-debug" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test.lua" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/cmake-build-debug" />
+      <recent name="$PROJECT_DIR$/Lua" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lua_C_Invoke" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lua_C_Invoke" TARGET_NAME="Lua_C_Invoke" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Lua_C_Invoke" RUN_TARGET_NAME="Lua_C_Invoke">
+      <envs>
+        <env name="PATH" value=" $PROJECT_DIR$/Lua" />
+      </envs>
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="WindowStateProjectService">
+    <state x="417" y="190" width="1088" height="758" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607692998287">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="417" y="190" width="1088" height="758" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607692998287" />
+    <state x="466" y="327" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607692725435">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="466" y="327" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607692725435" />
+    <state width="1920" height="342" key="GridCell.Tab.0.bottom" timestamp="1607765237119">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237119" />
+    <state width="1920" height="342" key="GridCell.Tab.0.center" timestamp="1607765237119">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237119" />
+    <state width="1920" height="342" key="GridCell.Tab.0.left" timestamp="1607765237119">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237119" />
+    <state width="1920" height="342" key="GridCell.Tab.0.right" timestamp="1607765237119">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237119" />
+    <state width="1920" height="342" key="GridCell.Tab.1.bottom" timestamp="1607765237120">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.1.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237120" />
+    <state width="1920" height="342" key="GridCell.Tab.1.center" timestamp="1607765237120">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.1.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237120" />
+    <state width="1920" height="342" key="GridCell.Tab.1.left" timestamp="1607765237120">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.1.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237120" />
+    <state width="1920" height="342" key="GridCell.Tab.1.right" timestamp="1607765237120">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1920" height="342" key="GridCell.Tab.1.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607765237120" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1607762940770">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607762940770" />
+  </component>
+</project>

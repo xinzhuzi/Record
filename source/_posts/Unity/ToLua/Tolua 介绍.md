@@ -38,4 +38,142 @@ https://github.com/Jakosa/LuaInterface
 
 * 3. 核心功能以及文件:提供 Lua-C#值类型,对象类型转化操作交互层,(ObjectTranslator.cs,LuaFunction.cs,ToLua.cs,LuaTable.cs等);提供 Lua 虚拟机创建,启动销毁,require ,dofile,dostring,traceback 等相关支持.(LuaState.cs,LuaStatic.cs);提供导出工具,利用 C#反射,对指定的 C#生成对应的 wrap 文件,启动后将所有 wrap 文件注册到 Lua 虚拟机中.(ToLuaMenu.cs,ToLuaExport.cs,ToLuaTree.cs,LuaBinder.cs,CustomSetting.cs 等);提供 C# 对象和 Lua userdata 对应关系,使该 userdata 能访问对应 C#对象属性,调用对应 C#对象函数,Lua 支持一定的面向对象(类,继承),管理这些对象的内存分配与生命周期,GC.(LuaState.cs);提供支持功能 Lua Coroutine,反射等,Lua 层重写部分性能有问题对象如 Vector 系列.(Vector3.lua 等);
 
-* 4. 
+* 4. tolua#集成主要分为两部分，一部分是运行时需要的代码包括一些手写的和自动生成的绑定代码，另一部分是编辑器相关代码，主要提供代码生成、编译lua文件等操作，具体就是Unity编辑器中提供的功能。用mono打开整个tolua#的工程，文件结构大体如下所示：
+![ToLua源码结构图](ToLua源码.png)       
+```
+    Runtime
+
+        Source
+
+            Generate 这个文件里面是生成的绑定代码
+
+            LuaConst.cs 这个文件是一些lua路径等配置文件。
+
+        ToLua
+
+            BaseLua 一些基础类型的绑定代码
+
+            Core 提供的一些核心功能，包括封装的LuaFunction LuaTable LuaThread LuaState LuaEvent、调用tolua原生代码等等。
+
+            Examples 示例
+
+            Misc 杂项，目前有LuaClient LuaCoroutine（协程） LuaLooper（用于tick） LuaResLoader（用于加载lua文件）
+
+            Reflection 反射相关
+
+    Editor
+
+        Editor
+
+            Custom
+
+                CustomSettings.cs 自定义配置文件，用于定义哪些类作为静态类型、哪些类需要导出、哪些附加委托需要导出等。
+
+        ToLua
+
+            Editor
+
+                Extend 扩展一些类的方法。
+
+                ToLuaExport.cs 真正生成lua绑定的代码
+
+                ToLuaMenu.cs Lua菜单上功能对应的代码
+
+                ToLuaTree.cs 辅助树结构
+```
+
+* 5. 了解了tolua#的大致文件结构，下面我们来看下tolua#的Generate All 这个功能来分析下它的生成过程。生成绑定代码主要放在ToLuaExport.cs里面，我们并不会对每一个函数进行细致的讲解，如果有什么不了解的地方，可以直接看它的代码。
+
+![ Generate All 流程 ](GenerateAll流程.png)  
+
+GenLuaDelegates函数:生成委托绑定的代码，它会从CustomSettings.customDelegateList里面取出所有自定义导出的委托列表，然后把CustomSettings.customTypeList里面的所有类型中的委托根据一定规则加入到list中，最后调用ToLuaExport.GenDelegates()方法来生成委托绑定的代码，生成的代码在DelegateFactory.cs文件中。      
+
+* 6. GenerateClassWraps 函数,遍历所有需要导出的类，然后调用ToLuaExport.Generate()方法来生成类的绑定代码。
+下面我们来看下ToLuaExport.Generate()方法，其基本流程如下所示:
+
+![ Generate Class Wraps ](GenerateClassWraps.png)  
+
+
+* 7. ToLua 中的核心类       
+LuaBaseRef.cs  Lua中对象对应C#中对象的一个基类，主要作用是有一个reference指向lua里面的对象，引用计数判断两个对象是否相等等。        
+LuaState.cs 这里面是对真正的lua_State的封装,包括注册各种库方法,基础方法,包括初始化lua路径，加载相应的lua文件，注册我们前面生成的绑定代码以及各种辅助函数。      
+ObjectTranslator.cs  接下来，我们着重说一下这个ObjectTranslator这个类，这个类代码不多，它存在的主要意义就是给lua中对C#对象的交互提供了基础，简单来说就是C#中的对象在传给lua时并不是直接把对象暴露给了lua，而是在这个OjbectTranslator里面注册并返回一个索引（可以理解为windows编程中的句柄），并把这个索引包装成一个userdata传递给lua，并且设置元表。具体可以查看tolua_pushnewudata代码.
+```
+    // tolua# 代码
+
+    static void PushUserData(IntPtr L, object o, int reference)
+
+    {
+
+    　　int index;
+
+    　　ObjectTranslator translator = ObjectTranslator.Get(L);
+
+    　　if (translator.Getudata(o, out index))
+
+    　　{
+
+    　　if (LuaDLL.tolua_pushudata(L, index))
+
+    　　{
+
+    　　return;
+
+    　　}
+
+    　　translator.Destroyudata(index);
+
+    　　}
+
+    　　index = translator.AddObject(o);
+
+    　　LuaDLL.tolua_pushnewudata(L, reference, index);
+
+    }
+
+    // tolua++ 代码
+
+    LUALIB_API void tolua_pushnewudata(lua_State *L, int metaRef, int index)
+
+    {
+
+        lua_getref(L, LUA_RIDX_UBOX);
+
+        tolua_newudata(L, index);
+
+        lua_getref(L, metaRef);
+
+        lua_setmetatable(L, -2);
+
+        lua_pushvalue(L, -1);
+
+        lua_rawseti(L, -3, index);
+
+        lua_remove(L, -2);
+
+    }
+```
+而在lua需要通过上面传到lua里面的对象调用C#的方法时，它会调用ToLua.CheckObject或者ToLua.ToObject从ObjectTranslator获取真正的C#对象。下面我们把ToLua.ToObject的代码做个示例：
+```
+    public static object ToObject(IntPtr L, int stackPos)
+
+    {
+
+    　　int udata = LuaDLL.tolua_rawnetobj(L, stackPos);
+
+    　　if (udata != -1)
+
+    　　{
+
+    　　ObjectTranslator translator = ObjectTranslator.Get(L);
+
+    　　return translator.GetObject(udata);
+
+    　　}
+
+    　　return null;
+
+    }
+```
+
+

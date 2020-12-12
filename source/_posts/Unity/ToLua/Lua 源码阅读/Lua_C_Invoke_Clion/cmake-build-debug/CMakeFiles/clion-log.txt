@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/cmake-build-debug

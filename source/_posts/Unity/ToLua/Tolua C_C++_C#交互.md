@@ -16,7 +16,8 @@ tags:
 
 # C# 需要知道的基础
 * 1. C#特性 Attribute 是一种可由用户自由定义的修饰符(Modifier),特性Attribute 的作用是添加元数据.一般用法是,放在方法的上面用反射来遍历所有这种带有特性的方法/类/属性等,用来做一些特殊设置.
-
+* 2. 引用类型-->System.Object.值类型-->System.ValueType-->System.Object.装箱在值类型向引用类型转换时发生, 拆箱在引用类型向值类型转换时发生;在 Rider 编译器中点击 Build-->Build Solution 即可,在查某个C#代码时,找出Tools IL Viewer,就可以看到 IL 代码,只要看到 box [ mscorlib ] System.xxx 等字样,则发生了装箱拆箱.
+* 3. ToLua LuaDLL.cs,包含了 C#调用 C/C++ 的函数库.在不同的平台上mono会去加载对应的tolua.dll或者tolua.so等文件并调用对应的函数
 
 # C/C++ C# 交互
 
