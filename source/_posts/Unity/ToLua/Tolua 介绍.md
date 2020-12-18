@@ -14,9 +14,71 @@ tags:
 * 3. 框架核心库地址 https://github.com/topameng/tolua_runtime 这个是打成 DLL 的源码,里面是纯 C/C++ 代码;包括 [Luajit](http://luajit.org/) 源码(不是 [Lua](https://www.lua.org/) 核心代码,2 者有区别),cjson 库(C 里面一个解析 json 的牛逼库);protoc-gen-lua, .proto 是一种谷歌发明的一种格式,用来传输网络协议,这个是将以 proto 格式编写的文件,转换成 Lua 代码,即可以在 Lua 里面编写网络协议传输对象,是为了网络服务的;LuaSocket是一个 C 库,专门为在 Lua 里面创建 Socket 而用;lpeg是解析 Lua 语法的库;int64,支持 64 位,原生 Lua 是不支持 64 位的长度的;之后如果想优化或者扩展,一般在这个 C 地方进行优化以及扩展,这样就大大增加了灵活性
 * 4. 将核心库的 C 代码编译成为DLL,需要各个平台的 C/C++编译库;Android 平台需要 NDK 支持编译,windows 需要 mingw32/mingw64 支持;mac 平台需要 Xcode 等;
 * 5. 2 个作者 https://github.com/topameng  https://github.com/jarjin
+* 6. 阅读基础,需要 C/C++ 基础,Lua 基础,C#基础.
+* 7. 阅读顺序,Lua 代码 --> Lua.c --> Luajit --> tolua.c --> tolua C# 代码.先会写 lua 代码,知道普通的 lua 代码怎么写table,function,协程,深入了解 lua 编程,lua 源码,luajit 源码,tolua的 C 部分源码,tolua 的 C#部分源码.tolua 整个框架.
+* 8. 阅读辅助方式,将所有经过的方法,全部打上 log,断点,重新编译,即可知道一条线从什么地方到什么地方了.因为其中间经过的语言过多,导致调试以及问题分析,代码分析及其困难,会造成劝退buff,望珍重.
+* 9. 函数辅助理解 : isxxx 一般表示查看虚拟栈上的类型; toxxx一般表示将虚拟栈上的值其转成对应的类型;pushxxx 表示将一个值存入虚拟栈;checkxxx 表示一个安全的函数,检查大小,值等
+
+# ToLua 代码文件浏览
+* 1. https://github.com/topameng/tolua_runtime github .下载到本地查看介绍.
+* 2. 文件介绍
+
+> * Plugins --> 打出的 *.bundle *.a *.dll *.so 等是 macos,iOS,windows,Android 平台 不同CPU 架构,32位或者 64 位的库.        
+> * android/jni --> NDK 相关
+> * cjson --> 一个 C 的 cjson 库
+> * iOS --> ToLua 的 iOS项目,使用 Xcode 打开
+> * luajit-2.1 -->Lua 的最新 jit 版本实现,与 Lua5.1 相对应
+> * luasocket --> 一个 C 的 socket 库,一般不使用它,可以在 ToLua C#库中屏蔽打开的代码.不建议从这个地方直接删除,万一用到呢?
+> * macjit --> ToLua 的 iOS项目,使用 Xcode 打开,一般不使用,苹果上面一般不让使用 jit.
+> * macnojit --> ToLua 的 iOS项目,使用的是 Lua5.1 的源码,不是 jit 版本的.使用 Xcode 打开.
+> * ubuntu --> Linux 项目,终端/cmd/控制台/vim 上编译.
+> * window --> libluajit.a
+> * bit.c --> 位运算,一般不在 Lua 代码中使用.
+> * build_xxx.sh --> 各个平台编译的脚本,在安装好 NDK,XCode,Msys2等环境后,编译的是 Android arm/arm64/x86, iOS,macos,windows32/windows64 等平台的库,然后才可以使用.
+> * int64.c --> int 的 64位问题,支持.
+> * lpeg.h/lpeg.c --> 一个字符串匹配算法,快速高效的分析 Lua 代码,可以简单的理解正则表达式的实现.
+> * pb.c --> 网易林卓毅实现的一个 protobuf 解析 lua 的插件.给 lua 使用 pb 做了支持.默认情况下.pb 是不可以在 Lua 中使用的.
+> * struct.c --> 对C#结构体做了扩展支持.
+> * tolua.h/tolua.c --> 这个是 tolua 框架的核心,它封装了 luajit 的 API,为了让 ToLua 的 C#代码可以与 C 代码更好的交互
+> * uint64.c --> 修复了 64 位不支持的问题.
+
+* 3. ToLua C# 代码 文件介绍 https://github.com/topameng/tolua 
+
+> * Editor/CustomSettings.cs  这个类是在编辑器文件夹下,在 tolua 中需要生成与 Lua 交互的一个中间文件. tolua 会将生成的类型,做一个中间的转换,一般情况下填写类名即可.
+> * Plugins/ 这个类里面填写 tolua_runtime 生成好的 *.bundle *.a *.dll *.so
+> * ToLua/
+>> * BaseType/ 这个文件夹下放的是一些默认的 System 命名空间下的一些类,一般不主动生成与清除它们.
+>> * Core/ 核心 C#库,
+>>> 包括 LuaState.cs,也就是 lua_State, lua 的虚拟交互栈.        
+>>> ToLua.cs  与 tolua.c 进行交互的 C#代码.
+>>> LuaDLL.cs C#与toLua/Lua C/C++交互的 API
+>>> LuaBaseRef.cs 引用计数,记录 table,function 等
+>>> LuaTable.cs table
+>>> LuaFunction.cs function
+>>> ObjectTranslator.cs  这个类,在 C#层保存了所有与 lua 交互的对象,lua 虚拟栈上并不是保存的 userdata 类型的值,而是这个对象的 "引用指针"(就是一个 int 类型的值),这个"引用指针"可以在ObjectTranslator类中取出.
+>>> LuaThread.cs 协程
+>>> LuaStatePtr.cs 记录的是一个 lua_State的指针.
+>> * Editor
+>>> * ToLuaExport.cs ToLuaMenu.cs ToLuaTree.cs 提供的一些工具,导出 xxxwarp.cs lua 脚本的方便拷贝      
+>> * Lua/ Lua 的一些基础工具,辅助工具,基础库
+>> * Misc/ 一些封装好的在项目中使用的工具.
+>>> LuaClient.cs 这个是将LuaState初始化,以及LuaLooper.cs/LuaCoroutine.cs 初始化全部集中的一个类,可以在项目中直接使用,也可以按照这个类直接进行封装,学习 tolua 的入口
+>>> LuaCoroutine.cs 协程
+>>> LuaLooper.cs update,fixedupdate,latedupdate
+>>> LuaProfiler.cs 监测
+>>> LuaResLoader.cs Lua代码的文件路径.
+>> * Reflection/ 反射相关
+>>> LuaReflection.cs 将一些C#反射相关的类,方法,注册到 lua 中,一般情况下,不在 Lua 代码中使用这个里面注册的方法.使用反射总是耗费性能的
+>>> LuaProperty.cs 属性
+>>> LuaMethod.cs 方法
+>>> LuaField.cs 字段
+>>> LuaConstructor.cs 构造器
 
 
-# ToLua 准备篇章
+
+
+
+# ToLua 理念介绍
 
 * 1. 为什么选择 Lua 作为热更语言,为什么苹果不能热更新?
 ```
@@ -175,5 +237,4 @@ ObjectTranslator.cs  接下来，我们着重说一下这个ObjectTranslator这�
 
     }
 ```
-
 

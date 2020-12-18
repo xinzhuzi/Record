@@ -381,3 +381,20 @@ setstepmul“：设置收集器的 stepmom 参数（步进倍率，step multipli
 * 3. 将加载过的模块赋值给 registry["_LOADED"]表.
 * 4. Lua 的代码热更新,也就是需要重新加载某个模块,最终效果是,在游戏运行期间,依然可以重新加载这个模块而执行代码.因此需要让Lua虚拟机认为它之前没有加载过,查看 Lua 代码可以发现,registry["_LOADED"] 表实际上就是 package.loaded 表,也就是说将 package.loaded[name] = null;package.loaded[name] = name;即可实现热更新.
 * 5. 在上面有个问题,就是内存中已经在使用的代码无法被置空,因为这是会影响当前游戏进程,只有在当前游戏界面没有使用到的Lua 代码才可以重新加载处理,否则会产生崩溃错误.
+
+
+# LuaJIT 
+
+* 1. Foreign Function Interface (FFI) 即一种在 A 语言中调用 B 语言的机制,通常来说,是指其他语言调用 C 函数;跨语言调用,就必须解决 C 函数查找和加载,以及 Lua 和 C 之间的类型转换的问题.
+
+* 2. FFI 的原理,POSIX 的 dlopen 和 dlsym，以及 Windows 上的 LoadLibraryExA 和 GetProcAddress。前者用于加载对应的链接库，后者用于查找并加载对应的函数符号。类似于先加载这个链接库文件,再从文件中查找方法的指针,调用方法,这是直接调用 C 的函数地址方式
+```
+    使用 FFI 调用方法具体的行为步骤:
+        1. 可执行程序自己的全局符号
+        2. 它的依赖的符号.
+        3. 在 dlopen 加载时指定 RTLD_GLOBAL flag 的链接库
+```
+在编译模式下 LuaJIT此时不会走 dlsym,而是直接调用 C 的函数地址.
+我们要知道加载进来的符号是个什么结构内容,这是 ffi.cdef 的意义
+解释模式下的 LuaJIT的FFI操作很慢,比编译模式下慢十倍.
+
