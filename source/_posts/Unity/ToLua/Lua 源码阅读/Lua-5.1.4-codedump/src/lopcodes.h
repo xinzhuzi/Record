@@ -1,6 +1,6 @@
 /*
 ** $Id: lopcodes.h,v 1.125.1.1 2007/12/27 13:02:25 roberto Exp $
-** Opcodes for Lua virtual machine
+** Opcodes for Lua virtual machine  虚拟机的字节码定义
 ** See Copyright Notice in lua.h
 */
 

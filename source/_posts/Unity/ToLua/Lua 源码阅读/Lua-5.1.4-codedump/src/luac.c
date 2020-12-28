@@ -1,6 +1,6 @@
 /*
 ** $Id: luac.c,v 1.54 2006/06/02 17:37:11 lhf Exp $
-** Lua compiler (saves bytecodes to files; also list bytecodes)
+** Lua compiler (saves bytecodes to files; also list bytecodes)  字节码编译器
 ** See Copyright Notice in lua.h
 */
 

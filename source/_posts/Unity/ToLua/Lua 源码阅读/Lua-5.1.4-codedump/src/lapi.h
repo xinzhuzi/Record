@@ -1,6 +1,6 @@
 /*
 ** $Id: lapi.h,v 2.2.1.1 2007/12/27 13:02:25 roberto Exp $
-** Auxiliary functions from Lua API 辅助函数,将值压入虚拟栈
+** Auxiliary functions from Lua API 辅助函数,将值压入虚拟栈,C语言接口
 ** See Copyright Notice in lua.h
 */
 

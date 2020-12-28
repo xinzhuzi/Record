@@ -1,6 +1,6 @@
 /*
 ** $Id: lgc.h,v 2.15.1.1 2007/12/27 13:02:25 roberto Exp $
-** Garbage Collector
+** Garbage Collector  垃圾回收
 ** See Copyright Notice in lua.h
 */
 

@@ -1,6 +1,6 @@
 /*
 ** $Id: linit.c,v 1.14.1.1 2007/12/27 13:02:25 roberto Exp $
-** Initialization of libraries for lua.c
+** Initialization of libraries for lua.c  内嵌库的初始化
 ** See Copyright Notice in lua.h
 */
 

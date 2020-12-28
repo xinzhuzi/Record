@@ -1,6 +1,6 @@
 /*
 ** $Id: lstrlib.c,v 1.132.1.4 2008/07/11 17:27:21 roberto Exp $
-** Standard library for string operations and pattern-matching
+** Standard library for string operations and pattern-matching  字符串库 ,匹配
 ** See Copyright Notice in lua.h
 */
 

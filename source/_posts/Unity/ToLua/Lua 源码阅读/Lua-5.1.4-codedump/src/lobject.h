@@ -1,6 +1,6 @@
 /*
 ** $Id: lobject.h,v 2.20.1.2 2008/08/06 13:29:48 roberto Exp $
-** Type definitions for Lua objects
+** Type definitions for Lua objects  对象操作的一些函数
 ** See Copyright Notice in lua.h
 */
 

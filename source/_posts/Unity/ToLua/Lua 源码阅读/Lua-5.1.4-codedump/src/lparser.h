@@ -1,6 +1,6 @@
 /*
 ** $Id: lparser.h,v 1.57.1.1 2007/12/27 13:02:25 roberto Exp $
-** Lua Parser
+** Lua Parser 解析器
 ** See Copyright Notice in lua.h
 */
 

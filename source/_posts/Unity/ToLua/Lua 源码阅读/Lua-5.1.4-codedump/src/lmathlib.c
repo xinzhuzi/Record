@@ -1,6 +1,6 @@
 /*
 ** $Id: lmathlib.c,v 1.67.1.1 2007/12/27 13:02:25 roberto Exp $
-** Standard mathematical library
+** Standard mathematical library 数学库
 ** See Copyright Notice in lua.h
 */
 
