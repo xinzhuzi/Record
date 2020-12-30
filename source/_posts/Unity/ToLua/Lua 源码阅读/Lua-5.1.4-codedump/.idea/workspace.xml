@@ -44,39 +44,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0cf05a4-a628-48cc-80f8-07683e403587" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lapi.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lapi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lauxlib.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lauxlib.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lbaselib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/lbaselib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lcode.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lcode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ldblib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ldblib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ldebug.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ldebug.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ldo.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ldo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ldump.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ldump.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lfunc.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lfunc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lgc.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lgc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/linit.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/linit.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/liolib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/liolib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/llex.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/llex.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lmathlib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/lmathlib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lmem.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lmem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loadlib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/loadlib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lobject.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lobject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lopcodes.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lopcodes.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loslib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/loslib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lparser.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lparser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lstate.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lstate.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lstring.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lstring.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lstrlib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/lstrlib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ltable.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ltable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ltablib.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ltablib.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ltm.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ltm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lua.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lua.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/luac.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/luac.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lundump.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lundump.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lvm.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lvm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lzio.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lzio.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +134,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1609145052884</updated>
-      <workItem from="1609145054016" duration="1080000" />
+      <workItem from="1609145054016" duration="1221000" />
     </task>
     <servers />
   </component>

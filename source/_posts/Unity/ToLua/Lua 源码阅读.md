@@ -404,5 +404,4 @@ setstepmul“：设置收集器的 stepmom 参数（步进倍率，step multipli
 
 * 3. pb库 https://www.cnblogs.com/xiaohutu/p/12168781.html ,在 C 上结合 Lua 封装了一层,可以在 Lua 代码中使用;目前通用的是云风的 pbc 库 https://github.com/cloudwu/pbc, xlua 用的也是 https://github.com/chexiongsheng/build_xlua_with_libs/tree/master/build/pbc 云风的;
 
-* 4. 
-
+* 4. lpeg 模式匹配;bit.c 位操作;uint64.c/int64.c 支持 64 位;
