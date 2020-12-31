@@ -135,6 +135,8 @@
       <option name="presentableId" value="Default" />
       <updated>1609145052884</updated>
       <workItem from="1609145054016" duration="1221000" />
+      <workItem from="1609330986164" duration="569000" />
+      <workItem from="1609376772111" duration="2613000" />
     </task>
     <servers />
   </component>
@@ -151,6 +153,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="360" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1607305856844">
@@ -197,10 +200,10 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="511" y="195" width="985" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607912905391" />
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1609145058165">
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1609379380046">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1609145058165" />
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1609379380046" />
     <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1609145749434">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
