@@ -44,6 +44,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0cf05a4-a628-48cc-80f8-07683e403587" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Lua 源码阅读.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lua 源码阅读.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,6 +138,7 @@
       <workItem from="1609145054016" duration="1221000" />
       <workItem from="1609330986164" duration="569000" />
       <workItem from="1609376772111" duration="2613000" />
+      <workItem from="1610159118327" duration="1461000" />
     </task>
     <servers />
   </component>
@@ -196,17 +198,17 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="0" y="23" width="1392" height="1057" key="SettingsEditor/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606204790074" />
-    <state x="511" y="195" width="985" height="712" key="find.popup" timestamp="1607912905391">
+    <state x="511" y="195" width="985" height="720" key="find.popup" timestamp="1610161247495">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="511" y="195" width="985" height="712" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607912905391" />
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1609379380046">
+    <state x="511" y="195" width="985" height="720" key="find.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610161247495" />
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog" timestamp="1610159123241">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1609379380046" />
-    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1609145749434">
+    <state x="402" y="425" width="1116" height="272" key="makefile.clean.confirm.dialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610159123241" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup" timestamp="1610161204841">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1609145749434" />
+    <state x="449" y="23" width="1022" height="1466" key="search.everywhere.popup/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610161204841" />
   </component>
 </project>
