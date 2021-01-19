@@ -40,6 +40,7 @@ end
 -------------继承自顶级类的写法
 
 UIController = LuaObjectClass:New({Name = "UIController"}) -- 管理一个UI模块
+print(UIController:ToString())
 
 function UIController:New(o)
     local o = o or {}

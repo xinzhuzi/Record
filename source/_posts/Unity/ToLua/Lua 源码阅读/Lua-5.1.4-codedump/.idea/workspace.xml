@@ -44,7 +44,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0cf05a4-a628-48cc-80f8-07683e403587" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Lua 源码阅读.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lua 源码阅读.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,9 +85,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Lua Application.test.lua">
-    <configuration name="all (1)" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/src/Makefile" target="all" workingDirectory="" arguments="">
+  <component name="RunManager" selected="Makefile.all">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -123,6 +127,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile.all" />
         <item itemvalue="Lua Application.test.lua" />
       </list>
     </recent_temporary>
@@ -138,7 +143,7 @@
       <workItem from="1609145054016" duration="1221000" />
       <workItem from="1609330986164" duration="569000" />
       <workItem from="1609376772111" duration="2613000" />
-      <workItem from="1610159118327" duration="1461000" />
+      <workItem from="1610159118327" duration="4835000" />
     </task>
     <servers />
   </component>
@@ -162,22 +167,22 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="360" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1607305856844" />
-    <state width="1889" height="330" key="GridCell.Tab.0.bottom" timestamp="1606560511936">
+    <state width="1920" height="37" key="GridCell.Tab.0.bottom" timestamp="1610176903626">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1889" height="330" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
-    <state width="1889" height="330" key="GridCell.Tab.0.center" timestamp="1606560511936">
+    <state width="1920" height="37" key="GridCell.Tab.0.bottom/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610176903626" />
+    <state width="1920" height="37" key="GridCell.Tab.0.center" timestamp="1610176903625">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1889" height="330" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
-    <state width="1889" height="330" key="GridCell.Tab.0.left" timestamp="1606560511935">
+    <state width="1920" height="37" key="GridCell.Tab.0.center/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610176903625" />
+    <state width="1920" height="37" key="GridCell.Tab.0.left" timestamp="1610176903625">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1889" height="330" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511935" />
-    <state width="1889" height="330" key="GridCell.Tab.0.right" timestamp="1606560511936">
+    <state width="1920" height="37" key="GridCell.Tab.0.left/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610176903625" />
+    <state width="1920" height="37" key="GridCell.Tab.0.right" timestamp="1610176903625">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1889" height="330" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1606560511936" />
+    <state width="1920" height="37" key="GridCell.Tab.0.right/0.23.1920.1057/-1920.23.1920.1057@0.23.1920.1057" timestamp="1610176903625" />
     <state width="1889" height="330" key="GridCell.Tab.1.bottom" timestamp="1606560511937">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
