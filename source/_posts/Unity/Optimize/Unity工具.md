@@ -20,11 +20,23 @@ tags:
 
 # UPR
 
-# Profile
+# Unity profiler
 
 # Frame Debug
 
 # Physics Debug
+
+# Snapdragon profiler
+https://developer.qualcomm.com/software/snapdragon-profiler
+
+# Adreno profiler
+https://developer.qualcomm.com/download/adrenoprofiler/adreno-profiler_osx.dmg
+
+# System Analyzer
+https://software.intel.com/content/www/us/en/develop/tools/graphics-performance-analyzers/system-analyzer.html
+
+
+
 
 # 渲染统计窗口
 游戏视野（Game View）右上角有一个Stats按钮。这个按钮是按下状态时，会显示一个半透明窗口，它显示对于优化性能很有用的实时渲染统计数据。根据目标平台不同，精确的统计数据也不同。
