@@ -20,7 +20,9 @@ tags:
 
 # UPR
 
-# Unity profiler
+# Unity profiler & Unity Profile Analyzer
+* 1. Profile Analyzer这个工具可以解析 profller数据,只有300 帧的数据.在平常简单情况下可以快速识别耗时函数.
+
 
 # Frame Debug
 
