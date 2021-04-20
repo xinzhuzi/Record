@@ -28,6 +28,10 @@ tags:
 * 2. 在一帧 16.66 ms,即 1 秒 60 帧的情况下,单个函数调用一般情况下要低于 1ms,所有渲染函数集合总耗时最好不要超过 5.5ms,即渲染函数总耗时可以占用一帧时间的 1/3.
 * 3. 同理,在一帧 33.33 ms,即 1秒 30 帧的情况下,单个函数调用一般情况下要低于 1ms,所有渲染函数集合总耗时最好不要超过 11ms,即渲染函数总耗时可以占用一帧时间的 1/3.
 
+# 编译时间
+* 1. Unity Editor Iteration Profiler (EIP) 
+* 2. NeedleTools Compilation Visualizer and EIP,https://github.com/openupm/openupm.git
+
 # Frame Debug
 
 # Physics Debug
