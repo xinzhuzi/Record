@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lua 源码阅读 | 新诸子</title>
+  <meta name="keywords" content=" ToLua ">
+  <meta name="description" content="Lua 源码阅读 | 新诸子">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="新诸子">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-08T15:44:58.000Z">
+<meta property="article:modified_time" content="2020-05-12T02:42:42.250Z">
+<meta property="article:author" content="诸子百家-谁的天下?">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/fontawesome.min.js" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.2/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>诸子百家-谁的天下?</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/xinzhuzi" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/e7aab68810b1" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:1487842110@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1487842110&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(78)</small></div></li>
+    
+        
+            
+            <li><div data-rel="代码语言交互">代码语言交互<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Net">Net<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="指针">指针<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="正则表达式">正则表达式<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="UnityEditor">UnityEditor<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Renderer">Renderer<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="UnityUI">UnityUI<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="杂项">杂项<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Unity">Unity<small>(17)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Unity优化">Unity优化<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  " target="_blank" href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="78">
+<input type="hidden" id="yelog_site_word_count" value="193.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/xinzhuzi">诸子百家-谁的天下?</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">language</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">CSharp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">Net</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">指针</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">re</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Protobuf,lua</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">tool</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">UnityEditor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">Renderer</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">UnityUI</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">杂项</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Unity</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">BestHttp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">IndustrialAutomation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Unity优化</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">ToLua</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">VSCode</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class="代码语言交互 "
+           href="/2020/05/08/CodeInteraction/C#_C_C++/"
+           data-tag="language"
+           data-author="" >
+            <span class="post-title" title="C#与C/C++的交互">C#与C/C++的交互</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Net "
+           href="/2020/05/08/Net/CSharp/"
+           data-tag="CSharp"
+           data-author="" >
+            <span class="post-title" title="网络部分">网络部分</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Net "
+           href="/2020/05/08/Net/net/"
+           data-tag="Net"
+           data-author="" >
+            <span class="post-title" title="网络部分">网络部分</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="指针 "
+           href="/2020/05/08/Pointer/%E6%8C%87%E9%92%88/"
+           data-tag="指针"
+           data-author="" >
+            <span class="post-title" title="C/C++指针详解">C/C++指针详解</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="正则表达式 "
+           href="/2020/05/08/RegularExpression/RegularExpression/"
+           data-tag="re"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Potobuf-Lua/ProtobufLua/"
+           data-tag="Protobuf,lua"
+           data-author="" >
+            <span class="post-title" title="Protobuf-Lua-Python">Protobuf-Lua-Python</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/md%E6%A0%BC%E5%BC%8F/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="MD 格式">MD 格式</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E8%BD%AF%E4%BB%B6/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="好用的插件软件">好用的插件软件</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="科学上网">科学上网</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/Windows%E5%91%BD%E4%BB%A4/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="MD 格式">MD 格式</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2020/05/08/Tools/%E7%A0%B4%E8%A7%A3Teamviewer/"
+           data-tag="tool"
+           data-author="" >
+            <span class="post-title" title="破解 TeamViewer">破解 TeamViewer</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/1%20%E4%BB%8B%E7%BB%8DUnityEditor/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="1 介绍UnityEditor">1 介绍UnityEditor</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/11%20Handles/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="11 Handles">11 Handles</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/12%20Gizmos/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="12 Gizmos">12 Gizmos</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class="Renderer "
+           href="/2020/05/08/Renderer/%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/"
+           data-tag="Renderer"
+           data-author="" >
+            <span class="post-title" title="渲染基本流程">渲染基本流程</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/13%20%E7%AE%80%E5%8D%95Node/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="13 简单Node">13 简单Node</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/10%20Screenshot/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="10 Screenshot">10 Screenshot</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/14%20NodeEditor/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="14 NodeEditor">14 NodeEditor</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/2%20UnityEditor%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="2 UnityEditor常用属性">2 UnityEditor常用属性</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/3%20%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="3 数据交互">3 数据交互</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/4%20EditorGUI/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="4 EditorGUI">4 EditorGUI</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/5%20EditorWindow/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="5 EditorWindow">5 EditorWindow</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/7%20CustomEditor_PropertyDrawer/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="7 CustomEditor_PropertyDrawer">7 CustomEditor_PropertyDrawer</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/6%20MenuItem/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="6 MenuItem">6 MenuItem</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/8%20EditorGUILayout/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="8 EditorGUILayout">8 EditorGUILayout</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityEditor "
+           href="/2020/05/11/UnityEditor/9%20EditorWindow%E6%A1%88%E4%BE%8B1/"
+           data-tag="UnityEditor"
+           data-author="" >
+            <span class="post-title" title="9 EditorWindow案例1">9 EditorWindow案例1</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="UnityUI "
+           href="/2020/05/08/UnityUI/Unity_NGUI/"
+           data-tag="UnityUI"
+           data-author="" >
+            <span class="post-title" title="Unity NGUI">Unity NGUI</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="UnityUI "
+           href="/2020/05/08/UnityUI/Unity_UI%E4%BC%98%E5%8C%96/"
+           data-tag="UnityUI"
+           data-author="" >
+            <span class="post-title" title="Unity UI优化">Unity UI优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="UnityUI "
+           href="/2020/05/11/UnityUI/Unity_UGUI/"
+           data-tag="UnityUI"
+           data-author="" >
+            <span class="post-title" title="Unity UGUI优化">Unity UGUI优化</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2020/05/08/algorithm/algorithm/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="学习算法大纲">学习算法大纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2020/05/08/algorithm/%E6%A1%88%E4%BE%8B/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="C基础案例">C基础案例</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="杂项 "
+           href="/2020/05/08/misc/Network/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="程序员需要掌握的英文单词">程序员需要掌握的英文单词</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="杂项 "
+           href="/2020/05/08/misc/Hexo%20%E7%9A%84%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="Hexo 的简单操作">Hexo 的简单操作</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="杂项 "
+           href="/2020/05/08/misc/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%BC%96%E5%86%99/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="博客搭建以及编写">博客搭建以及编写</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="杂项 "
+           href="/2020/05/08/misc/%E5%85%B1%E4%BA%A7%E5%85%9A%E5%AE%A3%E8%A8%80/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="共产党宣言">共产党宣言</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="杂项 "
+           href="/2020/05/08/misc/%E8%AF%97%E8%AF%8D%E9%9A%8F%E7%AC%94/"
+           data-tag="杂项"
+           data-author="" >
+            <span class="post-title" title="诗词随笔">诗词随笔</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/AssetBundles/AssetBundle/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="AssetBundle 介绍">AssetBundle 介绍</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a  class="Unity "
+           href="/2020/05/08/Unity/AssetBundles/%E6%89%93%E5%8C%85%E7%AD%96%E7%95%A5/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="AssetBundle 打包策略">AssetBundle 打包策略</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/FrameSynchronization/FrameSync/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="帧同步">帧同步</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/BestHttp/WebSocket/"
+           data-tag="BestHttp"
+           data-author="" >
+            <span class="post-title" title="BestHttp介绍2">BestHttp介绍2</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/06/20/Unity/IndustrialAutomation/Unity%E5%90%8E%E5%B7%A5%E4%B8%9A%E5%8C%96%E6%B5%81%E7%A8%8B1/"
+           data-tag="IndustrialAutomation"
+           data-author="" >
+            <span class="post-title" title="Unity后工业化流程1">Unity后工业化流程1</span>
+            <span class="post-date" title="2020-06-20 11:41:32">2020/06/20</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/BestHttp/BestHttp%E4%BB%8B%E7%BB%8D/"
+           data-tag="BestHttp"
+           data-author="" >
+            <span class="post-title" title="BestHttp介绍1">BestHttp介绍1</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/OcclusionCulling/Occlusion%20Culling/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="各个平台的路径">各个平台的路径</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/AndroidStudio/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity AndroidStudio工具检测优化">Unity AndroidStudio工具检测优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/GC/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity GC">Unity GC</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/CPU%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity CPU优化">Unity CPU优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/06/20/Unity/IndustrialAutomation/Unity%E5%90%8E%E5%B7%A5%E4%B8%9A%E5%8C%96%E6%B5%81%E7%A8%8B2/"
+           data-tag="IndustrialAutomation"
+           data-author="" >
+            <span class="post-title" title="Unity后工业化流程2">Unity后工业化流程2</span>
+            <span class="post-date" title="2020-06-20 11:41:32">2020/06/20</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/GPU%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity GPU优化">Unity GPU优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/OverDraw/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity OverDraw优化">Unity OverDraw优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/UnityStats/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity OverDraw优化">Unity OverDraw优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/UWA%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity UWA工具检测优化">Unity UWA工具检测优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E4%BC%98%E5%8C%96%E6%80%BB%E7%BA%B2/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 优化总纲">Unity 优化总纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B7%A5%E5%85%B7UPR/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity工具UPR">Unity工具UPR</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 内存优化">Unity 内存优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B7%A5%E5%85%B7/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity工具使用">Unity工具使用</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 渲染优化">Unity 渲染优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/XCode/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity Xcode工具检测优化">Unity Xcode工具检测优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E8%A7%84%E8%8C%83/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 代码编写规范">Unity 代码编写规范</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E5%B8%A7%E7%8E%87/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 优化总纲">Unity 优化总纲</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B2%BE%E5%BA%A6/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity  浮点数精度">Unity  浮点数精度</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/Unity%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 资源优化">Unity 资源优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity优化 "
+           href="/2020/05/08/Unity/Optimize/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/"
+           data-tag="Unity优化"
+           data-author="" >
+            <span class="post-title" title="Unity 网络优化">Unity 网络优化</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/ToLua%20C#_Lua%20%E4%BA%A4%E4%BA%92/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="Tolua C# Lua 交互">Tolua C# Lua 交互</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="Lua 源码阅读">Lua 源码阅读</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/ToLua%20C_C++_Lua%E4%BA%A4%E4%BA%92/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="Tolua C/C++ Lua 交互">Tolua C/C++ Lua 交互</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/ToLua%20C_C++_C#%E4%BA%A4%E4%BA%92/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="ToLua C/C++ C# 交互">ToLua C/C++ C# 交互</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/ToLua%20%E4%BB%8B%E7%BB%8D/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="Tolua 介绍">Tolua 介绍</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/Utils/%E5%B0%8F%E6%8A%80%E5%B7%A7/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="图片与字符串互转">图片与字符串互转</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/VisualStudioCode/VSCodeUnity/"
+           data-tag="VSCode"
+           data-author="" >
+            <span class="post-title" title="在 Unity 下使用 VSCode 配置">在 Unity 下使用 VSCode 配置</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/08/Unity/ToLua/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E6%80%A7%E8%83%BD/"
+           data-tag="ToLua"
+           data-author="" >
+            <span class="post-title" title="Tolua 介绍">Tolua 介绍</span>
+            <span class="post-date" title="2020-05-08 11:41:32">2020/05/08</span>
+        </a>
+        
+        <a id="top" class="Unity "
+           href="/2020/05/11/Unity/Path/%E5%B9%B3%E5%8F%B0%E8%B7%AF%E5%BE%84/"
+           data-tag="Unity"
+           data-author="" >
+            <span class="post-title" title="各个平台的路径">各个平台的路径</span>
+            <span class="post-date" title="2020-05-11 11:41:32">2020/05/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/contents/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/contents">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/contents</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/lua/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/lua">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/lua</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/lua/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/lua">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/lua</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/luac/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/luac">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/luac</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/manual/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/manual">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/manual</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/readme/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/readme">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/readme</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/12/18/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Lua-5.1.4-codedump/doc/manual/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/manual">Unity/ToLua/Lua 源码阅读/Lua-5.1.4-codedump/doc/manual</span>
+            <span class="post-date" title="2020-12-18 11:53:11">2020/12/18</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Unity/ToLua/Lua 源码阅读" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Lua 源码阅读</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a>置顶</a></span>
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="Unity">Unity</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color1">ToLua</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='更新时间: 2021-03-09 15:11:32'>2020-05-08 11:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:9.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lua-前期知识"><span class="toc-text">Lua 前期知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Lua-阅读书籍"><span class="toc-text">Lua 阅读书籍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引用文章"><span class="toc-text">引用文章</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Lua-加载文件的流程"><span class="toc-text">Lua 加载文件的流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Lua-环境-Environment"><span class="toc-text">Lua 环境 Environment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Lua-基础知识学习"><span class="toc-text">Lua 基础知识学习</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#值与类型"><span class="toc-text">值与类型</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lua-前期知识"><a href="#Lua-前期知识" class="headerlink" title="Lua 前期知识"></a>Lua 前期知识</h1><h4 id="Lua-阅读书籍"><a href="#Lua-阅读书籍" class="headerlink" title="Lua 阅读书籍"></a>Lua 阅读书籍</h4><ul>
+<li><ol>
+<li>Lua 编程 &lt;&lt; Programming in Lua &gt;&gt; ,编写 Lua 代码的基本操作. 初级</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>&lt;&lt; Lua 程序设计第四版 &gt;&gt; 中级</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><a href="https://www.bilibili.com/video/BV1Zz411i7QW?p=22" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Zz411i7QW?p=22</a>  Lua 实际应用例子/教程,看这个跟着敲一遍上面 2 本书不看也行.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>&lt;&lt; Lua 设计与实现 &gt;&gt; 高级,Lua 实现的算法,虚拟机讲解,编译器讲解,GC 等</li>
+</ol>
+</li>
+</ul>
+<h4 id="引用文章"><a href="#引用文章" class="headerlink" title="引用文章"></a>引用文章</h4><ul>
+<li><ol>
+<li><a href="https://www.lua.org/" target="_blank" rel="noopener">https://www.lua.org/</a></li>
+</ol>
+</li>
+<li><ol start="2">
+<li><a href="https://blog.csdn.net/yuanlin2008" target="_blank" rel="noopener">https://blog.csdn.net/yuanlin2008</a></li>
+</ol>
+</li>
+<li><ol start="3">
+<li><a href="https://blog.csdn.net/pyf09/category_9283453_2.html" target="_blank" rel="noopener">https://blog.csdn.net/pyf09/category_9283453_2.html</a></li>
+</ol>
+</li>
+<li><ol start="4">
+<li><a href="https://www.zhihu.com/topic/20134522/newest" target="_blank" rel="noopener">https://www.zhihu.com/topic/20134522/newest</a> &lt;&lt;Lua设计与实现&gt;&gt;</li>
+</ol>
+</li>
+<li><ol start="5">
+<li><a href="https://blog.csdn.net/yuanlin2008/category_1307277.html" target="_blank" rel="noopener">https://blog.csdn.net/yuanlin2008/category_1307277.html</a> 编译器与虚拟机</li>
+</ol>
+</li>
+</ul>
+<h4 id="Lua-加载文件的流程"><a href="#Lua-加载文件的流程" class="headerlink" title="Lua 加载文件的流程"></a>Lua 加载文件的流程</h4><ul>
+<li><ol>
+<li>使用 package.path(“path”) 方法,将多个 Lua 文件的路径放入.</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>使用 loadfile(“path”) 方法,将 Lua 文件加载进 lua 的一个表中.</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>使用 require(“path”) 方法,将 Lua 文件中的模块加载进 lua_state 虚拟栈.如果找不到,就去 package.cpath 搜索相应的 C 库,如果找到了就使用 package.loadlib 进行加载,一般情况是加载一堆 C 的方法.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>如果已经加载成功,加载函数必须有返回值,下次使用 require(“path”) 则会从 package.loaded 中查找,并返回一个值( lua 脚本没有返回值,则需要返回 true).</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>如果要重新加载一个模块,则需要先将模块从 package.loaded 中删除,然后在调用 require   </li>
+</ol>
+</li>
+</ul>
+<h4 id="Lua-环境-Environment"><a href="#Lua-环境-Environment" class="headerlink" title="Lua 环境 Environment"></a>Lua 环境 Environment</h4><ul>
+<li><ol>
+<li>全局环境:global environment 就是 Lua 中的 _G , _ENV;一个lua_state就有一个 _G</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>设置环境实操 <strong>TODO</strong></li>
+</ol>
+</li>
+</ul>
+<h4 id="Lua-基础知识学习"><a href="#Lua-基础知识学习" class="headerlink" title="Lua 基础知识学习"></a>Lua 基础知识学习</h4><ul>
+<li><ol>
+<li>网站学习<pre><code>官网 https://www.lua.org/ 
+视频1 https://www.bilibili.com/video/av39228822/ 
+视频2 https://www.bilibili.com/video/BV1H4411b7o9
+http://manistein.club/</code></pre></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Lua 原生的 C 代码已更新至 5.4.1 版本;Lua是动态类型的,通过使用基于寄存器的虚拟机解释字节码来运行，并且具有自动内存管理和增量垃圾收集.</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>先查看一下 Lua 原生C代码的文档,英文文档:<a href="https://www.lua.org/manual/5.4/" target="_blank" rel="noopener">https://www.lua.org/manual/5.4/</a> ;      <a href="https://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">https://www.lua.org/manual/5.3/manual.html</a><br>中文文档,云风大神翻译的,尽量看这个,<a href="https://cloudwu.github.io/lua53doc/contents.html#contents" target="_blank" rel="noopener">https://cloudwu.github.io/lua53doc/contents.html#contents</a></li>
+</ol>
+</li>
+<li><ol start="4">
+<li>luajit 目前对标的是 lua5.1版本,一下介绍的源码有可能在 lua 的不同版本里面</li>
+</ol>
+</li>
+</ul>
+<h1 id="值与类型"><a href="#值与类型" class="headerlink" title="值与类型"></a>值与类型</h1><ul>
+<li><ol>
+<li>number 标准 Lua 使用 64 位,LuaJIT 没有 64 位,但是 toLua 里面有个int64 补足了缺陷.</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Userdata ,一种是完全用户数据/ full Userdata,由 Lua 管理的内存对应的对象;轻量用户数据/light Userdata,指一个简单的 C 指针.只有通过C API，才能在Lua中创建或修改Userdata值;用户数据由宿主程序 C/C++ 控制.使用这个类型是为了允许任意C数据存储在Lua变量中.</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>thread ;Lua 中的这个类型只表示协程.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>table 是一个关联数组, 关联数组（associative array )是一种常用的抽象数据类型。它有很多别名，例如associative container , map , mapping , dictionary , finite map , table,index 等.它的特点是由一个关键字和其他各种属性组成的集合。典型的操作包括插入，删除和查找等。而用于描述关联数组最常用的是哈希表 （hash table ）和自平衡二叉搜索树（self-balanced binary search tree )(包括红黑树 （red-black tree ）和avl树 （avl tree ），有时可能使用B-tree (适用于关联数组太大的情况，比如数据库等））。哈希表和自平衡二叉搜索树的性能对比如下：平均情况下哈希表的查找和插入操作的复杂度为O（1），而自平 衡二叉搜索树的查找和插入操作的复杂度为O（log(n))。而最坏情况下平衡二叉搜索树的查找和插入操作的复杂度仍为O(log(n))，而哈希表的查 找和插入操作的复杂度可能达到O（n）;       table类型是一个 hash 表,可以用其他任何类型(除了 nil NaN)作为 key 值(索引)使用;表中不能存放 nil;</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>变量并没有持有各个类型的值,而是保存了对这些类型对象的引用,赋值,参数传递,函数返回,都是针对引用而不是针对值进行的操作.</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>全局变量,在定义变量的时候,前面不加上 local 就是全局变量;全局变量保存的位置在一个 table 里面,这个 table 的名字是 _G.<br>如果我们想避免这种情况可以使用setfenv,这个函数可以将当前函数/主函数等,重新设置函数内的全局变量的保存位置,原来是全部保存在_G 中的,现在使用setfenv(1, {})表示将当前函数内的全局变量保存在一个空表中,而这个表是空的,所以再使用这个函数内的全局变量就会报错.    <a href="https://www.cnblogs.com/guangyun/p/4685353.html" target="_blank" rel="noopener">https://www.cnblogs.com/guangyun/p/4685353.html</a></li>
+</ol>
+</li>
+<li><ol start="7">
+<li><p>元表,getmetatable 获取一个元表,setmetatable 设置一个元表,元表中的元方法可以是:</p>
+<pre><code>__add: + 操作, 如果任何不是数字的值（包括不能转换为数字的字符串）做加法， Lua 就会尝试调用元方法。 首先、Lua 检查第一个操作数（即使它是合法的）， 如果这个操作数没有为 &quot;__add&quot; 事件定义元方法， Lua 就会接着检查第二个操作数。 一旦 Lua 找到了元方法， 它将把两个操作数作为参数传入元方法， 元方法的结果（调整为单个值）作为这个操作的结果。 如果找不到元方法，将抛出一个错误。         
+__sub: - 操作,同上       
+__mul: * 操作,同上       
+__div: / 操作,同上       
+__mod: % 操作,同上       
+__pow: ^ （次方）操作,同上       
+__unm: - （取负）操作,同上       
+__idiv: // （向下取整除法）操作,同上       
+__concat: .. （连接）操作。 行为和 &quot;add&quot; 操作类似， 不同的是 Lua 在任何操作数即不是一个字符串 也不是数字（数字总能转换为对应的字符串）的情况下尝试元方法。
+__band: &amp; （按位与）操作。 行为和 &quot;add&quot; 操作类似， 不同的是 Lua 会在任何一个操作数无法转换为整数时尝试取元方法。        
+__bor: | （按位或）操作,同上       
+__bxor: ~ （按位异或）操作,同上       
+__bnot: ~ （按位非）操作,同上       
+__shl: &lt;&lt; （左移）操作,同上       
+__shr: &gt;&gt; （右移）操作,同上       
+__len: # （取长度）操作。 如果对象不是字符串，Lua 会尝试它的元方法。 如果有元方法，则调用它并将对象以参数形式传入， 而返回值（被调整为单个）则作为结果。 如果对象是一张表且没有元方法， Lua 使用表的取长度操作（参见 §3.4.7）。 其它情况，均抛出错误。
+__eq: == （等于）操作。 和 &quot;add&quot; 操作行为类似， 不同的是 Lua 仅在两个值都是表或都是完全用户数据 且它们不是同一个对象时才尝试元方法。 调用的结果总会被转换为布尔量。
+__lt: &lt; （小于）操作。 和 &quot;add&quot; 操作行为类似， 不同的是 Lua 仅在两个值不全为整数也不全为字符串时才尝试元方法。 调用的结果总会被转换为布尔量。
+__le: &lt;= （小于等于）操作。 和其它操作不同， 小于等于操作可能用到两个不同的事件。 首先，像 &quot;lt&quot; 操作的行为那样，Lua 在两个操作数中查找 &quot;__le&quot; 元方法。 如果一个元方法都找不到，就会再次查找 &quot;__lt&quot; 事件， 它会假设 a &lt;= b 等价于 not (b &lt; a)。 而其它比较操作符类似，其结果会被转换为布尔量。
+__index: 索引 table[key]。 当 table 不是表或是表 table 中不存在 key 这个键时，这个事件被触发。 此时，会读出 table 相应的元方法。
+尽管名字取成这样， 这个事件的元方法其实可以是一个函数也可以是一张表。 如果它是一个函数，则以 table 和 key 作为参数调用它。 如果它是一张表，最终的结果就是以 key 取索引这张表的结果。 （这个索引过程是走常规的流程，而不是直接索引， 所以这次索引有可能引发另一次元方法。）
+
+__newindex: 索引赋值 table[key] = value 。 和索引事件类似，它发生在 table 不是表或是表 table 中不存在 key 这个键的时候。 此时，会读出 table 相应的元方法。
+同索引过程那样， 这个事件的元方法即可以是函数，也可以是一张表。 如果是一个函数， 则以 table、 key、以及 value 为参数传入。 如果是一张表， Lua 对这张表做索引赋值操作。 （这个索引过程是走常规的流程，而不是直接索引赋值， 所以这次索引赋值有可能引发另一次元方法。）
+
+一旦有了 &quot;newindex&quot; 元方法， Lua 就不再做最初的赋值操作。 （如果有必要，在元方法内部可以调用 rawset 来做赋值。）
+
+__call: 函数调用操作 func(args)。 当 Lua 尝试调用一个非函数的值的时候会触发这个事件 （即 func 不是一个函数）。 查找 func 的元方法， 如果找得到，就调用这个元方法， func 作为第一个参数传入，原来调用的参数（args）后依次排在后面。</code></pre></li>
+</ol>
+</li>
+<li><ol start="8">
+<li>Garbage Collection 垃圾收集;Lua中的垃圾收集器(GC)有两种工作模式:增量式和分代式。<br>Lua 实现了一个增量标记-扫描收集器。 它使用这两个数字来控制垃圾收集循环： 垃圾收集器间歇率/garbage-collector pause 和 垃圾收集器步进倍率/garbage-collector step multiplier. 这两个数字都使用百分数为单位 （例如：值 100 在内部表示 1 ）;可以通过 lua_gc 或collectgarbage 控制与收集 Lua 的对象;<strong>gc可以作为元表中的元方法,在垃圾收集的时候进行触发,设置自己的资源管理工作;当一个被标记的对象成为垃圾后,GC 不会立刻回收它,会将其放入链表,收集完成之后,会检查链表中的每个对象的</strong>gc 方法;GC 会回收弱引用的对象, __mode 域是一个包含字符 ‘k’ 的字符串时，这张表的所有键皆为弱引用。 当 __mode 域是一个包含字符 ‘v’ 的字符串时，这张表的所有值皆为弱引用;调用               </li>
+</ol>
+</li>
+<li><ol start="9">
+<li><p>Lua 使用一个 虚拟栈 来和 C 互传值。栈上的的每个元素都是一个 Lua 值 （nil，数字，字符串，等等）。无论何时 Lua 调用 C，被调用的函数都得到一个新的栈， 这个栈独立于 C 函数本身的栈，也独立于之前的 Lua 栈。 它里面包含了 Lua 传递给 C 函数的所有参数， 而 C 函数则把要返回的结果放入这个栈以返回给调用者,也就是交互栈.<br>为了正确的和 Lua 通讯， C 函数必须使用下列协议。</p>
+<pre><code>C 函数模型      typedef int (*lua_CFunction) (lua_State *L);  这个协议定义了 C 的参数以及返回值传递方法: C 函数通过 Lua 中的栈来接受参数， 参数以正序入栈（第一个参数首先入栈）.
+
+当函数开始的时候,lua_gettop(L) 可以返回函数收到的参数个数。 
+第一个参数（如果有的话）在索引 1 的地方,而最后一个参数在索引 lua_gettop(L) 处。 
+当需要向 Lua 返回值的时候,C 函数只需要把它们以正序压到堆栈上（第一个返回值最先压入）,然后返回这些返回值的个数.
+在这些返回值之下的,堆栈上的东西都会被 Lua 丢掉. 和 Lua 函数一样,从 Lua 中调用 C 函数也可以有很多返回值.
+
+实际例子:
+static int foo (lua_State *L) {
+  int n = lua_gettop(L);    /* 参数的个数 */
+  lua_Number sum = 0.0;
+  int i;
+  for (i = 1; i &lt;= n; i++) {
+    if (!lua_isnumber(L, i)) {
+      lua_pushliteral(L, &quot;incorrect argument&quot;);
+      lua_error(L);
+    }
+    sum += lua_tonumber(L, i);
+  }
+  lua_pushnumber(L, sum/n);        /* 第一个返回值 */
+  lua_pushnumber(L, sum);         /* 第二个返回值 */
+  return 2;                   /* 返回值的个数 */
+}
+</code></pre></li>
+</ol>
+</li>
+</ul>
+<pre><code>
+* 10. Lua 的库,分为在 Lua 脚本里面使用的标准库,以及在 C 中为 Lua 编程的辅助库.可以称之为高级 API.
+标准库是专门为 Lua 程序员而编写的,为了提高效率.</code></pre><pre><code>标准库包括:
+    basic library 基础库(assert,collectgarbage,dofile,error,_G,getmetatable,ipairs,load,loadfile,next,pairs,pcall,print...)       
+    coroutine library 协程库        
+    package library 包管理库        
+    string manipulation 字符串控制      
+    basic UTF-8 support 基础 UTF-8 支持     
+    table manipulation 表控制      
+    mathematical functions数学函数        
+    input and output 输入输出        
+    operating system facilities 操作系工具
+    debug facilities 调试工具</code></pre><pre><code>
+#### table
+* 1. table 查找元表的方法;第一步 table 先找自身是否有 Key,如果自身有 Key 则返回 Key 对应的值;第二步,如果没有这个 key,则查找 metatable,如果没有则返回 nil;第三步,如果有这个 metatable 则查找这个 metatable 的__index 对应的 table 或者方法; **注意:不是查找 metatable 自身的 key,而是 metatable.__index 对应的 table 或者方法.** 
+* 2. 弱引用表 weak table ; {__mode = &quot;kv&quot;},在调用collectgarbage(&quot;collect&quot;)强制 GC 一次之后,这个表中的数据没有引用的话,就会被清除
+* 3. table 创建对象的方式有 2 种,一种是使用__index 指向父类;另一种就是将父类所有的参数值,赋值给子类,然后让子类的__index 指向自身
+
+# Lua 源码阅读
+## Lua 核心代码文件列表
+
+#### 虚拟机核心相关文件列表
+
+|文件名字|作用|对外接口前缀|
+|---|---|---|
+|lopcodes.c|Lua虚拟机的操作码/字节码,模拟汇编语言,所有 Lua 源码都可以转成相应的操作码|luaP_opmodes|
+|lcode.c|源码生成器|luaK_|
+|llex.c|词法分析|luaX_|
+|lparser.c| 语法分析器|luaY_|
+|lapi.c|C语言接口,主要是对 lua_state 当前栈进行增删改查|lua_|
+|ldebug.c|调试库,反射,钩子|luaG_|
+|ldo.c|函数调用以及栈管理,lua 的堆栈以及调用结构|luaD_|
+|ldump.c|保存预编译的Lua块,将Lua源码序列化预编译的 Lua 字节码|luaU_|
+|lfunc.c|辅助函数来操作原型和闭包|luaF_|
+|lgc.c|GC|luaC_|
+|lmem.c|内存管理|luaM_|
+|lobject.c|对象管理|luaO_|
+|lopcodes.c|字节码操作|luaP_|
+|lstate.c|全局状态机,虚拟机堆栈|luaE_|
+|lstring.c| 字符串操作|luaS_|
+|ltable.c| 字符串操作|luaH_|
+|lundump.c|  加载预编译字节码|luaU_|
+|ltm.c|  tag 方法|luaT_|
+|lzio.c|缓存流接口|luaZ_|
+
+#### 内嵌库相关文件列表
+
+|文件名字|作用|对外接口前缀|
+|---|---|---|
+|lauxlib.c|库编写时需要用到的辅助函数库,针对虚拟机堆栈的操作,与 lua_state 密切相关|luaL_|
+|lbaselib.c|基础库,Lua系统的基础 API|luaB_|
+|ldblib.c|调试库|db_|
+|liolib.c|IO库|io_|
+|lmathlib.c| 数学库|math_|
+|loslib.c| os 库|os_|
+|ltablib.c| 表操作库|luaH_|
+|lstrlib.c|  字符串操作库|str_|
+|loadlib.c|  加载器,加载 lua 源码,加载 C 库 .so|ll_|
+|linit.c| 负责内嵌库的初始化|luaL_|
+
+#### 解释器/编译器/虚拟机
+
+|文件名字|作用|
+|---|---|
+|lua.c| 解释器|
+|luac.c| 字节码编译器|
+|lvm.c| luaV_ , Lua的虚拟机|
+
+
+## Lua 虚拟机概念 
+
+* 1. 可以将虚拟机简单理解为在平台机器的内存与算法的帮助下,实现了一套CPU运行方式的简单模仿,当这个虚拟机实例支持的 CPU 指令越来越多,就越来越像,也就是计算机指令的二次实现.虚拟机的实现方式,一种是基于堆栈的 VM,另一种是基于寄存器的 VM.对于大多数的虚拟机,比如 JVM,Python,都采用的是基于堆栈的虚拟机.基于堆栈虚拟机,堆栈可能指的内存,不是指的算法,一般是一个栈容器去获取与记录所有的指令操作的,也就是指令的加减乘除等都会在这个栈容器中体现.这个栈容器都是在运行期间创建出来的,也就是栈里面存储的数据地址位置都是动态的,栈容器也有可能被销毁.也是由于这样的原因,相比寄存器虚拟机 会占用更多的内存与增加指令的执行次数.
+
+* 2. 虚拟机基于栈与基于寄存器的区别: Lua 采用的基于寄存器的虚拟机,也就是将指令的运算方式直接从内存中放进了寄存器中.减少了指令的运行次数,减少了内存复制的操作.所以为什么 Lua 相比其他解释语言会更快的原因.但是其增加了实现的复杂度,每条指令占用的存储空间也增加了;Lua 的寄存器VM 不是 CPU 的寄存器,而是一种模仿 CPU 运行寄存器的方式,不是真的放在 CPU 中的寄存器运行,类似于把一个非常小的内存空间当成一个寄存器块来用,用完就扔的类型,而其他语言是将一大块堆上的内存当成虚拟机堆栈使用;(理解错误请指出,这一点是推断,编译原理没学,操作系统水平也不够);   基于寄存器的虚拟机，它们的操作数是存放在CPU的寄存器的。没有入栈和出栈的操作和概念。但是执行的指令就需要包含操作数的地址了，也就是说，指令必须明确的包含操作数的地址，这不像栈可以用栈指针去操作。正如前面所说，基于寄存器的VM没有入栈和出栈的操作。所以加法指令只需要一行就够了，但是不像Stack-Based一样，我们需要明确的制定操作数R1、R2、R3（这些都是寄存器）的地址。这种设计的有点就是去掉了入栈和出栈的操作，并且指令在寄存器虚拟机执行得更快;基于寄存器得虚拟机还有一个优点就是一些在基于Stack的虚拟机中无法实现的优化，比如，在代码中有一些相同的减法表达式，那么寄存器只需要计算一次，然后将结果保存，如果之后还有这种表达式需要计算就直接返回结果。这样就减少了重复计算所造成的开销;当然，寄存器虚拟机也有一些问题，比如虚拟机的指令比Stack vm指令要长（因为Register指令包含了操作数地址);
+
+
+
+* 3. Lua 模拟指令的代码在lopcodes.h中.Lua 设定了指令的类型int,长度,格式等.Lua5.4 设计了83 种指令.定义了一系列宏函数去操作指令.分为 5 类指令, iABC,iABx,iAsBx,iAx,x;我们使用 luac 来显示分析 lua 代码所生成的指令,使用方式为 luac -l -l test.lua,其生成的指令可以在lopcodes.c 中找到. Lua使用当前函数的stack作为寄存器使用，寄存器id从0开始。当前函数的stack与寄存器数组是相同的概念,stack(n)其实就是register(n); 如果想深入必须对每个指令所代表的含义进行深入剖析;
+
+* 4. 如果通过写代码,减少指令的生成的条目,编写好代码时使用 luac -l -l xxx.lua 并对比之前所写的代码,从而查找问题.
+https://blog.csdn.net/yuanlin2008/article/details/8491112   这一系列指令的含义,需要看一下 CPU 指令的含义对比看.配合终端luac -l -l xxx.lua 查看.
+
+
+
+## Lua 虚拟机
+* 1. 翻译代码以及编译为字节码的部分,加载 Lua 源码,进行词法分析,语法分析,生成字节码.
+* 2. 将字节码装载到 lvm.c 虚拟机中执行,主执行函数为luaV_execute,从 lua_state 虚拟堆栈中拿出字节码(操作码),不停的进行循环执行.
+* 3. 根据虚拟机运行流程来看,在一个模块中,使用本地变量/函数接收全局变量/函数,时间性能比直接使用全局的提升 30%
+
+
+## Lua 编译器 
+
+* 1. 对于一个chunk(代码块)，Lua在对其分析的过程中直接生成最终的操作码/字节码，没有多余的对源代码或语法结构的遍历。也就是说Lua对源代码进行一次遍历就生成最终结果。分析代码块的 Lua 源代码是</code></pre><p>词法分析模块llex.h .c<br>语法分析模块lparser.h .c<br>指令生成模块lcode.h .c</p>
+<pre><code>
+* 2. 在词法分析源码里面有关键字数组 luaX_tokens,会将Lua代码拆分成一个个 token</code></pre><p>typedef union {<br>  lua_Number r;<br>  lua_Integer i;<br>  TString <em>ts;<br>} SemInfo;  /</em> 语义信息 */</p>
+<p>typedef struct Token {<br>  int token;<br>  SemInfo seminfo;<br>} Token;</p>
+<pre><code>语法分析器是整个编译过程的驱动器。通过对luaY_parser函数的调用，启动整个编译过程。在分析的过程中，词法分析器会调用指令生成器，直接生成最终的指令。从宏观上讲，整个编译过程就是生成proto tree的过程。https://blog.csdn.net/yuanlin2008/article/details/8486463 
+
+* 3. 源代码编译后的 luac 文件就是字节码编译器,通过 luac -l -l test.lua 可以知道它的操作码(字节码),luac test.lua 之后会出现一个 luac.out,通过 lua 解释器来运行(lua luac.out),即 lua 解释器直接解释了字节码,速度比执行原生代码要快很多.
+* 4. luac 将普通 Lua 代码转成二进制代码,使用命令 luac -o test1.lua test.lua 即可将 test.lua 生成二进制代码在test1.lua中.生成的代码叫做预编译代码</code></pre><pre><code>function test()
+    print(&quot;测试二进制代码&quot;)
+end
+
+test()
+------------------------------- 生成的二进制代码
+LuaT �</code></pre><p><br>xV           (w@�@test.lua�� �Q   O         D F ��test�  ����  �   ��  D G  ��print�测试二进制代码�   ��  ����_ENV�I�  ����_ENV</p>
+<pre><code>-------------------------------------------
+function test()
+print(&quot;测试二进制代码&quot;)
+end
+
+test()
+
+f = io.open(&quot;/Users/xlcw/Desktop/test2.lua&quot;,&quot;wb&quot;)
+f:write(string.dump(test))
+f:close()
+此方式也可以直接输出到一个文件中,文件中就是预编译的二进制代码</code></pre><pre><code>预编译形式的代码不一定比源代码更小,但是却加载更快.预编译的代码可以避免小白修改源码,因为你看不懂.当需要限制加载类型时,需要使用 load 的第三个参数控制了允许加载的代码段的类型,如果该参数是 &quot;t&quot; 则允许加载文本代码段,如果是 &quot;b&quot; 则允许加载二进制(预编译)代码段,字符串 &quot;bt&quot; 则允许同时加载文本和二进制代码段.
+
+* 5. luajit -b xxx.lua xxx.bytes.lua; luac -o xxx.lua xxx.lua.bytes; 这 2 条指令都会将 Lua 源码转成字节码形式的 Lua;luajit 转成的字节码不可逆.
+
+
+## lua 解释器 
+* 1. 源代码编译后的 lua ,字节码文件可以在解释器中运行,源码没有被编译成字节码则会先被编译成字节码,再进行执行的;
+
+
+# Lua 字符串
+
+* 1. 每个存放字符串的变量,实际上存放的并不是一份字符串的数据副本,而是这份字符串数据的引用.每当创建一个新的字符串时,首先都会去检查当前系统中是否已经有一份相同的字符串数据了,如果存在就直接复用,返回引用,否则就重新创建一份字符串数据. Lua 虚拟机使用一个散列桶来管理所有字符串,优化点:在这里多份相同的字符串在 Lua 虚拟机中只有一份存在,但是每次创建一个字符串也多了一次查找.
+
+* 2. 为什么 .. 在字符串较多的情况下性能不好?
+    &gt;  .. 符号是重新 new 一个字符数组,将之前的字符数据拷贝到这个新数组中,旧数组丢弃,被 GC 收集
+    &gt;  收集之后, .. 字符串持续创建,GC 一直产生,会拖慢效率
+    &gt;  新的算法是使用一个栈,旧串在栈底,新串在栈顶,旧串比新串要长,如果新串大于下面的旧串,则合并.循环进行到没有串可以合并或者达到栈底,io.read /table.concat  都是使用的这种算法
+
+
+
+# Lua 数据结构
+* 1. Lua 的 table 可以实现所有的数据结构,具体的为数组,多维数组以及矩阵,链表以及双向链表,栈,队列,以及双端队列,反向表,集合与多重集合,字符串缓存区,图
+* 2. 字符串 .. 拼接造成性能浪费的原因是: .. 拼接会从原来的字符串里面复制一份到新的内存里面,如果一直复制,则会造成内存浪费(使用一次过后直接丢弃不用),解决方式是,我们可以把一个表当成缓冲区,使用 table.concat 把表中的所有字符串连接起来并返回连接后的结果,这样就在一次内存复制中完成了拼接.
+* 3. table 包含了数组与哈希表 2 种数据结构;哈希表是以拉链法的散列表组成的;尽量不要将一个表混用数组和哈希表部分,即一个表最好只存放一类数据,Lua 的实现上面统一了遍历,但是不应该混用.尽量避免进行重新散列操作,因为重新散列操作代价极大,通过预分配,只使用数组部分等策略,规避这个 Lua 背后的动作,可以提高效率.
+
+# Lua GC
+* 1. 核心原理: 遍历系统中的所有对象,看那些对象没有被引用,没有引用关系的就认为是可以回收的对象,可以被删除.
+* 2. 如何找出没有&quot;引用&quot;的对象?      
+引用计数的 GC 算法,会在一个对象被引用的情况下将该对象的引用计数加一,反之减一.如果引用计数为 0,那么就是没有引用对象,需要被删除.引用计数的有点事不需要扫描每个对象,对象本身的引用计数只需要减到 0,就会被回收,缺点是会有循环引用问题.          
+标记清除算法(mark and sweep),它的原理是每一次做 GC 的时候,首先扫描并且标记系统中的所有对象,被扫描并且标记到的对象是可达的(reachable),这些对象不会被回收,反之,没有被标记的对象认为是可以被回收的,Lua 采用的是这种算法.
+* 3.  Lua5.3 垃圾收集器使用了简单的 标记-清除(mark-and-sweep) 式算法, 又被称之为&quot;stop-the-world&quot;(全局暂停)式的收集算法(顾名思义,就是 GC 的时候,所有代码暂停运行,等待 GC 运行完毕再进行), 每次GC即一个周期,需要 4 个阶段:标记(mark),清理(cleaning),清除(sweep),和析构(finalization)</code></pre><pre><code>标记阶段: 
+      把根节点集合(root set) 标记为活跃,根节点集合由 Lua 语言可以直接访问的对象组成.在 Lua 语言中,这个集合只包括 C 注册表.当所有可达对象都被标记为活跃后,标记阶段完成.
+清理阶段:
+      这个阶段处理析构器与弱引用表.首先,Lua 语言遍历所有被标记为需要进行析构,但又没有被标记为活跃的对象.这些对象会被标记为活跃并单独放在一个析构表中.然后遍历弱引用表,并重中移除键或值未被标记的元素.
+清除阶段:
+      遍历所有对象,所有对象都放在一个链表中,如果一个对象没有被标记为活跃,则回收,否则清理标记.
+析构阶段:
+      Lua 语言调用清理阶段被分离出的对象的析构器.</code></pre><pre><code>* 4. Lua5.0 版本是双色标记清除算法(Two-Color Mark and Sweep),原理是系统中的每个对象非黑即白,也就是要么被引用(黑)要么没有被引用(白),这个算法的确定是每个对象不是黑就是白,遍历时,不能被打断,否则无法完全 GC,所以会让所有其他操作暂停,会卡顿的原因.Lua5.1 采用了三色增量标记清除算法(Tri-Color Incremental Mark and Sweep),这个算法锁了一种颜色(灰色),所以不必一次性的扫描完所有对象,GC 可以增量完成,中断再恢复(相当于我们平常所说的中间状态).</code></pre><pre><code>白色: 当前对象为待访问状态,表示对象还没有被 GC 标记过,这也是任何一个对象创建后的初始状态;如果一个对象在结束 GC 扫描过程后,仍然是白色,
+     则说明该对象没有被系统中的任何一个对象所引用,可以回收其空间了.
+灰色: 当前对象为待扫描状态,表示对象已经被 GC 访问过,但是该对象引用其他对象还没有被访问到.
+黑色: 当前对象已为扫描状态,表示对象已经被 GC 访问过,并且该对象引用的其他对象也被访问过了.
+
+GC 过程
+
+初始阶段: 
+    遍历 root 节点中引用的对象,从白色置为灰色,并且放入到灰色节点列表中(此时的对象已被访问过).
+标记阶段:   
+    当灰色链表中还有未扫描的元素: 
+        从中取出一个对象,检测,标记为黑色
+        遍历这个对象关联的其他所有对象:
+            如果是白色:标记为灰色,加入灰色链表中
+回收阶段:
+    遍历所有对象:
+        如果为白色:
+            这些对象都是没有被引用的对象,逐个回收.  
+        否则:
+            重新加入对象链表中等待下一轮 GC 检查.
+
+上面 GC 中的问题,没有解决标记阶段之后新创建的对象是白色的情况,怎么解决?(再引入一个状态码,凡是复杂问题,基本都是这个思路)
+    GC 算法除了前面的三色概念之外,又细分出一个&quot;双白色&quot;的概念,简单的说,Lua 中的白色分为&quot;当前白色&quot;和&quot;非当前白色&quot;.这 2 种白色的状态交替使用,第 N 次 GC 使用的第一种白色,那么下一次就使用另外一种,以此类推.代码在回收时,会检查,如果对象的白色不是此次 GC 使用的白色状态,那么将不会认为是没有被引用的对象而回收,这样的白色对象将留在下一次 GC 中进行扫描,因为下一次 GC 中上一次幸免的白色将成为这次的回收颜色.</code></pre><pre><code>
+* 5. 在 Lua 代码中,有 2 种回收方式,一种是自动回收,一种是程序自己调用 API 来触发一次回收.</code></pre><pre><code>    自动回收会在每次调用内存分配相关的操作时检查是否满足触发条件,这个操作在宏 luaC_checkGC 中进行.
+触发自动 GC 的条件就是:totalbytes 大于等于 GCthreshold 值,在这两个变量中,totalbytes 用于保存当前分配的内存大小,而 GCthreshold 是一个阈值,
+这个值可以由一些参数影响和控制,由此改变触发的条件.此情况不可控,关闭方式是将GCthreshold设置为一个非常大的值,来达到一直不满足自动触发的条件.          
+
+    手动 GC 受哪些参数影响? estimate/gcpause 两个成员将影响每次 GCthreshold 的值;#define setthreshold(g)  (g-&gt;GCthreshold = (g-&gt;estimate/100)g-&gt;gcpause)
+estimate 是一个预估的当前使用的内存数量,gcpause 则是一个百分比,这个宏的作用就是按照估计值的百分比计算出新的阈值.
+gcpause 通过 lua_gc 这个C的接口来进行设置,可以看到,百分比越大,下一次开始 GC 的时间就会越长.
+另一个影响 GC 进度的参数是 gcstepmul 成员,它同样可以通过 lua_gc 来设置,这个参数将影响每次手动 GC 时调用 singlestep 函数的次数,从而影响 GC 回收的速度.
+如果希望关闭 GC,还需要再手动执行完一次 GC 之后,重新设置关闭自动 GC</code></pre><pre><code>
+
+
+
+* 6. 使用弱表,给元表赋值 __mode = &quot;kv&quot;
+* 7. 使用析构,给元表赋值 __gc = function () end 方法里面自己写清除代码.
+
+* 8. Lua 5.1 使用了增量式垃圾收集器,它与解释器交替运行,Lua5.2中有紧急垃圾收集,当内存分配失败的时候,Lua 会进行一次完整的垃圾收集,重新分配内存.</code></pre><p>collectgarbage<br>stop：停止垃圾收集器，直到使用选项“restart“再次调用 collectgarbage<br>restart“：重启垃圾收集器。<br>collect“：执行一次完整的垃圾收集，回收和析构所有不可达的对象。这是默认的选项<br>step“：执行某些垃圾收集工作，第二个参数 data 指明工作量，即在分配了 data 个字节后垃圾收集器应该做什么。<br>count“：以 KB 为单位返回当前已用内存数，该结果是一个浮点数，乘以 1024 得到的就是精确的字节数。该值包括了尚未被回收的死对象。<br>setpause“：设置收集器的 pause 参数（间率）。参数 data 以百分比为单位给出要设定的新值：当 data 为 100 时，参数被设为 1 (100%）。<br>setstepmul“：设置收集器的 stepmom 参数（步进倍率，step multiplier）。参数 data 给出新值，也是以百分比为单位。     </p>
+<pre><code>
+* 9. GC ,垃圾回收算法被称为&quot;mark-and-sweep&quot;算法;首先，系统管理着所有已经创建了的对象。每个对象都有对其他对象的引用。root集合代表着已知的系统级别的对象引用。我们从root集合出发，就可以访问到系统引用到的所有对象。而没有被访问到的对象就是垃圾对象，需要被销毁。
+&gt;White状态，也就是待访问状态。表示对象还没有被垃圾回收的标记过程访问到。        
+&gt;Gray状态，也就是待扫描状态。表示对象已经被垃圾回收访问到了，但是对象本身对于其他对象的引用还没有进行遍历访问。     
+&gt;Black状态，也就是已扫描状态。表示对象已经被访问到了，并且也已经遍历了对象本身对其他对象的引用。        
+将三个条件分布执行,不一次执行,这样就是增量垃圾回收机制(Incremental Garbage Collection)IGC.好处是不会卡顿,坏处是本次有可能不会把所有的需要回收的对象全部回收,会在下次回收.
+
+
+
+# Lua 热更原理
+* 1. 在 registry[&quot;_LOADED&quot;]表中判断该模块是否已经加载过了,如果是则返回,避免重复加载某个模块代码.
+* 2. 依次调用注册的 loader 来加载模块,依次调用四种 loader</code></pre><pre><code>static const lua_CFunction loaders[] =
+    {loader_preload, loader_Lua, loader_C, loader_Croot, NULL};</code></pre><pre><code>* 3. 将加载过的模块赋值给 registry[&quot;_LOADED&quot;]表.
+* 4. Lua 的代码热更新,也就是需要重新加载某个模块,最终效果是,在游戏运行期间,依然可以重新加载这个模块而执行代码.因此需要让Lua虚拟机认为它之前没有加载过,查看 Lua 代码可以发现,registry[&quot;_LOADED&quot;] 表实际上就是 package.loaded 表,也就是说将 package.loaded[name] = null;package.loaded[name] = name;即可实现热更新.
+* 5. 在上面有个问题,就是内存中已经在使用的代码无法被置空,因为这是会影响当前游戏进程,只有在当前游戏界面没有使用到的Lua 代码才可以重新加载处理,否则会产生崩溃错误.
+
+
+# LuaJIT 
+
+* 1. Foreign Function Interface (FFI) 即一种在 A 语言中调用 B 语言的机制,通常来说,是指其他语言调用 C 函数;跨语言调用,就必须解决 C 函数查找和加载,以及 Lua 和 C 之间的类型转换的问题.
+
+* 2. FFI 的原理,POSIX 的 dlopen 和 dlsym，以及 Windows 上的 LoadLibraryExA 和 GetProcAddress。前者用于加载对应的链接库，后者用于查找并加载对应的函数符号。类似于先加载这个链接库文件,再从文件中查找方法的指针,调用方法,这是直接调用 C 的函数地址方式</code></pre><pre><code>使用 FFI 调用方法具体的行为步骤:
+    1. 可执行程序自己的全局符号
+    2. 它的依赖的符号.
+    3. 在 dlopen 加载时指定 RTLD_GLOBAL flag 的链接库</code></pre><pre><code>在编译模式下 LuaJIT此时不会走 dlsym,而是直接调用 C 的函数地址.
+我们要知道加载进来的符号是个什么结构内容,这是 ffi.cdef 的意义
+解释模式下的 LuaJIT的FFI操作很慢,比编译模式下慢十倍.
+
+* 3. pb库 https://www.cnblogs.com/xiaohutu/p/12168781.html ,在 C 上结合 Lua 封装了一层,可以在 Lua 代码中使用;目前通用的是云风的 pbc 库 https://github.com/cloudwu/pbc, xlua 用的也是 https://github.com/chexiongsheng/build_xlua_with_libs/tree/master/build/pbc 云风的;
+
+* 4. lpeg 模式匹配;bit.c 位操作;uint64.c/int64.c 支持 64 位;</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1487842110@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">Love</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">Title:</span>Lua 源码阅读</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">9.6k</span></p>
+    <p><span class="copy-title">Author:</span><a  title="诸子百家-谁的天下?">诸子百家-谁的天下?</a></p>
+    <p><span class="copy-title">Created At:</span>2020-05-08, 11:41:32</p>
+    <p><span class="copy-title">Updated At:</span>2021-03-09, 15:11:32</p>
+    <span class="copy-title">Url:</span><a class="post-url" href="/2020/05/08/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" title="Lua 源码阅读">http://yoursite.com/2020/05/08/Unity/ToLua/Lua%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</a>
+    <p>
+        <span class="copy-title">Copyright:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '78dbe1e4dd28ca4c4b5e',
+            clientSecret: 'e49ada68130b4d709a242b8dd8f4e844b14f35f9',
+            repo: 'xinzhuzi.github.io',
+            owner: 'xinzhuzi',
+            admin: ['xinzhuzi'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('20',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 xinzhuzi</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/xinzhuzi/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>爱你,爱世人</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.png" class="alipay" title="扫码支持">
+            <img src="/img/weixin.png" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['@新诸子','@诸子百家-谁的天下?','#language','#CSharp','#Net','#指针','#re','#Protobuf,lua','#tool','#UnityEditor','#Renderer','#UnityUI','#算法','#杂项','#Unity','#BestHttp','#IndustrialAutomation','#Unity优化','#ToLua','#VSCode',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 542px;
+        }
+        .nav.fullscreen {
+            margin-left: -542px;
+        }
+        .nav-left {
+            width: 150px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 542px;
+            margin-left: -542px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 542px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

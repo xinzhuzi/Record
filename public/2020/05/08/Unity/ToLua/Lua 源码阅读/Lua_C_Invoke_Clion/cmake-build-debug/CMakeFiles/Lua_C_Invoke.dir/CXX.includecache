@@ -1,0 +1,64 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lauxlib.h
+stddef.h
+-
+stdio.h
+-
+lua.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lua.h
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lua.h
+stdarg.h
+-
+stddef.h
+-
+luaconf.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/luaconf.h
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/luaconf.h
+limits.h
+-
+stddef.h
+-
+unistd.h
+-
+io.h
+-
+stdio.h
+-
+stdio.h
+-
+readline/readline.h
+-
+readline/history.h
+-
+assert.h
+-
+math.h
+-
+unistd.h
+-
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lualib.h
+lua.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lua.h
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/LuaCallCPP.cpp
+LuaCallCPP.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/LuaCallCPP.h
+
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/LuaCallCPP.h
+Lua/lua.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lua.h
+Lua/lauxlib.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lauxlib.h
+Lua/lualib.h
+/Users/xlcw/Work/Github/Record/source/_posts/Unity/ToLua/Lua 源码阅读/Lua_C_Invoke_Clion/Lua/lualib.h
+
