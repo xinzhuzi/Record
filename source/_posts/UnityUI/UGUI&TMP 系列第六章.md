@@ -1,3 +1,13 @@
+---
+title: Unity UGUI优化
+date: 2020-05-11 11:41:32
+top: 106
+categories:
+- UnityUI
+tags:
+- UnityUI
+---
+
 # Layout
 
 * 1. Layout 静态时可以用,动态时最好不要使用.非要用的话就加一个 canvas,动态时不让它与外部 UI 进行合批

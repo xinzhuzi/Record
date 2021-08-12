@@ -1,3 +1,13 @@
+---
+title: Unity UGUI优化
+date: 2020-05-11 11:41:32
+top: 105
+categories:
+- UnityUI
+tags:
+- UnityUI
+---
+
 # Canvas
 
 * 1. 用多个Canvas将屏幕划分出不同的区域，降低网格重建带来的性能损耗,动静分离.

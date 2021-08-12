@@ -1,3 +1,13 @@
+---
+title: Unity UGUI优化
+date: 2020-05-11 11:41:32
+top: 101
+categories:
+- UnityUI
+tags:
+- UnityUI
+---
+
 # Image
 
 * 1. 空的 Image会造成一个 DC,并且会打断合批.创建的时候将Image 的 SourceImage 给赋值,并且不设置 RayCastTarget

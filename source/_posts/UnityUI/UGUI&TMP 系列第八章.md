@@ -1,3 +1,13 @@
+---
+title: Unity UGUI优化
+date: 2020-05-11 11:41:32
+top: 108
+categories:
+- UnityUI
+tags:
+- UnityUI
+---
+
 # 过渡绘制OverDraw
 
 * 1. OverDraw就是指GPU对屏幕一片区域的重复绘制次数,单位像素的重新绘制次数
