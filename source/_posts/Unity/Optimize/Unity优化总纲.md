@@ -8,6 +8,26 @@ tags:
 - Unity优化
 ---
 
+# 优化总纲
+
+
+
+* 1. UI 优化;链接: https://pan.baidu.com/s/1vPUeK-am-240LpJ-RbDfow 提取码: covu 
+
+* 2. Lua 优化工具;  https://github.com/leinlin/Miku-LuaProfiler
+
+* 3. Unity 官方工具;  https://upr.unity.cn/
+
+* 4. UWA 官方工具;  https://www.uwa4d.com/
+
+* 5. UWA 优化视频;  链接: https://pan.baidu.com/s/1IMfw-TW8u4SOfPLGKty10w 提取码: 61d1 
+
+* 6. 优化文章;      https://thegamedev.guru/#
+
+* 7. Unity 官方文章; https://developer.unity.cn/plate/performance 中文:https://learn.u3d.cn/tutorial/mobile-game-optimization
+
+* 8. Unity：电子游戏优化终极指南: https://www.bilibili.com/video/BV1RQ4y1C7v8
+
 
 # 编程代码规范
 
