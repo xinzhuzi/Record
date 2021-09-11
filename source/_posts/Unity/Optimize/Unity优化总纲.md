@@ -24,7 +24,7 @@ tags:
 
 * 6. 优化文章;      https://thegamedev.guru/#
 
-* 7. Unity 官方文章; https://developer.unity.cn/plate/performance 中文:https://learn.u3d.cn/tutorial/mobile-game-optimization
+* 7. Unity 官方文章; https://developer.unity.cn/plate/performance 中文:https://learn.u3d.cn/tutorial/mobile-game-optimization , https://docs.unity3d.com/cn/2020.3/Manual/analysis.html
 
 * 8. Unity：电子游戏优化终极指南: https://www.bilibili.com/video/BV1RQ4y1C7v8
 
